@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>book info</title>
+</head>
+<body>
+<div>
+    <p th:text="${book.isbn}">isbn</p>
+    <p th:text="${book.title}">타이틀</p>
+    <p th:text="${book.publisher}">출판사</p>
+    <p th:text="${book.publishYear}">출판년도</p>
+</div>
+<div>
+    <button>책을 가지고 있는 근처 도서관 검색하기</button>
+</div>
+
+</body>
+</html>

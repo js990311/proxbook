@@ -21,4 +21,11 @@ public class BookSearchServiceImpl implements BookSearchService{
         List<BookDto> books = bookService.findBookByTitle(title).stream().map(BookDto::new).toList();
         return books;
     }
+
+    @Override
+    public BookDto searchBookById(String id) {
+        Book book = bookService.findBookById(id);
+        BookDto bookDto = new BookDto(book);
+        return bookDto;
+    }
 }

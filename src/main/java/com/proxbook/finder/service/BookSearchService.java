@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface BookSearchService {
     public List<BookDto> searchBooksByTitle(String title);
+    public BookDto searchBookById(String id);
 }
