@@ -20,8 +20,8 @@ public class Library {
     @Column
     private String address;
 
-    @Column(name = "longiude") // sql쓸때 오타가
-    private Double longtitude;
+    @Column
+    private Double longitude;
 
     @Column
     private Double latitude;

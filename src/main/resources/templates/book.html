@@ -6,14 +6,20 @@
 </head>
 <body>
 <div>
-    <p th:text="${book.isbn}">isbn</p>
+    <p><span th:text="${book.isbn}" id="book-id" th:data-id="${book.isbn}">isbn</span></p>
     <p th:text="${book.title}">타이틀</p>
     <p th:text="${book.publisher}">출판사</p>
     <p th:text="${book.publishYear}">출판년도</p>
 </div>
-<div>
-    <button>책을 가지고 있는 근처 도서관 검색하기</button>
-</div>
 
+<div>
+    <button onclick="libraryQuery()">책을 가지고 있는 근처 도서관 검색하기</button>
+</div>
+<div>
+    <url id="library-result">
+
+    </url>
+</div>
+<script th:src="@{/js/libraryQuery.js}"></script>
 </body>
 </html>
