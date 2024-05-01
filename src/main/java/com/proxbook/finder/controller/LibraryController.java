@@ -20,8 +20,8 @@ public class LibraryController {
     public String proxBook(@RequestBody LibraryBookForm form, Model model){
         List<LibraryDto> libraries = librarySearchService.searchLibraryByGeoAndBookId(
                 form.getBookId(),
-                form.getLatatitude(),
-                form.getLongtitude()
+                form.getLatitude(),
+                form.getLongitude()
         );
         model.addAttribute("libraries", libraries);
         return "fragments/libraries";
