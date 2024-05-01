@@ -4,7 +4,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
 
+@Getter
 @Entity
 @Table(name = "libraries")
 public class Library {
@@ -18,8 +20,8 @@ public class Library {
     @Column
     private String address;
 
-    @Column
-    private Double longitude;
+    @Column(name = "longiude") // sql쓸때 오타가
+    private Double longtitude;
 
     @Column
     private Double latitude;

@@ -3,8 +3,12 @@ package com.proxbook.finder.domain.book.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Getter;
 
-@Entity(name ="books")
+@Getter
+@Entity
+@Table(name = "books")
 public class Book {
     @Id
     @Column(name = "book_id")
@@ -16,7 +20,7 @@ public class Book {
     @Column
     private String publisher;
 
-    @Column
-    private Integer publish_year;
+    @Column(name = "publish_year")
+    private Integer publishYear;
 
 }

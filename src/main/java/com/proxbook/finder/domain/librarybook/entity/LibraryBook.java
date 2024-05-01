@@ -3,7 +3,9 @@ package com.proxbook.finder.domain.librarybook.entity;
 import com.proxbook.finder.domain.book.entity.Book;
 import com.proxbook.finder.domain.library.entity.Library;
 import jakarta.persistence.*;
+import lombok.Getter;
 
+@Getter
 @Entity
 @Table(name = "library_books")
 @IdClass(value = LibraryBookId.class)

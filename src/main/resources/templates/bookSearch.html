@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>책검색서비스</title>
+</head>
+<body>
+<form action="/book/search" method="get">
+    <label for="title">책 제목 검색</label>
+    <input type="text" id="title" name="title">
+    <button type="submit">검색하기</button>
+</form>
+<ul th:if="${books}">
+    <li th:each="book:${books}">
+        <a th:href="${book.isbn}" th:text="${book.title}"></a>
+    </li>
+</ul>
+</body>
+</html>
