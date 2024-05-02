@@ -6,6 +6,7 @@ import com.proxbook.finder.domain.book.dto.KakaoUpdateBookDto;
 import com.proxbook.finder.domain.book.dto.UpdateBookDto;
 import com.proxbook.finder.domain.book.entity.Book;
 import com.proxbook.finder.domain.book.repository.BookRepository;
+import com.proxbook.finder.domain.book.service.update.BookUpdateSourceService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ import java.util.List;
 @Transactional
 public class BookServiceImpl implements BookUpdateService, BookService{
     private final BookRepository bookRepository;
-    private final KakaoBookService kakaoBookService;
+    private final BookUpdateSourceService bookUpdateSourceService;
 
     @Override
     public boolean needUpdate(Book book) {
@@ -31,8 +32,7 @@ public class BookServiceImpl implements BookUpdateService, BookService{
     @Override
     public Book updateBook(Book book) {
         try {
-            KakaoBookDto kakaoBookDto = kakaoBookService.requestBookApi(book.getId());
-            UpdateBookDto updateBookDto = new KakaoUpdateBookDto(kakaoBookDto);
+            UpdateBookDto updateBookDto = bookUpdateSourceService.getBookSourceByIsbn(book.getId());
             return Book.updateBookInfo(book, updateBookDto);
         }catch (RuntimeException e){
             return book;

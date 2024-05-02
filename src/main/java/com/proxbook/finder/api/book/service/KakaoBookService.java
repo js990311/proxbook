@@ -1,6 +1,9 @@
 package com.proxbook.finder.api.book.service;
 
 import com.proxbook.finder.api.book.dto.KakaoBookDto;
+import com.proxbook.finder.domain.book.dto.KakaoUpdateBookDto;
+import com.proxbook.finder.domain.book.dto.UpdateBookDto;
+import com.proxbook.finder.domain.book.service.update.BookUpdateSourceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,34 +13,28 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import org.thymeleaf.util.ObjectUtils;
 
 import java.net.URI;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class KakaoBookService {
+public class KakaoBookService implements BookUpdateSourceService {
     private static final String KAKAO_BOOK_API_URL = "https://dapi.kakao.com/v3/search/book.json";
 
     private final RestTemplate restTemplate;
 
-    @Value("${kakao.api.key}")
-    private String kakaoRestApiKey;
+
+    @Override
+    public UpdateBookDto getBookSourceByIsbn(String isbn) {
+        KakaoBookDto kakaoBookDto = requestBookApi(isbn);
+        UpdateBookDto updateBookDto = new KakaoUpdateBookDto(kakaoBookDto);
+        return updateBookDto;
+    }
 
     public KakaoBookDto requestBookApi(String isbn){
         URI uri = buildBookApiUri(isbn);
-        HttpHeaders headers = new HttpHeaders();
-        headers.set(
-                HttpHeaders.AUTHORIZATION, "KakaoAK " + kakaoRestApiKey
-        );
-        log.warn("headers");
-        log.warn(headers.toString());
-
-        HttpEntity httpEntity = new HttpEntity(headers);
-        log.warn(httpEntity.toString());
-
-        return restTemplate.exchange(uri, HttpMethod.GET, httpEntity, KakaoBookDto.class).getBody();
+        return restTemplate.getForObject(uri, KakaoBookDto.class);
     }
 
     public URI buildBookApiUri(String isbn){
