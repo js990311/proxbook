@@ -1,8 +1,6 @@
 package com.proxbook.finder.service;
 
-import com.proxbook.finder.dto.BookDto;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.proxbook.finder.domain.book.dto.BookDto;
 
 import java.util.List;
 

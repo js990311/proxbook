@@ -1,7 +1,7 @@
 package com.proxbook.finder.controller;
 
 import com.proxbook.finder.controller.form.LibraryBookForm;
-import com.proxbook.finder.dto.LibraryDto;
+import com.proxbook.finder.domain.library.dto.LibraryDto;
 import com.proxbook.finder.service.LibrarySearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

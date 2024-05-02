@@ -1,4 +1,4 @@
-package com.proxbook.finder.dto;
+package com.proxbook.finder.domain.library.dto;
 
 import com.proxbook.finder.domain.library.entity.Library;
 import lombok.Getter;

@@ -13,6 +13,10 @@ spring:
       hibernate:
         format_sql: true
 
+kakao:
+  api:
+    key: ${KAKAO_REST_API_KEY}
+
 logging:
   level:
     org.hibernate.SQL: DEBUG
