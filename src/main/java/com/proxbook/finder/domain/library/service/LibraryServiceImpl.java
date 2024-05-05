@@ -41,4 +41,9 @@ public class LibraryServiceImpl implements LibraryService {
         }
         return ret;
     }
+
+    @Override
+    public List<Library> findByLibraryIds(List<String> libraryIds) {
+        return libraryRepository.findLibrariesByIdList(libraryIds);
+    }
 }

@@ -1,5 +1,6 @@
 package com.proxbook.finder.service;
 
+import com.proxbook.finder.domain.library.dto.LibraryGeoDto;
 import com.proxbook.finder.domain.library.entity.Library;
 import com.proxbook.finder.domain.library.service.LibraryService;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
@@ -27,5 +28,11 @@ public class LibrarySearchServiceImpl implements LibrarySearchService{
     public List<LibraryDto> searchLibraryByGeo(double latitude, double longitude) {
         List<LibraryDto> libraryDtos = libraryService.findByGeo(latitude, longitude, 10.0).stream().map(LibraryDto::new).toList();
         return libraryDtos;
+    }
+
+    @Override
+    public List<LibraryGeoDto> searchLibraryGeoByLibraryCodes(List<String> libraryCodes) {
+        List<LibraryGeoDto> libraries = libraryService.findByLibraryIds(libraryCodes).stream().map(LibraryGeoDto::new).toList();
+        return libraries;
     }
 }

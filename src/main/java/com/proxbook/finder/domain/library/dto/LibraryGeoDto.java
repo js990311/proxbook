@@ -4,16 +4,16 @@ import com.proxbook.finder.domain.library.entity.Library;
 import lombok.Getter;
 
 @Getter
-public class LibraryDto {
+public class LibraryGeoDto {
     private String libraryCode;
     private String name;
-    private String address;
-    private String webpage;
+    private double latitude;
+    private double longitude;
 
-    public LibraryDto(Library library){
+    public LibraryGeoDto(Library library){
         this.libraryCode = library.getId();
         this.name = library.getName();
-        this.address = library.getAddress();
-        this.webpage = library.getWebpage();
+        this.latitude = library.getLatitude();
+        this.longitude = library.getLongitude();
     }
 }

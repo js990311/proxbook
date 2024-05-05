@@ -7,6 +7,7 @@ import java.util.List;
 public interface LibraryService {
     public List<Library> findByGeo(double latitude, double longtitude, double distance_range);
     public List<Library> searchLibraryByBookId(String bookId);
-
     public List<Library> filterLibrariesByGeo(List<Library> libraries, double latitude, double longtitude, double distance);
+
+    public List<Library> findByLibraryIds(List<String> libraryIds);
 }
