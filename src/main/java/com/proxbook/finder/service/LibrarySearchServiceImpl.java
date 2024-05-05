@@ -22,4 +22,10 @@ public class LibrarySearchServiceImpl implements LibrarySearchService{
         List<LibraryDto> libraryDtos = libraryService.filterLibrariesByGeo(libraries, latitude, longitude, 10.0).stream().map(LibraryDto::new).toList();
         return libraryDtos;
     }
+
+    @Override
+    public List<LibraryDto> searchLibraryByGeo(double latitude, double longitude) {
+        List<LibraryDto> libraryDtos = libraryService.findByGeo(latitude, longitude, 10.0).stream().map(LibraryDto::new).toList();
+        return libraryDtos;
+    }
 }

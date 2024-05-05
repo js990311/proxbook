@@ -16,13 +16,14 @@
 </div>
 
 <div>
-    <button onclick="libraryQuery()">책을 가지고 있는 근처 도서관 검색하기</button>
+    <button id="prox-book">책을 가지고 있는 근처 도서관 검색하기</button>
 </div>
 <div>
-    <url id="library-result">
+    <url id="result">
 
     </url>
 </div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script th:src="@{/js/libraryQuery.js}"></script>
 </body>
 </html>
