@@ -1,4 +1,4 @@
-package com.proxbook.finder.controller.form;
+package com.proxbook.finder.application.form;
 
 import lombok.Getter;
 

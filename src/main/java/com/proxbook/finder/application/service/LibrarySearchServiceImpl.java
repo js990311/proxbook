@@ -1,4 +1,4 @@
-package com.proxbook.finder.service;
+package com.proxbook.finder.application.service;
 
 import com.proxbook.finder.domain.library.dto.LibraryGeoDto;
 import com.proxbook.finder.domain.library.entity.Library;

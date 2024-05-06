@@ -1,11 +1,11 @@
-package com.proxbook.finder.controller;
+package com.proxbook.finder.application.controller;
 
-import com.proxbook.finder.controller.form.LibraryBookForm;
-import com.proxbook.finder.controller.form.LibraryForm;
-import com.proxbook.finder.controller.form.LibraryGeoForm;
+import com.proxbook.finder.application.form.LibraryBookForm;
+import com.proxbook.finder.application.form.LibraryForm;
+import com.proxbook.finder.application.form.LibraryGeoForm;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
 import com.proxbook.finder.domain.library.dto.LibraryGeoDto;
-import com.proxbook.finder.service.LibrarySearchService;
+import com.proxbook.finder.application.service.LibrarySearchService;
 import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

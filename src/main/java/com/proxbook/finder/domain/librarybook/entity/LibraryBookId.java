@@ -1,18 +1,20 @@
 package com.proxbook.finder.domain.librarybook.entity;
 
 import jakarta.persistence.Column;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+@NoArgsConstructor
 public class LibraryBookId implements Serializable {
     @Column(name = "book_id")
-    private Long bookId;
+    private String bookId;
 
     @Column(name = "library_id")
-    private Long libraryId;
+    private String libraryId;
 
-    public LibraryBookId(Long bookId, Long libraryId) {
+    public LibraryBookId(String bookId, String libraryId) {
         this.bookId = bookId;
         this.libraryId = libraryId;
     }

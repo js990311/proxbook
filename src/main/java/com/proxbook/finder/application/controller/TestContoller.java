@@ -1,4 +1,4 @@
-package com.proxbook.finder.controller;
+package com.proxbook.finder.application.controller;
 
 import com.proxbook.finder.api.book.dto.KakaoBookDto;
 import com.proxbook.finder.api.book.service.KakaoBookService;

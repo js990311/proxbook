@@ -1,7 +1,7 @@
-package com.proxbook.finder.controller;
+package com.proxbook.finder.application.controller;
 
 import com.proxbook.finder.domain.book.dto.BookDto;
-import com.proxbook.finder.service.BookSearchService;
+import com.proxbook.finder.application.service.BookSearchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

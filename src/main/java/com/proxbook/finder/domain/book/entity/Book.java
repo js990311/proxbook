@@ -32,7 +32,7 @@ public class Book {
 
     @Column(name = "book_info_url")
     private String bookInfoUrl;
-
+    
     void updateBookInfo(UpdateBookDto updateBookDto){
         this.publisher = updateBookDto.getPublisher();
         this.publishYear = updateBookDto.getPublishYear();

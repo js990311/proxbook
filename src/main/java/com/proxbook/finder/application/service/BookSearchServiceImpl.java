@@ -1,4 +1,4 @@
-package com.proxbook.finder.service;
+package com.proxbook.finder.application.service;
 
 import com.proxbook.finder.domain.book.entity.Book;
 import com.proxbook.finder.domain.book.service.BookService;
