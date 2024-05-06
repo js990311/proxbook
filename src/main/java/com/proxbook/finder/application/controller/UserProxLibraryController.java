@@ -5,25 +5,28 @@ import com.proxbook.finder.application.service.UserProxLibrarySearchService;
 import com.proxbook.finder.domain.proxlibrary.dto.UserProxLibraryDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/prox-library")
 public class UserProxLibraryController {
     private final UserProxLibrarySearchService userProxLibrarySearchService;
 
     @ResponseBody
-    @PostMapping("/create")
+    @PostMapping("/prox-library/create")
     public UserProxLibraryDto saveUserProxLibrary(@RequestBody LibraryForm form){
         UserProxLibraryDto userProxLibraryDto = userProxLibrarySearchService.saveUserProxLibrary(
                 form.getLatitude(),
                 form.getLongitude(),
                 10.0
         );
+        return userProxLibraryDto;
+    }
+
+    @ResponseBody
+    @GetMapping("/s/{shorten-url}")
+    public UserProxLibraryDto getUserProxLibrary(@PathVariable("shorten-url") String url){
+        UserProxLibraryDto userProxLibraryDto = userProxLibrarySearchService.findUserProxLibraryByShortenUrl(url);
         return userProxLibraryDto;
     }
 }

@@ -6,4 +6,6 @@ public interface UserProxLibrarySearchService {
     public UserProxLibraryDto saveUserProxLibrary(double latitude, double longitude, double distance);
 
     public UserProxLibraryDto findUserProxLibraryById(Long id);
+
+    public UserProxLibraryDto findUserProxLibraryByShortenUrl(String url);
 }
