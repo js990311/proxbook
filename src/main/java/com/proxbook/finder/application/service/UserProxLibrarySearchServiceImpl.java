@@ -8,6 +8,7 @@ import com.proxbook.finder.domain.proxlibrary.entity.UserProxLibrary;
 import com.proxbook.finder.domain.proxlibrary.repository.ProxLibraryRepository;
 import com.proxbook.finder.domain.proxlibrary.repository.UserProxLibraryRepository;
 import com.proxbook.finder.domain.proxlibrary.service.UserProxLibraryService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +32,7 @@ public class UserProxLibrarySearchServiceImpl implements UserProxLibrarySearchSe
 
     @Override
     public UserProxLibraryDto findUserProxLibraryById(Long id) {
-        UserProxLibrary userProxLibrary = userProxLibraryService.findUserProxLibraryById(id);
+        UserProxLibrary userProxLibrary = userProxLibraryRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         UserProxLibraryDto userProxLibraryDto = new UserProxLibraryDto(userProxLibrary);
         return userProxLibraryDto;
     }
@@ -41,7 +42,7 @@ public class UserProxLibrarySearchServiceImpl implements UserProxLibrarySearchSe
         long id = Base62Encoder.decode(url);
         List<ProxLibraryDto> proxLibraryDtos = null;
         if(userProxLibraryRepository.existsById(id)){
-            List<ProxLibrary> proxLibraries = proxLibraryRepository.findByUserProxLibraryIdOrderByDistance(id);
+            List<ProxLibrary> proxLibraries = proxLibraryRepository.findByUserProxBookLibraryIdOrderByDistance(id);
             proxLibraryDtos = proxLibraries.stream().map(ProxLibraryDto::new).toList();
         }
         UserProxLibraryDto ret = new UserProxLibraryDto(url, proxLibraryDtos);

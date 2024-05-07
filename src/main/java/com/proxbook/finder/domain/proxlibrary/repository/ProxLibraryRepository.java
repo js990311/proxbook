@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ProxLibraryRepository extends JpaRepository<ProxLibrary, ProxLibraryId> {
-    public List<ProxLibrary> findByUserProxLibraryIdOrderByDistance(Long userProxLibraryId);
+    public List<ProxLibrary> findByUserProxBookLibraryIdOrderByDistance(Long userProxBookLibraryId);
 }

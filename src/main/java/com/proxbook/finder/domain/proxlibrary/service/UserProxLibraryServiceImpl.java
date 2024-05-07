@@ -19,28 +19,17 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class UserProxLibraryServiceImpl implements UserProxLibraryService{
-    private final DistanceCalculator distanceCalculator;
     private final UserProxLibraryRepository userProxLibraryRepository;
-    private final ProxLibraryRepository proxLibraryRepository;
-    private final LibraryService libraryService;
+    private final ProxLibraryService proxLibraryService;
 
     @Override
-    public UserProxLibrary saveUserProxLibraryByGeo(double latitude, double longitude, double distance) {
+    public UserProxLibrary saveUserProxLibraryByGeo(double latitude, double longitude, double range) {
         UserProxLibrary userProxLibrary = new UserProxLibrary();
         userProxLibraryRepository.save(userProxLibrary);
 
-        List<Library> libraries = libraryService.findByGeo(latitude, longitude, distance);
-        List<ProxLibrary> proxLibraries = new ArrayList<>();
-        for(Library library : libraries){
-            double libraryDistanceWithUser = distanceCalculator.calculateDistance(
-                    latitude, longitude,
-                    library.getLatitude(), library.getLongitude()
-            );
-            proxLibraries.add(
-                    new ProxLibrary(userProxLibrary.getId(), library, libraryDistanceWithUser)
-            );
-        }
+        List<ProxLibrary> proxLibraries = proxLibraryService.saveProxLibraryByGeo(latitude, longitude, range);
         userProxLibrary.addProxLibraries(proxLibraries);
+
         return userProxLibrary;
     }
 
