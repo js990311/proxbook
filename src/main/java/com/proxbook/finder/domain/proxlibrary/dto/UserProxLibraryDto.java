@@ -1,10 +1,12 @@
 package com.proxbook.finder.domain.proxlibrary.dto;
 
 import com.proxbook.finder.application.service.utils.Base62Encoder;
+import com.proxbook.finder.domain.proxlibrary.entity.UserProx;
 import com.proxbook.finder.domain.proxlibrary.entity.UserProxLibrary;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -13,9 +15,9 @@ public class UserProxLibraryDto {
     private List<ProxLibraryDto> libraries;
     private int count;
 
-    public UserProxLibraryDto(UserProxLibrary userProxLibrary){
-        this.url = Base62Encoder.encode(userProxLibrary.getId());
-        this.libraries = userProxLibrary.getProxLibraries().stream().map(ProxLibraryDto::new).toList();
+    public UserProxLibraryDto(UserProx userProx){
+        this.url = Base62Encoder.encode(userProx.getId());
+        this.libraries = userProx.getProxLibraries().stream().map(ProxLibraryDto::new).toList();
         if(this.libraries != null)
             this.count = libraries.size();
         else

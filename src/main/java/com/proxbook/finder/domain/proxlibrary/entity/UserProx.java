@@ -21,6 +21,9 @@ public class UserProx {
     @OneToMany(mappedBy = "userProxBookLibraryId", cascade = CascadeType.ALL, orphanRemoval = true)
     List<ProxLibrary> proxLibraries;
 
+    @Column(name = "dtype", insertable=false, updatable=false)
+    private String dtype;
+
     public void addProxLibraries(List<ProxLibrary> proxLibraryList){
         // this.proxLibraries = proxLibraryList;
         if(this.proxLibraries == null)

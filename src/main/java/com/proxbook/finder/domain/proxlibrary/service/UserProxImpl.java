@@ -1,25 +1,25 @@
 package com.proxbook.finder.domain.proxlibrary.service;
 
-import com.proxbook.finder.domain.library.entity.Library;
-import com.proxbook.finder.domain.library.repository.LibraryRepository;
-import com.proxbook.finder.domain.library.service.LibraryService;
-import com.proxbook.finder.domain.library.service.utils.DistanceCalculator;
+import com.proxbook.finder.domain.book.entity.Book;
+import com.proxbook.finder.domain.book.service.BookService;
 import com.proxbook.finder.domain.proxlibrary.entity.ProxLibrary;
+import com.proxbook.finder.domain.proxlibrary.entity.UserProxBookLibrary;
 import com.proxbook.finder.domain.proxlibrary.entity.UserProxLibrary;
-import com.proxbook.finder.domain.proxlibrary.repository.ProxLibraryRepository;
+import com.proxbook.finder.domain.proxlibrary.repository.UserProxBookLibraryRepository;
 import com.proxbook.finder.domain.proxlibrary.repository.UserProxLibraryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
 @RequiredArgsConstructor
 @Service
-public class UserProxLibraryServiceImpl implements UserProxLibraryService{
+public class UserProxImpl implements UserProxLibraryService, UserProxBookLibraryService{
     private final UserProxLibraryRepository userProxLibraryRepository;
+    private final UserProxBookLibraryRepository userProxBookLibraryRepository;
+    private final BookService bookService;
     private final ProxLibraryService proxLibraryService;
 
     @Override
@@ -34,7 +34,14 @@ public class UserProxLibraryServiceImpl implements UserProxLibraryService{
     }
 
     @Override
-    public UserProxLibrary findUserProxLibraryById(Long id) {
-        return null;
+    public UserProxBookLibrary saveUserProxBookLibraryByBookIdAndGeo(String bookId, double latitude, double longitude, double range) {
+        Book book = bookService.findBookById(bookId);
+        UserProxBookLibrary userProxBookLibrary = new UserProxBookLibrary(book);
+        userProxBookLibraryRepository.save(userProxBookLibrary);
+
+        List<ProxLibrary> proxLibraries = proxLibraryService.saveProxLibraryByGeo(latitude, longitude, range);
+        userProxBookLibrary.addProxLibraries(proxLibraries);
+
+        return userProxBookLibrary;
     }
 }
