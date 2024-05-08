@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ProxLibraryRepository extends JpaRepository<ProxLibrary, ProxLibraryId> {
-    @Query("SELECT pl FROM ProxLibrary pl join fetch pl.library where pl.userProxLibraryId=:userProxLibraryId")
+    @Query("SELECT pl FROM ProxLibrary pl join fetch pl.library where pl.userProxLibraryId=:userProxLibraryId ORDER BY pl.distance")
     public List<ProxLibrary> findByUserProxLibraryIdOrderByDistance(Long userProxLibraryId);
 }

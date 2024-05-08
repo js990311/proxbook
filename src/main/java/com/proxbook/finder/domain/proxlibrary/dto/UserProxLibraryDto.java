@@ -11,25 +11,36 @@ import java.util.List;
 @Getter
 public class UserProxLibraryDto {
     private String url;
-    private List<ProxLibraryDto> libraries;
+    private Double range;
+    private Double latitude;
+    private Double longitude;
+    private BookDto book;
     private int count;
-    private BookDto bookDto;
+    private List<ProxLibraryDto> libraries;
 
-    public UserProxLibraryDto(String url, List<ProxLibraryDto> libraries, int count, BookDto bookDto) {
+    public UserProxLibraryDto(String url, List<ProxLibraryDto> libraries, int count, BookDto book, Double latitude, Double longitude, Double range) {
         this.url = url;
         this.libraries = libraries;
         this.count = count;
-        this.bookDto = bookDto;
+        this.book = book;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.range = range;
+
     }
 
     public static class Builder{
         private String url;
         private List<ProxLibraryDto> libraries;
         private int count;
-        private BookDto bookDto;
+        private BookDto book;
+        private Double latitude;
+        private Double longitude;
+        private Double range;
+
 
         public UserProxLibraryDto build(){
-            return new UserProxLibraryDto(url, libraries, count, bookDto);
+            return new UserProxLibraryDto(url, libraries, count, book, latitude, longitude, range);
         }
 
         public Builder setUrl(String url) {
@@ -46,16 +57,30 @@ public class UserProxLibraryDto {
             return this;
         }
 
-        public Builder setBookDto(BookDto bookDto) {
-            this.bookDto = bookDto;
+        public Builder setBook(BookDto bookDto) {
+            this.book = bookDto;
             return this;
         }
 
-        public Builder setBookDto(Book book) {
+        public Builder setBook(Book book) {
             if(book!=null)
-                this.bookDto = new BookDto(book);
+                this.book = new BookDto(book);
             return this;
         }
 
+        public Builder setLatitude(Double latitude) {
+            this.latitude = latitude;
+            return this;
+        }
+
+        public Builder setLongitude(Double longitude) {
+            this.longitude = longitude;
+            return this;
+        }
+
+        public Builder setRange(Double range) {
+            this.range = range;
+            return this;
+        }
     }
 }

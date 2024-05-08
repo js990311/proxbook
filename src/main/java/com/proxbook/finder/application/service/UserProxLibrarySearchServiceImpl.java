@@ -38,7 +38,7 @@ public class UserProxLibrarySearchServiceImpl implements UserProxLibrarySearchSe
         UserProxLibraryDto userProxLibraryDto = builder
                 .setUrl(shortenUrlService.encodeUrl(userProxLibrary.getId()))
                 .setLibraries(userProxLibrary.getProxLibraries().stream().map(ProxLibraryDto::new).toList())
-                .setBookDto(userProxLibrary.getBook())
+                .setBook(userProxLibrary.getBook())
                 .build();
         return userProxLibraryDto;
     }

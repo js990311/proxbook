@@ -9,11 +9,11 @@ import java.util.List;
 
 @Getter
 public class ProxLibraryDto {
-    private LibraryDto libraryDto;
+    private LibraryDto library;
     private Double distance;
 
     public ProxLibraryDto(ProxLibrary proxLibrary) {
-        this.libraryDto = new LibraryDto(proxLibrary.getLibrary());
+        this.library = new LibraryDto(proxLibrary.getLibrary());
         this.distance = proxLibrary.getDistance();
     }
 }

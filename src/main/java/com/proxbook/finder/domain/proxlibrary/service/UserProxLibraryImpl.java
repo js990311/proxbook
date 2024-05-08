@@ -31,7 +31,11 @@ public class UserProxLibraryImpl implements UserProxLibraryService{
 
     @Override
     public UserProxLibraryDto saveUserProxLibraryByGeo(double latitude, double longitude, double range) {
-        UserProxLibrary userProxLibrary = new UserProxLibrary();
+        UserProxLibrary userProxLibrary = new UserProxLibrary.Builder()
+                .setRange(range)
+                .setLatitude(latitude)
+                .setLongitude(longitude)
+                .build();
         userProxLibraryRepository.save(userProxLibrary);
 
         List<ProxLibrary.Builder> proxLibraryBuilders = proxLibraryService.saveProxLibraryByGeo(latitude, longitude, range);
@@ -46,15 +50,22 @@ public class UserProxLibraryImpl implements UserProxLibraryService{
         return new UserProxLibraryDto.Builder()
                 .setLibraries(proxLibraryDtos)
                 .setUrl(shortenUrlService.encodeUrl(userProxLibrary.getId()))
+                .setRange(userProxLibrary.getRange())
+                .setLatitude(userProxLibrary.getLatitude())
+                .setLongitude(userProxLibrary.getLongitude())
                 .build();
     }
 
     @Override
     public UserProxLibraryDto saveUserProxLibraryByBookIdAndGeo(String bookId, double latitude, double longitude, double range) {
         Book book = bookService.findBookById(bookId);
-        UserProxLibrary userProxLibrary = new UserProxLibrary(book);
+        UserProxLibrary userProxLibrary = new UserProxLibrary.Builder()
+                .setBook(book)
+                .setRange(range)
+                .setLatitude(latitude)
+                .setLongitude(longitude)
+                .build();
         userProxLibraryRepository.save(userProxLibrary);
-
         List<ProxLibrary.Builder> proxLibraryBuilders = proxLibraryService.saveProxLibraryByGeo(latitude, longitude, range);
         List<ProxLibrary> proxLibraries = proxLibraryBuilders.stream().map((proxLibraryBuilder) -> {
             proxLibraryBuilder.setUserProxLibrary(userProxLibrary);
@@ -67,7 +78,10 @@ public class UserProxLibraryImpl implements UserProxLibraryService{
         return new UserProxLibraryDto.Builder()
                 .setLibraries(proxLibraryDtos)
                 .setUrl(shortenUrlService.encodeUrl(userProxLibrary.getId()))
-                .setBookDto(book)
+                .setBook(book)
+                .setRange(userProxLibrary.getRange())
+                .setLatitude(userProxLibrary.getLatitude())
+                .setLongitude(userProxLibrary.getLongitude())
                 .build();
     }
 
@@ -85,7 +99,11 @@ public class UserProxLibraryImpl implements UserProxLibraryService{
         builder
                 .setUrl(url)
                 .setLibraries(proxLibraries.stream().map(ProxLibraryDto::new).toList())
-                .setBookDto(userProxLibrary.getBook());
+                .setBook(userProxLibrary.getBook())
+                .setRange(userProxLibrary.getRange())
+                .setLatitude(userProxLibrary.getLatitude())
+                .setLongitude(userProxLibrary.getLongitude())
+        ;
 
         return builder.build();
     }
