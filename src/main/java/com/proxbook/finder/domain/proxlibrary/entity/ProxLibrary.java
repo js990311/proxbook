@@ -16,8 +16,8 @@ public class ProxLibrary {
     private String libraryId;
 
     @Id
-    @Column(name = "user_prox_book_library_id")
-    private Long userProxBookLibraryId;
+    @Column(name = "user_prox_library_id")
+    private Long userProxLibraryId;
 
     @Column(name = "distance")
     private Double distance;
@@ -27,17 +27,17 @@ public class ProxLibrary {
     private Library library;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_prox_book_library_id", insertable = false, updatable = false)
-    private UserProx userProx;
+    @JoinColumn(name = "user_prox_library_id", insertable = false, updatable = false)
+    private UserProxLibrary userProxLibrary;
 
 
-    void setUserProx(UserProx userProx){
-        this.userProx = userProx;
-        this.userProxBookLibraryId = userProx.getId();
+    void setUserProxLibrary(UserProxLibrary userProxLibrary){
+        this.userProxLibrary = userProxLibrary;
+        this.userProxLibraryId = userProxLibrary.getId();
     }
 
-    public ProxLibrary(Long userProxBookLibraryId, Library library, Double distance) {
-        this.userProxBookLibraryId = userProxBookLibraryId;
+    public ProxLibrary(Long userProxLibrary, Library library, Double distance) {
+        this.userProxLibraryId = userProxLibrary;
         this.library = library;
         this.libraryId = library.getId();
         this.distance = distance;

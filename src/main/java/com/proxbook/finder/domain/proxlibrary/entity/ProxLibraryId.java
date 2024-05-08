@@ -15,12 +15,12 @@ public class ProxLibraryId implements Serializable {
     private String libraryId;
 
     @Id
-    @Column(name = "user_prox_book_library_id")
-    private Long userProxBookLibraryId;
+    @Column(name = "user_prox_library_id")
+    private Long userProxLibraryId;
 
     public ProxLibraryId(String libraryId, Long userProxLibraryId) {
         this.libraryId = libraryId;
-        this.userProxBookLibraryId = userProxLibraryId;
+        this.userProxLibraryId = userProxLibraryId;
     }
 
     @Override
@@ -28,11 +28,11 @@ public class ProxLibraryId implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProxLibraryId that = (ProxLibraryId) o;
-        return Objects.equals(libraryId, that.libraryId) && Objects.equals(userProxBookLibraryId, that.userProxBookLibraryId);
+        return Objects.equals(libraryId, that.libraryId) && Objects.equals(userProxLibraryId, that.userProxLibraryId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(libraryId, userProxBookLibraryId);
+        return Objects.hash(libraryId, userProxLibraryId);
     }
 }

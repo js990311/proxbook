@@ -2,8 +2,7 @@ package com.proxbook.finder.application.controller;
 
 import com.proxbook.finder.application.form.LibraryBookForm;
 import com.proxbook.finder.application.form.LibraryForm;
-import com.proxbook.finder.application.service.UserProxSearchService;
-import com.proxbook.finder.domain.proxlibrary.dto.UserProxBookLibraryDto;
+import com.proxbook.finder.application.service.UserProxLibrarySearchService;
 import com.proxbook.finder.domain.proxlibrary.dto.UserProxLibraryDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Controller
 public class UserProxController {
-    private final UserProxSearchService userProxSearchService;
+    private final UserProxLibrarySearchService userProxLibrarySearchService;
 
     @ResponseBody
     @PostMapping("/prox-library/create")
     public UserProxLibraryDto saveUserProxLibrary(@RequestBody LibraryForm form){
-        UserProxLibraryDto userProxLibraryDto = userProxSearchService.saveUserProxLibrary(
+        UserProxLibraryDto userProxLibraryDto = userProxLibrarySearchService.saveUserProxLibrary(
                 form.getLatitude(),
                 form.getLongitude(),
                 10.0
@@ -29,7 +28,7 @@ public class UserProxController {
     @ResponseBody
     @PostMapping("/prox-book/create")
     public UserProxLibraryDto proxBook(@RequestBody LibraryBookForm form, Model model){
-        UserProxLibraryDto userProxLibraryDto = userProxSearchService.saveUserProxBookLibrary(
+        UserProxLibraryDto userProxLibraryDto = userProxLibrarySearchService.saveUserProxLibraryByBook(
             form.getBookId(),
             form.getLatitude(),
             form.getLongitude(),
@@ -42,7 +41,7 @@ public class UserProxController {
     @ResponseBody
     @GetMapping("/s/{shorten-url}")
     public UserProxLibraryDto getUserProxLibrary(@PathVariable("shorten-url") String url){
-        UserProxLibraryDto userProxLibraryDto = userProxSearchService.findUserProxLibraryByShortenUrl(url);
+        UserProxLibraryDto userProxLibraryDto = userProxLibrarySearchService.findUserProxLibraryByShortenUrl(url);
         return userProxLibraryDto;
     }
 }

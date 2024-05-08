@@ -3,9 +3,7 @@ package com.proxbook.finder.domain.proxlibrary.service;
 import com.proxbook.finder.domain.book.entity.Book;
 import com.proxbook.finder.domain.book.service.BookService;
 import com.proxbook.finder.domain.proxlibrary.entity.ProxLibrary;
-import com.proxbook.finder.domain.proxlibrary.entity.UserProxBookLibrary;
 import com.proxbook.finder.domain.proxlibrary.entity.UserProxLibrary;
-import com.proxbook.finder.domain.proxlibrary.repository.UserProxBookLibraryRepository;
 import com.proxbook.finder.domain.proxlibrary.repository.UserProxLibraryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,9 +14,8 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 @Service
-public class UserProxImpl implements UserProxLibraryService, UserProxBookLibraryService{
+public class UserProxLibraryImpl implements UserProxLibraryService{
     private final UserProxLibraryRepository userProxLibraryRepository;
-    private final UserProxBookLibraryRepository userProxBookLibraryRepository;
     private final BookService bookService;
     private final ProxLibraryService proxLibraryService;
 
@@ -34,14 +31,15 @@ public class UserProxImpl implements UserProxLibraryService, UserProxBookLibrary
     }
 
     @Override
-    public UserProxBookLibrary saveUserProxBookLibraryByBookIdAndGeo(String bookId, double latitude, double longitude, double range) {
+    public UserProxLibrary saveUserProxLibraryByBookIdAndGeo(String bookId, double latitude, double longitude, double range) {
         Book book = bookService.findBookById(bookId);
-        UserProxBookLibrary userProxBookLibrary = new UserProxBookLibrary(book);
-        userProxBookLibraryRepository.save(userProxBookLibrary);
+        UserProxLibrary userProxBookLibrary = new UserProxLibrary(book);
+        userProxLibraryRepository.save(userProxBookLibrary);
 
         List<ProxLibrary> proxLibraries = proxLibraryService.saveProxLibraryByGeo(latitude, longitude, range);
         userProxBookLibrary.addProxLibraries(proxLibraries);
 
         return userProxBookLibrary;
     }
+
 }
