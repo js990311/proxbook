@@ -1,5 +1,6 @@
 package com.proxbook.finder.application.controller;
 
+import com.proxbook.finder.aop.annotation.MethodTimeChecker;
 import com.proxbook.finder.application.form.LibraryBookForm;
 import com.proxbook.finder.application.form.LibraryForm;
 import com.proxbook.finder.application.service.UserProxLibrarySearchService;
@@ -11,12 +12,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @Controller
-public class UserProxController {
+public class UserProxLibraryController {
     private final UserProxLibrarySearchService userProxLibrarySearchService;
 
+    @MethodTimeChecker
     @ResponseBody
     @PostMapping("/prox-library/create")
-    public UserProxLibraryDto saveUserProxLibrary(@RequestBody LibraryForm form){
+    public UserProxLibraryDto createProxLibrary(@RequestBody LibraryForm form){
         UserProxLibraryDto userProxLibraryDto = userProxLibrarySearchService.saveUserProxLibrary(
                 form.getLatitude(),
                 form.getLongitude(),
@@ -25,9 +27,10 @@ public class UserProxController {
         return userProxLibraryDto;
     }
 
+    @MethodTimeChecker
     @ResponseBody
     @PostMapping("/prox-book/create")
-    public UserProxLibraryDto proxBook(@RequestBody LibraryBookForm form, Model model){
+    public UserProxLibraryDto createProxBook(@RequestBody LibraryBookForm form, Model model){
         UserProxLibraryDto userProxLibraryDto = userProxLibrarySearchService.saveUserProxLibraryByBook(
             form.getBookId(),
             form.getLatitude(),

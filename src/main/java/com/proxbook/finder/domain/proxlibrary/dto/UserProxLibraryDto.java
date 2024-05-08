@@ -50,5 +50,12 @@ public class UserProxLibraryDto {
             this.bookDto = bookDto;
             return this;
         }
+
+        public Builder setBookDto(Book book) {
+            if(book!=null)
+                this.bookDto = new BookDto(book);
+            return this;
+        }
+
     }
 }

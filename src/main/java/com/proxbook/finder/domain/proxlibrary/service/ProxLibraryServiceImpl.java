@@ -16,6 +16,7 @@ import java.util.List;
 @Service
 public class ProxLibraryServiceImpl implements ProxLibraryService{
     private final LibraryRepository libraryRepository;
+    private final ProxLibraryRepository proxLibraryRepository;
     private final DistanceCalculator distanceCalculator;
 
     @Override
@@ -36,6 +37,12 @@ public class ProxLibraryServiceImpl implements ProxLibraryService{
                 );
             }
         }
+        return proxLibraries;
+    }
+
+    @Override
+    public List<ProxLibrary> findProxLibraryByUserProxLibraryId(Long userProxLibraryId) {
+        List<ProxLibrary> proxLibraries = proxLibraryRepository.findByUserProxLibraryIdOrderByDistance(userProxLibraryId);
         return proxLibraries;
     }
 }

@@ -22,26 +22,13 @@ public class UserProxLibrarySearchServiceImpl implements UserProxLibrarySearchSe
     private final UserProxLibraryService userProxLibraryService;
 
     @Override
-    public UserProxLibraryDto saveUserProxLibrary(double latitude, double longitude, double distance) {
-        UserProxLibrary userProxLibrary = userProxLibraryService.saveUserProxLibraryByGeo(latitude, longitude, distance);
-        UserProxLibraryDto.Builder builder = new UserProxLibraryDto.Builder();
-        UserProxLibraryDto userProxLibraryDto = builder
-                .setUrl(shortenUrlService.encodeUrl(userProxLibrary.getId()))
-                .setLibraries(userProxLibrary.getProxLibraries().stream().map(ProxLibraryDto::new).toList())
-                .build();
-        return userProxLibraryDto;
+    public UserProxLibraryDto saveUserProxLibrary(double latitude, double longitude, double range) {
+        return userProxLibraryService.saveUserProxLibraryByGeo(latitude,longitude,range);
     }
 
     @Override
     public UserProxLibraryDto saveUserProxLibraryByBook(String bookId, double latitude, double longitude, double range) {
-        UserProxLibrary userProxLibrary = userProxLibraryService.saveUserProxLibraryByBookIdAndGeo(bookId, latitude, longitude, range);
-        UserProxLibraryDto.Builder builder = new UserProxLibraryDto.Builder();
-        UserProxLibraryDto userProxLibraryDto = builder
-                .setUrl(shortenUrlService.encodeUrl(userProxLibrary.getId()))
-                .setLibraries(userProxLibrary.getProxLibraries().stream().map(ProxLibraryDto::new).toList())
-                .setBookDto(new BookDto(userProxLibrary.getBook()))
-                .build();
-        return userProxLibraryDto;
+        return userProxLibraryService.saveUserProxLibraryByBookIdAndGeo(bookId, latitude, longitude, range);
     }
 
     @Override
@@ -51,21 +38,24 @@ public class UserProxLibrarySearchServiceImpl implements UserProxLibrarySearchSe
         UserProxLibraryDto userProxLibraryDto = builder
                 .setUrl(shortenUrlService.encodeUrl(userProxLibrary.getId()))
                 .setLibraries(userProxLibrary.getProxLibraries().stream().map(ProxLibraryDto::new).toList())
-                .setBookDto(new BookDto(userProxLibrary.getBook()))
+                .setBookDto(userProxLibrary.getBook())
                 .build();
         return userProxLibraryDto;
     }
 
     @Override
     public UserProxLibraryDto findUserProxLibraryByShortenUrl(String url) {
-        long id = shortenUrlService.decodeUrl(url);
-        UserProxLibrary userProxLibrary = userProxLibraryRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        UserProxLibraryDto.Builder builder = new UserProxLibraryDto.Builder();
-        UserProxLibraryDto userProxLibraryDto = builder
-                .setUrl(shortenUrlService.encodeUrl(userProxLibrary.getId()))
-                .setLibraries(userProxLibrary.getProxLibraries().stream().map(ProxLibraryDto::new).toList())
-                .setBookDto(new BookDto(userProxLibrary.getBook()))
-                .build();
-        return userProxLibraryDto;
+//        long id = shortenUrlService.decodeUrl(url);
+//        UserProxLibrary userProxLibrary = userProxLibraryRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+//        UserProxLibraryDto.Builder builder = new UserProxLibraryDto.Builder();
+//        UserProxLibraryDto userProxLibraryDto = builder
+//                .setUrl(shortenUrlService.encodeUrl(userProxLibrary.getId()))
+//                .setLibraries(userProxLibrary.getProxLibraries().stream().map(ProxLibraryDto::new).toList())
+//                .setBookDto(userProxLibrary.getBook())
+//                .build();
+//        return userProxLibraryDto;
+        return userProxLibraryService.findUserProxLibraryByShortenUrl(url);
     }
+
+
 }
