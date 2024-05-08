@@ -19,10 +19,10 @@ public class ProxLibraryServiceImpl implements ProxLibraryService{
     private final DistanceCalculator distanceCalculator;
 
     @Override
-    public List<ProxLibrary> saveProxLibraryByGeo(double latitude, double longitude, double range) {
+    public List<ProxLibrary.Builder> saveProxLibraryByGeo(double latitude, double longitude, double range) {
         List<Library> libraries = libraryRepository.findAll();
 
-        List<ProxLibrary> proxLibraries = new ArrayList<>();
+        List<ProxLibrary.Builder> proxLibraries = new ArrayList<>();
         for(Library library : libraries){
             double distance = distanceCalculator.calculateDistance(
                     latitude, longitude,
@@ -30,7 +30,9 @@ public class ProxLibraryServiceImpl implements ProxLibraryService{
             );
             if(distance <= range){
                 proxLibraries.add(
-                        new ProxLibrary(library, distance)
+                        new ProxLibrary.Builder()
+                                .setDistance(distance)
+                                .setLibrary(library)
                 );
             }
         }

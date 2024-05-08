@@ -1,6 +1,6 @@
 package com.proxbook.finder.domain.proxlibrary.dto;
 
-import com.proxbook.finder.application.service.utils.Base62Encoder;
+import com.proxbook.finder.application.service.utils.Base62ShortenUrlService;
 import com.proxbook.finder.domain.book.dto.BookDto;
 import com.proxbook.finder.domain.book.entity.Book;
 import com.proxbook.finder.domain.proxlibrary.entity.UserProxLibrary;
@@ -15,28 +15,40 @@ public class UserProxLibraryDto {
     private int count;
     private BookDto bookDto;
 
-    public UserProxLibraryDto(UserProxLibrary userProxLibrary){
-        setBookDto(userProxLibrary.getBook());
-        this.url = Base62Encoder.encode(userProxLibrary.getId());
-        this.libraries = userProxLibrary.getProxLibraries().stream().map(ProxLibraryDto::new).toList();
-        if(this.libraries != null)
-            this.count = libraries.size();
-        else
-            this.count = 0;
-    }
-
-    public UserProxLibraryDto(String url, List<ProxLibraryDto> libraries, Book book) {
-        setBookDto(book);
+    public UserProxLibraryDto(String url, List<ProxLibraryDto> libraries, int count, BookDto bookDto) {
         this.url = url;
         this.libraries = libraries;
-        if(this.libraries != null)
-            this.count = libraries.size();
-        else
-            this.count = 0;
+        this.count = count;
+        this.bookDto = bookDto;
     }
 
-    private void setBookDto(Book book){
-        if(book != null)
-            this.bookDto = new BookDto(book);
+    public static class Builder{
+        private String url;
+        private List<ProxLibraryDto> libraries;
+        private int count;
+        private BookDto bookDto;
+
+        public UserProxLibraryDto build(){
+            return new UserProxLibraryDto(url, libraries, count, bookDto);
+        }
+
+        public Builder setUrl(String url) {
+            this.url = url;
+            return this;
+        }
+
+        public Builder setLibraries(List<ProxLibraryDto> libraries) {
+            this.libraries = libraries;
+            if(this.libraries != null)
+                this.count = libraries.size();
+            else
+                this.count = 0;
+            return this;
+        }
+
+        public Builder setBookDto(BookDto bookDto) {
+            this.bookDto = bookDto;
+            return this;
+        }
     }
 }

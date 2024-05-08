@@ -24,22 +24,29 @@ public class UserProxLibraryImpl implements UserProxLibraryService{
         UserProxLibrary userProxLibrary = new UserProxLibrary();
         userProxLibraryRepository.save(userProxLibrary);
 
-        List<ProxLibrary> proxLibraries = proxLibraryService.saveProxLibraryByGeo(latitude, longitude, range);
+        List<ProxLibrary.Builder> proxLibraryBuilders = proxLibraryService.saveProxLibraryByGeo(latitude, longitude, range);
+        List<ProxLibrary> proxLibraries = proxLibraryBuilders.stream().map((proxLibraryBuilder) -> {
+            proxLibraryBuilder.setUserProxLibrary(userProxLibrary);
+            return proxLibraryBuilder.build();
+        }).toList();
         userProxLibrary.addProxLibraries(proxLibraries);
-
         return userProxLibrary;
     }
 
     @Override
     public UserProxLibrary saveUserProxLibraryByBookIdAndGeo(String bookId, double latitude, double longitude, double range) {
         Book book = bookService.findBookById(bookId);
-        UserProxLibrary userProxBookLibrary = new UserProxLibrary(book);
-        userProxLibraryRepository.save(userProxBookLibrary);
+        UserProxLibrary userProxLibrary = new UserProxLibrary(book);
+        userProxLibraryRepository.save(userProxLibrary);
 
-        List<ProxLibrary> proxLibraries = proxLibraryService.saveProxLibraryByGeo(latitude, longitude, range);
-        userProxBookLibrary.addProxLibraries(proxLibraries);
+        List<ProxLibrary.Builder> proxLibraryBuilders = proxLibraryService.saveProxLibraryByGeo(latitude, longitude, range);
+        List<ProxLibrary> proxLibraries = proxLibraryBuilders.stream().map((proxLibraryBuilder) -> {
+            proxLibraryBuilder.setUserProxLibrary(userProxLibrary);
+            return proxLibraryBuilder.build();
+        }).toList();
+        userProxLibrary.addProxLibraries(proxLibraries);
 
-        return userProxBookLibrary;
+        return userProxLibrary;
     }
 
 }

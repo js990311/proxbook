@@ -36,17 +36,62 @@ public class ProxLibrary {
         this.userProxLibraryId = userProxLibrary.getId();
     }
 
-    public ProxLibrary(Long userProxLibrary, Library library, Double distance) {
-        this.userProxLibraryId = userProxLibrary;
-        this.library = library;
-        this.libraryId = library.getId();
-        this.distance = distance;
-    }
-
     public ProxLibrary(Library library, Double distance) {
         this.library = library;
         this.libraryId = library.getId();
         this.distance = distance;
     }
 
+    public ProxLibrary(String libraryId, Long userProxLibraryId, Double distance, Library library, UserProxLibrary userProxLibrary) {
+        this.libraryId = libraryId;
+        this.userProxLibraryId = userProxLibraryId;
+        this.distance = distance;
+        this.library = library;
+        this.userProxLibrary = userProxLibrary;
+    }
+
+    public static class Builder{
+        private String libraryId;
+        private Long userProxLibraryId;
+        private Double distance;
+        private Library library;
+        private UserProxLibrary userProxLibrary;
+
+        public ProxLibrary build(){
+            return new ProxLibrary(
+                    libraryId,
+                    userProxLibraryId,
+                    distance,
+                    library,
+                    userProxLibrary
+            );
+        }
+
+        public Builder setLibraryId(String libraryId) {
+            this.libraryId = libraryId;
+            return this;
+        }
+
+        public Builder setUserProxLibraryId(Long userProxLibraryId) {
+            this.userProxLibraryId = userProxLibraryId;
+            return this;
+        }
+
+        public Builder setDistance(Double distance) {
+            this.distance = distance;
+            return this;
+        }
+
+        public Builder setLibrary(Library library) {
+            this.library = library;
+            this.libraryId = library.getId();
+            return this;
+        }
+
+        public Builder setUserProxLibrary(UserProxLibrary userProxLibrary) {
+            this.userProxLibrary = userProxLibrary;
+            this.userProxLibraryId = userProxLibrary.getId();
+            return this;
+        }
+    }
 }

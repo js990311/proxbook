@@ -37,13 +37,7 @@ public class UserProxLibrary{
     }
 
     public void addProxLibraries(List<ProxLibrary> proxLibraryList){
-        // this.proxLibraries = proxLibraryList;
-        if(this.proxLibraries == null)
-            this.proxLibraries = new ArrayList<>();
-        for(ProxLibrary proxLibrary : proxLibraryList){
-            proxLibrary.setUserProxLibrary(this);
-            proxLibraries.add(proxLibrary);
-        }
+        this.proxLibraries = proxLibraryList;
     }
 
 }
