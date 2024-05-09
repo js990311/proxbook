@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface ProxLibraryService {
 
-    public List<ProxLibrary.Builder> saveProxLibraryByGeo(double latitude, double longitude, double range);
+    public List<ProxLibrary> saveProxLibraryByGeo(double latitude, double longitude, double range);
+    public List<ProxLibrary> saveProxLibraryByBookIdAndGeo(String bookId, double latitude, double longitude, double range);
 
     public List<ProxLibrary> findProxLibraryByUserProxLibraryId(Long id);
 }

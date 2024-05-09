@@ -9,72 +9,61 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @Table(name = "prox_libraries")
-@IdClass(value = ProxLibraryId.class)
 public class ProxLibrary {
     @Id
-    @Column(name = "library_id")
-    private String libraryId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "prox_library_id")
+    private Long id;
 
-    @Id
-    @Column(name = "user_prox_library_id")
-    private Long userProxLibraryId;
-
+    /**
+     * 사용자와 도서관간 거리
+     */
     @Column(name = "distance")
     private Double distance;
 
+    /**
+     * 도서관 목록
+     */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "library_id", insertable = false, updatable = false)
+    @JoinColumn(name = "library_id")
     private Library library;
 
+    /**
+     * 사용자 테이블
+     */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_prox_library_id", insertable = false, updatable = false)
+    @JoinColumn(name = "user_prox_library_id")
     private UserProxLibrary userProxLibrary;
 
-
-    void setUserProxLibrary(UserProxLibrary userProxLibrary){
-        this.userProxLibrary = userProxLibrary;
-        this.userProxLibraryId = userProxLibrary.getId();
-    }
-
-    public ProxLibrary(Library library, Double distance) {
-        this.library = library;
-        this.libraryId = library.getId();
-        this.distance = distance;
-    }
-
-    public ProxLibrary(String libraryId, Long userProxLibraryId, Double distance, Library library, UserProxLibrary userProxLibrary) {
-        this.libraryId = libraryId;
-        this.userProxLibraryId = userProxLibraryId;
+    public ProxLibrary(Double distance, Library library, UserProxLibrary userProxLibrary) {
         this.distance = distance;
         this.library = library;
         this.userProxLibrary = userProxLibrary;
     }
 
+    /**
+     * ProxLibrary 생성과정에서는 UserProxLibrary가 있을 수 없으므로 생성 후 주입한다.
+     * 무결성을 위해 entity 패키지 내부에서만 접근 가능
+     * @param userProxLibrary
+     */
+    void setUserProxLibrary(UserProxLibrary userProxLibrary) {
+        this.userProxLibrary = userProxLibrary;
+    }
+
+    /**
+     * Builder for ProxLibrary
+     */
     public static class Builder{
-        private String libraryId;
-        private Long userProxLibraryId;
         private Double distance;
         private Library library;
         private UserProxLibrary userProxLibrary;
 
         public ProxLibrary build(){
             return new ProxLibrary(
-                    libraryId,
-                    userProxLibraryId,
                     distance,
                     library,
                     userProxLibrary
             );
-        }
-
-        public Builder setLibraryId(String libraryId) {
-            this.libraryId = libraryId;
-            return this;
-        }
-
-        public Builder setUserProxLibraryId(Long userProxLibraryId) {
-            this.userProxLibraryId = userProxLibraryId;
-            return this;
         }
 
         public Builder setDistance(Double distance) {
@@ -84,13 +73,11 @@ public class ProxLibrary {
 
         public Builder setLibrary(Library library) {
             this.library = library;
-            this.libraryId = library.getId();
             return this;
         }
 
         public Builder setUserProxLibrary(UserProxLibrary userProxLibrary) {
             this.userProxLibrary = userProxLibrary;
-            this.userProxLibraryId = userProxLibrary.getId();
             return this;
         }
     }

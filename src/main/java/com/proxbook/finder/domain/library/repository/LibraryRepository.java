@@ -9,4 +9,7 @@ import java.util.List;
 public interface LibraryRepository extends JpaRepository<Library, String> {
     @Query("SELECT l FROM Library l WHERE l.id IN :idList")
     public List<Library> findLibrariesByIdList(List<String> idList);
+
+    @Query("SELECT l FROM Library l WHERE l.id IN (SELECT lb.libraryId FROM LibraryBook lb WHERE lb.bookId = :bookId)")
+    public List<Library> findLibrariesByBookId(String bookId);
 }

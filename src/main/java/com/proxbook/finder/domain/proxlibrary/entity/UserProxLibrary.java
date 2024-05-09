@@ -16,64 +16,85 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "user_prox_library")
 public class UserProxLibrary{
+    /**
+     * 대체키 겸 shorten service에서 사용할 id
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_prox_library_id")
     private Long id;
 
+    /**
+     * 사용자 근처에 있는 도서관의 관계테이블
+     */
     @OneToMany(mappedBy = "userProxLibrary", cascade = CascadeType.ALL, orphanRemoval = true)
     List<ProxLibrary> proxLibraries;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_id", referencedColumnName = "book_id", insertable=false, updatable=false)
+    /**
+     * 책 (nullable)
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_id", referencedColumnName = "book_id")
     private Book book;
 
-    @Column(name = "book_id")
-    private String bookId;
-
+    /**
+     * 사용자의 위도
+     */
     @Column
     private Double latitude;
 
+    /**
+     * 사용자의 경도
+     */
     @Column
     private Double longitude;
 
+    /**
+     * 도서관과 사용자간 최대 거리
+     */
     @Column(name = "distance_range")
     private Double range;
 
-    public UserProxLibrary(Book book, String bookId, Double latitude, Double longitude, Double range) {
+    public UserProxLibrary(Book book, Double latitude, Double longitude, Double range, List<ProxLibrary> proxLibraries) {
         this.book = book;
-        this.bookId = bookId;
         this.latitude = latitude;
         this.longitude = longitude;
         this.range = range;
+        this.proxLibraries = proxLibraries;
     }
 
-    public void addProxLibraries(List<ProxLibrary> proxLibraryList){
-        this.proxLibraries = proxLibraryList;
-    }
-
+    /**
+     * Builder for UserProxLibrary
+     */
     public static class Builder{
         private Book book;
 
-        private String bookId;
+        private List<ProxLibrary> proxLibraries;
 
         private Double latitude;
 
         private Double longitude;
         private Double range;
 
+        /**
+         * UserProxLibrary 생성 및 ProxLibrary와의 mapping도 진행
+         * @return 생성된 UserProxLibrary
+         */
         public UserProxLibrary build(){
-            return new UserProxLibrary(book, bookId, latitude,longitude,range);
+            UserProxLibrary userProxLibrary = new UserProxLibrary(book, latitude, longitude, range, proxLibraries);
+            for(ProxLibrary proxLibrary : proxLibraries){
+                proxLibrary.setUserProxLibrary(userProxLibrary);
+            }
+            return userProxLibrary;
+        }
+
+        public Builder setProxLibraries(List<ProxLibrary> proxLibraries) {
+            this.proxLibraries = proxLibraries;
+            return this;
         }
 
         public Builder setBook(Book book) {
             this.book = book;
-            this.bookId = book.getId();
-            return this;
-        }
-
-        public Builder setBookId(String bookId) {
-            this.bookId = bookId;
             return this;
         }
 
