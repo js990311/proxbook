@@ -15,37 +15,16 @@ import org.springframework.web.bind.annotation.*;
 public class UserProxLibraryController {
     private final UserProxLibrarySearchService userProxLibrarySearchService;
 
-    @MethodTimeChecker
-    @ResponseBody
-    @PostMapping("/prox-library/create")
-    public UserProxLibraryDto createProxLibrary(@RequestBody LibraryForm form){
-        UserProxLibraryDto userProxLibraryDto = userProxLibrarySearchService.saveUserProxLibrary(
-                form.getLatitude(),
-                form.getLongitude(),
-                10.0
-        );
-        return userProxLibraryDto;
+    @GetMapping("/")
+    public String index(){
+        return "index";
     }
 
-    @MethodTimeChecker
-    @ResponseBody
-    @PostMapping("/prox-book/create")
-    public UserProxLibraryDto createProxBook(@RequestBody LibraryBookForm form, Model model){
-        UserProxLibraryDto userProxLibraryDto = userProxLibrarySearchService.saveUserProxLibraryByBook(
-            form.getBookId(),
-            form.getLatitude(),
-            form.getLongitude(),
-            10.0
-        );
-        return userProxLibraryDto;
-    }
-
-
-    @ResponseBody
     @GetMapping("/s/{shorten-url}")
-    public UserProxLibraryDto getUserProxLibrary(@PathVariable("shorten-url") String url){
+    public String getUserProxLibrary(@PathVariable("shorten-url") String url, Model model){
         UserProxLibraryDto userProxLibraryDto = userProxLibrarySearchService.findUserProxLibraryByShortenUrl(url);
-        return userProxLibraryDto;
+        model.addAttribute("userProxLibrary", userProxLibraryDto);
+        return "user-prox-library";
     }
 }
 

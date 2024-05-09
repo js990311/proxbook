@@ -1,0 +1,8 @@
+<ul id="lib-ul" th:fragment="libraryList(libraries)">
+    <li th:each="proxLibrary : ${libraries}" th:id="${proxLibrary.library.libraryCode}" th:data-lat="${proxLibrary.library.latitude}" th:data-lng="${proxLibrary.library.longitude}">
+        <p th:text="${proxLibrary.library.name}">도서관 제목</p>
+        <p th:text="${proxLibrary.library.address}">도서관 주소</p>
+        <a th:href="${proxLibrary.library.webpage}">도서관 홈페이지로 가기</a>
+        <p th:text="${proxLibrary.distance}">거리</p>
+    </li>
+</ul>

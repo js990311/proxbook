@@ -1,0 +1,9 @@
+<div id="book" th:fragment="book(book)">
+    <p><span th:text="${book.isbn}" id="book-id" th:data-id="${book.isbn}">isbn</span></p>
+    <p th:text="${book.title}">타이틀</p>
+    <p th:text="${book.publisher}">출판사</p>
+    <p th:text="${book.publishYear}">출판년도</p>
+    <p th:text="${book.description}">책 소개</p>
+    <a th:href="${book.bookInfoUrl}">다음 책 소개 링크</a>
+    <img th:src="${book.thumbnailUrl}" alt="">
+</div>

@@ -3,9 +3,11 @@ package com.proxbook.finder.application.controller;
 import com.proxbook.finder.application.form.LibraryBookForm;
 import com.proxbook.finder.application.form.LibraryForm;
 import com.proxbook.finder.application.form.LibraryGeoForm;
+import com.proxbook.finder.application.service.UserProxLibrarySearchService;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
 import com.proxbook.finder.domain.library.dto.LibraryGeoDto;
 import com.proxbook.finder.application.service.LibrarySearchService;
+import com.proxbook.finder.domain.proxlibrary.dto.UserProxLibraryDto;
 import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ import java.util.List;
 @Controller
 public class LibraryController {
     private final LibrarySearchService librarySearchService;
+    private final UserProxLibrarySearchService userProxLibrarySearchService;
 
     @GetMapping("/prox-library")
     public String getProxLibrary(){
@@ -30,45 +33,13 @@ public class LibraryController {
 
     @PostMapping("/prox-library")
     public String proxLibrary(@RequestBody LibraryForm form, Model model, HttpSession session){
-        List<LibraryDto> libraries = librarySearchService.searchLibraryByGeo(form.getLatitude(),form.getLongitude());
-        model.addAttribute("libraries", libraries);
-        session.setAttribute("prox-libraries", libraries);
-        return "fragments/libraries";
-    }
-
-    @ResponseBody
-    @PostMapping("/prox-library/geo")
-    public GeoLibraryMapper proxLibraryGet(@RequestBody LibraryGeoForm form){
-        List<String> libraryCodes = form.getLibraryCodes();
-        List<LibraryGeoDto> libraryGeos = librarySearchService.searchLibraryGeoByLibraryCodes(libraryCodes);
-        GeoLibraryMapper ret = new GeoLibraryMapper(libraryGeos);
-        return ret;
-    }
-
-    @PostMapping("/prox-book")
-    public String proxBook(@RequestBody LibraryBookForm form, Model model){
-        List<LibraryDto> libraries = librarySearchService.searchLibraryByGeoAndBookId(
-                form.getBookId(),
+        UserProxLibraryDto userProxLibraryDto = userProxLibrarySearchService.saveUserProxLibrary(
                 form.getLatitude(),
-                form.getLongitude()
+                form.getLongitude(),
+                10.0
         );
-        model.addAttribute("libraries", libraries);
-        return "fragments/libraries";
-    }
-
-    @Getter
-    static class GeoLibraryMapper{
-        private List<LibraryGeoDto> libraries;
-        private int count;
-
-        public GeoLibraryMapper(List<LibraryGeoDto> libraries) {
-            if(libraries == null){
-                this.libraries = null;
-                this.count = 0;
-            }else {
-                this.libraries = libraries;
-                this.count = libraries.size();
-            }
-        }
+        model.addAttribute("userProxLibrary", userProxLibraryDto);
+        model.addAttribute("libraries", userProxLibraryDto.getLibraries());
+        return "fragments/prox-library";
     }
 }

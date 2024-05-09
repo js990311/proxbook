@@ -1,0 +1,9 @@
+<div id="libraries" th:fragment="libraryWithMap(userProxLibrary)">
+    <div id="map"></div>
+    <div id="library-list">
+        <p>도서관 카운트 = <span th:text="${userProxLibrary.count}">도서관 카운트</span></p>
+        <ul th:replace="fragments/library-list.html :: libraryList(${userProxLibrary.libraries})">
+
+        </ul>
+    </div>
+</div>
