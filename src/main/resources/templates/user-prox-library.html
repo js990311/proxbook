@@ -10,4 +10,9 @@
 <div th:replace="${userProxLibrary.book} ? ~{fragments/book.html::book(${userProxLibrary.book})} : _"></div>
 <div th:replace="fragments/libraries-with-map.html::libraryWithMap(${userProxLibrary})"></div>
 </body>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e48295ca4d3ba331a2260d45fe05f230&autoload=false"></script>
+<script th:src="@{/js/kakaoMap.js}"></script>
+<script th:src="@{/js/userProxLibrary.js}"></script>
 </html>

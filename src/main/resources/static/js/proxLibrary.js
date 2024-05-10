@@ -1,40 +1,36 @@
 $(document).ready(function(){
-    $('#prox-book').on("click", getLocation);
+    // 페이지 로드 시 위치 정보 요청
+    getLocation();
 });
 
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(libraryBookQuery);
+        navigator.geolocation.getCurrentPosition(sendPositionToServer);
     } else {
         console.error("Geolocation is not supported by this browser.");
     }
 }
 
-
-const libraryBookQuery = (position) => {
-    let endpoints = `/library/prox-book`;
-
-    let bookId = $("#book-id").data("id");
+function sendPositionToServer(position) {
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
+    let endpoints = `/library/prox-library`;
 
-    let data = {
-        bookId: bookId,
-        latitude : latitude,
-        longitude: longitude,
-    };
+    // 위치 정보를 JSON 형식으로 변환
+    let locationData = JSON.stringify({latitude: latitude, longitude: longitude});
 
-    let jsonData = JSON.stringify(data);
-    console.log(jsonData);
+    console.log(locationData);
 
+    // 서버로 위치 정보를 POST 요청으로 보내기
     $.ajax({
         url: endpoints,
         type: "POST",
         contentType: "application/json",
-        data: jsonData,
+        data: locationData,
         success: function(response){
             console.log("서버 응답:", response);
-            $('#result').html(response)
+            $('#result').html(response);
+            kakaoMap();
         },
         error: function(xhr, status, error){
             console.error("Error:", status, error);
