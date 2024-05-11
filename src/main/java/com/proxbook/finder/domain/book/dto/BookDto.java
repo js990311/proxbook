@@ -1,7 +1,5 @@
 package com.proxbook.finder.domain.book.dto;
 
-import com.proxbook.finder.api.book.dto.KakaoBookDocumentDto;
-import com.proxbook.finder.api.book.dto.KakaoBookDto;
 import com.proxbook.finder.domain.book.entity.Book;
 import lombok.Getter;
 

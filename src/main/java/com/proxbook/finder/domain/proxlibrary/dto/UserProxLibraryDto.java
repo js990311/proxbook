@@ -1,9 +1,7 @@
 package com.proxbook.finder.domain.proxlibrary.dto;
 
-import com.proxbook.finder.application.service.utils.Base62ShortenUrlService;
 import com.proxbook.finder.domain.book.dto.BookDto;
 import com.proxbook.finder.domain.book.entity.Book;
-import com.proxbook.finder.domain.proxlibrary.entity.UserProxLibrary;
 import lombok.Getter;
 
 import java.util.List;

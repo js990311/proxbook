@@ -9,7 +9,7 @@ import com.proxbook.finder.domain.library.entity.Library;
 public interface BookUpdateService {
     /**
      * entity의 내부 정보를 확인하여 update가 필요한 지 확인
-     * @param bookId book entity의 id
+     * @param book update가 필요한 book
      * @return update가 필요한 지 여부
      */
     public boolean needUpdate(Book book);

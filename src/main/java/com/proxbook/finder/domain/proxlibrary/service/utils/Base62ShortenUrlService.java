@@ -1,4 +1,4 @@
-package com.proxbook.finder.application.service.utils;
+package com.proxbook.finder.domain.proxlibrary.service.utils;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

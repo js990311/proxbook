@@ -1,4 +1,4 @@
-package com.proxbook.finder.application.service.utils;
+package com.proxbook.finder.domain.proxlibrary.service.utils;
 
 public interface ShortenUrlService {
     public String encodeUrl(Long id);

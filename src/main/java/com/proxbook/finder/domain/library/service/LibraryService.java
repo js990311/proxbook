@@ -1,13 +1,16 @@
 package com.proxbook.finder.domain.library.service;
 
+import com.proxbook.finder.domain.library.dto.LibraryDto;
 import com.proxbook.finder.domain.library.entity.Library;
 
 import java.util.List;
 
+/**
+ * ProxLibraryService가 더 많이 사용됨
+ */
+@Deprecated
 public interface LibraryService {
-    public List<Library> findByGeo(double latitude, double longtitude, double distance_range);
-    public List<Library> searchLibraryByBookId(String bookId);
-    public List<Library> filterLibrariesByGeo(List<Library> libraries, double latitude, double longtitude, double distance);
-
-    public List<Library> findByLibraryIds(List<String> libraryIds);
+    public List<LibraryDto> findByGeo(double latitude, double longtitude, double range);
+    public List<LibraryDto> searchLibraryByBookId(String bookId);
+    public List<LibraryDto> findByLibraryIds(List<String> libraryIds);
 }

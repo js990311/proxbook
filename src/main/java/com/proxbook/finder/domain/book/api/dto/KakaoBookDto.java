@@ -1,4 +1,4 @@
-package com.proxbook.finder.api.book.dto;
+package com.proxbook.finder.domain.book.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

@@ -1,15 +1,12 @@
 package com.proxbook.finder.domain.book.service;
 
-import com.proxbook.finder.api.book.dto.KakaoBookDto;
-import com.proxbook.finder.api.book.service.KakaoBookService;
-import com.proxbook.finder.domain.book.dto.KakaoUpdateBookDto;
+import com.proxbook.finder.domain.book.dto.BookDto;
 import com.proxbook.finder.domain.book.dto.UpdateBookDto;
 import com.proxbook.finder.domain.book.entity.Book;
 import com.proxbook.finder.domain.book.repository.BookRepository;
 import com.proxbook.finder.domain.book.service.update.BookUpdateSourceService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,20 +38,24 @@ public class BookServiceImpl implements BookUpdateService, BookService{
     }
 
     @Override
-    public List<Book> findBookByTitle(String title) {
+    public List<BookDto> findBookByTitle(String title) {
         List<Book> books = bookRepository.findByTitle(title);
 //        for(Book book : books){
 //            if(needUpdate(book))
 //                updateBook(book);
 //        }
-        return books;
+        return books.stream().map(this::convertBookDto).toList();
     }
 
     @Override
-    public Book findBookById(String id) {
+    public BookDto findBookById(String id) {
         Book book = bookRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         if(needUpdate(book))
             book = updateBook(book);
-        return book;
+        return convertBookDto(book);
+    }
+
+    private BookDto convertBookDto(Book book){
+        return new BookDto(book);
     }
 }
