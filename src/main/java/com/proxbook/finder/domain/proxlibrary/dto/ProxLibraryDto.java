@@ -3,6 +3,7 @@ package com.proxbook.finder.domain.proxlibrary.dto;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
 import com.proxbook.finder.domain.proxlibrary.entity.ProxLibrary;
 import com.proxbook.finder.domain.proxlibrary.entity.UserProxLibrary;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
@@ -16,4 +17,5 @@ public class ProxLibraryDto {
         this.library = new LibraryDto(proxLibrary.getLibrary());
         this.distance = proxLibrary.getDistance();
     }
+
 }

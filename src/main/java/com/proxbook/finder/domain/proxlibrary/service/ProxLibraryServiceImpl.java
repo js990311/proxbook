@@ -20,7 +20,7 @@ public class ProxLibraryServiceImpl implements ProxLibraryService{
     private final DistanceCalculator distanceCalculator;
 
     @Override
-    public List<ProxLibrary> saveProxLibraryByGeo(double latitude, double longitude, double range) {
+    public List<ProxLibrary> createProxLibraryByGeo(double latitude, double longitude, double range) {
         List<Library> libraries = libraryRepository.findAll();
 
         List<ProxLibrary> proxLibraries = new ArrayList<>();
@@ -42,7 +42,7 @@ public class ProxLibraryServiceImpl implements ProxLibraryService{
     }
 
     @Override
-    public List<ProxLibrary> saveProxLibraryByBookIdAndGeo(String bookId, double latitude, double longitude, double range) {
+    public List<ProxLibrary> createProxLibraryByBookIdAndGeo(String bookId, double latitude, double longitude, double range) {
         List<Library> libraries = libraryRepository.findLibrariesByBookId(bookId);
         List<ProxLibrary> proxLibraries = new ArrayList<>();
         for(Library library : libraries){
@@ -63,7 +63,7 @@ public class ProxLibraryServiceImpl implements ProxLibraryService{
     }
 
     @Override
-    public List<ProxLibrary> findProxLibraryByUserProxLibraryId(Long userProxLibraryId) {
+    public List<ProxLibrary> readProxLibraryByUserProxLibraryId(Long userProxLibraryId) {
         List<ProxLibrary> proxLibraries = proxLibraryRepository.findByUserProxLibraryIdOrderByDistance(userProxLibraryId);
         return proxLibraries;
     }

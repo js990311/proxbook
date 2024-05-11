@@ -23,8 +23,8 @@ public class LibraryController {
     }
 
     @PostMapping("/prox-library")
-    public String proxLibrary(@RequestBody LibraryForm form, Model model, HttpSession session){
-        UserProxLibraryDto userProxLibraryDto = userProxLibraryService.saveUserProxLibraryByGeo(
+    public String postProxLibrary(@RequestBody LibraryForm form, Model model){
+        UserProxLibraryDto userProxLibraryDto = userProxLibraryService.createUserProxLibraryByGeo(
                 form.getLatitude(),
                 form.getLongitude(),
                 10.0 // range는 추후 추가

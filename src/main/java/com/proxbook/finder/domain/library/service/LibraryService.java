@@ -10,7 +10,7 @@ import java.util.List;
  */
 @Deprecated
 public interface LibraryService {
-    public List<LibraryDto> findByGeo(double latitude, double longtitude, double range);
-    public List<LibraryDto> searchLibraryByBookId(String bookId);
-    public List<LibraryDto> findByLibraryIds(List<String> libraryIds);
+    public List<LibraryDto> readLibraryByGeo(double latitude, double longtitude, double range);
+    public List<LibraryDto> readLibraryByBookId(String bookId);
+    public List<LibraryDto> readLibraryByLibraryIds(List<String> libraryIds);
 }

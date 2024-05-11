@@ -31,14 +31,15 @@ public class BookServiceImpl implements BookUpdateService, BookService{
     public Book updateBook(Book book) {
         try {
             UpdateBookDto updateBookDto = bookUpdateSourceService.getBookSourceByIsbn(book.getId());
-            return Book.updateBookInfo(book, updateBookDto);
+            book.updateBookInfo(updateBookDto);
+            return book.updateBookInfo(updateBookDto);
         }catch (RuntimeException e){
             return book;
         }
     }
 
     @Override
-    public List<BookDto> findBookByTitle(String title) {
+    public List<BookDto> readBookByTitle(String title) {
         List<Book> books = bookRepository.findByTitle(title);
 //        for(Book book : books){
 //            if(needUpdate(book))
@@ -48,14 +49,16 @@ public class BookServiceImpl implements BookUpdateService, BookService{
     }
 
     @Override
-    public BookDto findBookById(String id) {
-        Book book = bookRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    public BookDto readBookByBookId(String bookId) {
+        Book book = bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
         if(needUpdate(book))
             book = updateBook(book);
         return convertBookDto(book);
     }
 
     private BookDto convertBookDto(Book book){
-        return new BookDto(book);
+        return BookDto.builder()
+                .setBook(book)
+                .build();
     }
 }

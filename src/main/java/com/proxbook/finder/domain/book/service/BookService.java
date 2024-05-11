@@ -6,6 +6,6 @@ import com.proxbook.finder.domain.book.entity.Book;
 import java.util.List;
 
 public interface BookService {
-    public List<BookDto> findBookByTitle(String title);
-    public BookDto findBookById(String id);
+    public List<BookDto> readBookByTitle(String title);
+    public BookDto readBookByBookId(String bookId);
 }

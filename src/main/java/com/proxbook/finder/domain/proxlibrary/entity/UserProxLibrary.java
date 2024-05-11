@@ -63,6 +63,10 @@ public class UserProxLibrary{
         this.proxLibraries = proxLibraries;
     }
 
+    public static Builder builder(){
+        return new Builder();
+    }
+
     /**
      * Builder for UserProxLibrary
      */

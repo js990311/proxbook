@@ -13,13 +13,13 @@ public class UserProxLibraryController {
     private final UserProxLibraryService userProxLibraryService;
 
     @GetMapping("/")
-    public String index(){
+    public String getIndex(){
         return "index";
     }
 
     @GetMapping("/s/{shorten-url}")
-    public String getUserProxLibrary(@PathVariable("shorten-url") String url, Model model){
-        UserProxLibraryDto userProxLibraryDto = userProxLibraryService.findUserProxLibraryByShortenUrl(url);
+    public String getShortenUrl(@PathVariable("shorten-url") String url, Model model){
+        UserProxLibraryDto userProxLibraryDto = userProxLibraryService.readUserProxLibraryByShortenUrl(url);
         model.addAttribute("userProxLibrary", userProxLibraryDto);
         return "user-prox-library";
     }

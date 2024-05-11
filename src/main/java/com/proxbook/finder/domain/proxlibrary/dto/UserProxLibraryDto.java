@@ -24,7 +24,10 @@ public class UserProxLibraryDto {
         this.latitude = latitude;
         this.longitude = longitude;
         this.range = range;
+    }
 
+    public static Builder builder(){
+        return new Builder();
     }
 
     public static class Builder{
@@ -62,7 +65,7 @@ public class UserProxLibraryDto {
 
         public Builder setBook(Book book) {
             if(book!=null)
-                this.book = new BookDto(book);
+                this.book = BookDto.builder().setBook(book).build();
             return this;
         }
 

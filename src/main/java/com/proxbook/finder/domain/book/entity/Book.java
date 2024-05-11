@@ -33,16 +33,12 @@ public class Book {
     @Column(name = "book_info_url")
     private String bookInfoUrl;
     
-    void updateBookInfo(UpdateBookDto updateBookDto){
+    public Book updateBookInfo(UpdateBookDto updateBookDto){
         this.publisher = updateBookDto.getPublisher();
         this.publishYear = updateBookDto.getPublishYear();
         this.description = updateBookDto.getDescription();
         this.thumbnailUrl = updateBookDto.getThumbnailUrl();
         this.bookInfoUrl = updateBookDto.getBookInfoUrl();
-    }
-
-    public static Book updateBookInfo(Book book, UpdateBookDto updateBookDto){
-        book.updateBookInfo(updateBookDto);
-        return book;
+        return this;
     }
 }

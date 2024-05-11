@@ -22,19 +22,19 @@ public class LibraryServiceImpl implements LibraryService {
     private final DistanceCalculator distanceCalculator;
 
     @Override
-    public List<LibraryDto> findByGeo(double latitude, double longitude, double distance_range) {
+    public List<LibraryDto> readLibraryByGeo(double latitude, double longitude, double distance_range) {
         List<Library> libraries = libraryRepository.findAll();
         return filterLibrariesByGeo(libraries, latitude, longitude, distance_range).stream().map(this::convertLibraryDto).toList();
     }
 
     @Override
-    public List<LibraryDto> searchLibraryByBookId(String bookId) {
+    public List<LibraryDto> readLibraryByBookId(String bookId) {
         List<String> librariesId = libraryBookRepository.findLibraryIdByBookId(bookId);
         return libraryRepository.findLibrariesByIdList(librariesId).stream().map(this::convertLibraryDto).toList();
     }
 
     @Override
-    public List<LibraryDto> findByLibraryIds(List<String> libraryIds) {
+    public List<LibraryDto> readLibraryByLibraryIds(List<String> libraryIds) {
         return libraryRepository.findLibrariesByIdList(libraryIds).stream().map(this::convertLibraryDto).toList();
     }
 

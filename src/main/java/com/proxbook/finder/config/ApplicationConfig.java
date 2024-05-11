@@ -10,11 +10,6 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class ApplicationConfig {
 
-//    @Bean
-//    public RestTemplate restTemplate(){
-//        return new RestTemplate();
-//    }
-
     @Value("${kakao.api.key}")
     private String KAKAO_REST_API_KEY;
 

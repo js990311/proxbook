@@ -27,6 +27,3 @@ logging:
     org.hibernate.SQL: DEBUG
     com.proxbook.finder : DEBUG
     web: DEBUG
-
-shorten:
-  hostname: ${SHORTEN_HOSTNAME}

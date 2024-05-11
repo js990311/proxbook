@@ -8,11 +8,6 @@ public class Base62ShortenUrlService implements ShortenUrlService{
     private final String BASE62_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private final Long BASE = (long) BASE62_CHARS.length();
 
-    @Value("${shorten.hostname}")
-    private String KAKAO_REST_API_KEY;
-
-
-
     @Override
     public String encodeUrl(Long id) {
         StringBuilder sb = new StringBuilder();

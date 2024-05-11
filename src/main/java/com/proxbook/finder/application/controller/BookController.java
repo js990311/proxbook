@@ -22,24 +22,24 @@ public class BookController {
     private final UserProxLibraryService userProxLibraryService;
 
     @GetMapping("/search")
-    public String searchBook(@RequestParam(value = "title", required = false) String title, Model model){
+    public String getBookSearch(@RequestParam(value = "title", required = false) String title, Model model){
         if(title!=null) {
-            List<BookDto> books = bookService.findBookByTitle(title);
+            List<BookDto> books = bookService.readBookByTitle(title);
             model.addAttribute("books", books);
         }
         return "bookSearch";
     }
 
     @GetMapping("/{bookId}")
-    public String bookById(@PathVariable("bookId") String bookId, Model model){
-        BookDto book = bookService.findBookById(bookId);
+    public String getBookByBookId(@PathVariable("bookId") String bookId, Model model){
+        BookDto book = bookService.readBookByBookId(bookId);
         model.addAttribute("book", book);
         return "book";
     }
 
     @PostMapping("/prox-book")
-    public String createProxBook(@RequestBody LibraryBookForm form, Model model){
-        UserProxLibraryDto userProxLibraryDto = userProxLibraryService.saveUserProxLibraryByBookIdAndGeo(
+    public String postProxBook(@RequestBody LibraryBookForm form, Model model){
+        UserProxLibraryDto userProxLibraryDto = userProxLibraryService.createUserProxLibraryByBookIdAndGeo(
                 form.getBookId(),
                 form.getLatitude(),
                 form.getLongitude(),

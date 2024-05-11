@@ -5,9 +5,9 @@ import com.proxbook.finder.domain.proxlibrary.entity.UserProxLibrary;
 
 public interface UserProxLibraryService {
 
-    public UserProxLibraryDto saveUserProxLibraryByGeo(double latitude, double longitude, double range);
+    public UserProxLibraryDto createUserProxLibraryByGeo(double latitude, double longitude, double range);
 
-    public UserProxLibraryDto saveUserProxLibraryByBookIdAndGeo(String bookId, double latitude, double longitude, double range);
+    public UserProxLibraryDto createUserProxLibraryByBookIdAndGeo(String bookId, double latitude, double longitude, double range);
 
-    public UserProxLibraryDto findUserProxLibraryByShortenUrl(String url);
+    public UserProxLibraryDto readUserProxLibraryByShortenUrl(String url);
 }
