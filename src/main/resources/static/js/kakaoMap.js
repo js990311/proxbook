@@ -47,6 +47,7 @@ const kakaoMap = () => {
                 map.setCenter(
                     marker.getPosition()
                 );
+                map.setLevel(3);
             };
         });
 
@@ -54,4 +55,15 @@ const kakaoMap = () => {
     }); /* end of kakao.maps.load*/
 }
 
-// 지도 생성 로직
+// shorten url 복사 로직
+const copyUrl = () => {
+    let path = $("#shorten-url").text();
+    let url = `${window.location.host}${path}`;
+    navigator.clipboard.writeText(url)
+        .then(function() {
+            console.log(url);
+        })
+        .catch(function(err) {
+            console.error('clipboard copy error', err);
+        });
+}
