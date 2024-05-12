@@ -1,8 +1,14 @@
-<ul id="lib-ul" th:fragment="libraryList(libraries)">
-    <li th:each="proxLibrary : ${libraries}" th:id="${proxLibrary.library.libraryCode}" th:data-lat="${proxLibrary.library.latitude}" th:data-lng="${proxLibrary.library.longitude}">
-        <p th:text="${proxLibrary.library.name}">도서관 제목</p>
+<ul id="lib-ul" th:fragment="libraryList(libraries)" class="list-group list-group-flush border-bottom scrollarea">
+    <li th:each="proxLibrary : ${libraries}" th:id="${proxLibrary.library.libraryCode}" th:data-lat="${proxLibrary.library.latitude}" th:data-lng="${proxLibrary.library.longitude}" class="list-group-item list-group-item-action py-3 lh-sm w-100">
+        <p>
+            <strong th:text="${proxLibrary.library.name}">
+                도서관 제목
+            </strong>
+        </p>
+        <div>
+            거리 : <span th:text="${#numbers.formatDecimal(proxLibrary.distance, 1,2)}">거리</span> km
+        </div>
         <p th:text="${proxLibrary.library.address}">도서관 주소</p>
-        <a th:href="${proxLibrary.library.webpage}">도서관 홈페이지로 가기</a>
-        <p th:text="${proxLibrary.distance}">거리</p>
+        <a th:href="${proxLibrary.library.webpage}" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" target="_blank">도서관 홈페이지로 가기</a>
     </li>
 </ul>
