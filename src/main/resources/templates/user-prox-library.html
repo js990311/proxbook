@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>UserProxLibrary</title>
+    <th:block th:replace="fragments/static/static-import.html::css"></th:block>
 </head>
 <body>
-<!-- shorten service -->
-<div th:replace="fragments/shorten-url.html::shorten(${userProxLibrary.url})"></div>
-<div th:replace="${userProxLibrary.book} ? ~{fragments/book.html::book(${userProxLibrary.book})} : _"></div>
-<div th:replace="fragments/libraries-with-map.html::libraryWithMap(${userProxLibrary})"></div>
-</body>
+<!-- nav -->
+<nav th:replace="fragments/nav.html::nav"></nav>
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e48295ca4d3ba331a2260d45fe05f230&autoload=false"></script>
-<script th:src="@{/js/kakaoMap.js}"></script>
+<div class="container">
+    <!-- shorten service -->
+    <div th:replace="fragments/shorten-url.html::shorten(${userProxLibrary.url})"></div>
+    <div th:replace="${userProxLibrary.book} ? ~{fragments/book.html::book(${userProxLibrary.book})} : _"></div>
+    <div th:replace="fragments/libraries-with-map.html::libraryWithMap(${userProxLibrary})"></div>
+</div>
+
+<th:block th:replace="fragments/static/static-import.html::js"></th:block>
 <script th:src="@{/js/userProxLibrary.js}"></script>
+</body>
 </html>

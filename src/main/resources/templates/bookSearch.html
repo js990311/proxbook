@@ -3,18 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>책검색서비스</title>
+    <th:block th:replace="fragments/static/static-import.html::css"></th:block>
 </head>
 <body>
-<!-- 책 검색 페이지 -->
-<form action="/book/search" method="get">
-    <label for="title">책 제목 검색</label>
-    <input type="text" id="title" name="title">
-    <button type="submit">검색하기</button>
-</form>
-<ul th:if="${books}">
-    <li th:each="book:${books}">
-        <a th:href="@{/book/{bookId}(bookId=${book.isbn})}" th:text="${book.title}"></a>
-    </li>
-</ul>
+<!-- nav -->
+<nav th:replace="fragments/nav.html::nav"></nav>
+
+<div class="container">
+    <!-- 책 검색 페이지 -->
+    <form action="/book/search" method="get">
+        <label for="title">책 제목 검색</label>
+        <input type="text" id="title" name="title">
+        <button type="submit">검색하기</button>
+    </form>
+    <ul th:if="${books}">
+        <li th:each="book:${books}">
+            <a th:href="@{/book/{bookId}(bookId=${book.isbn})}" th:text="${book.title}"></a>
+        </li>
+    </ul>
+</div>
+
+<th:block th:replace="fragments/static/static-import.html::min-js"></th:block>
+
 </body>
 </html>

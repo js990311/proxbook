@@ -3,20 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>book info</title>
+    <th:block th:replace="fragments/static/static-import.html::css"></th:block>
 </head>
 <body>
-<!-- 책에 대한 정보 + 이 책을 소장하는 도서관 찾기 -->
-<div th:replace="fragments/book.html :: book(${book})">
+<!-- nav -->
+<nav th:replace="fragments/nav.html::nav"></nav>
+
+<div class="container">
+    <!-- 책에 대한 정보 + 이 책을 소장하는 도서관 찾기 -->
+    <div th:replace="fragments/book.html :: book(${book})">
+    </div>
+
+    <div>
+        <button id="prox-book">책을 가지고 있는 근처 도서관 검색하기</button>
+    </div>
+
+    <div id="result">
+        <!-- 여기에 KakaoMap과 도서관이 들어옴 -->
+    </div>
 </div>
 
-<div>
-    <button id="prox-book">책을 가지고 있는 근처 도서관 검색하기</button>
-</div>
-<div id="result">
-</div>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e48295ca4d3ba331a2260d45fe05f230&autoload=false"></script>
-<script th:src="@{/js/kakaoMap.js}"></script>
+<th:block th:replace="fragments/static/static-import.html::js"></th:block>
 <script th:src="@{/js/proxBook.js}"></script>
 </body>
 </html>

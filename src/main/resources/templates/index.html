@@ -3,10 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>책검색서비스</title>
+
+    <th:block th:replace="fragments/static/static-import.html::css"></th:block>
 </head>
 <body>
-<!-- 메인 페이지 -->
-<a href="/book/search">책 검색하러 가기</a>
-<a href="/library/prox-library">내 주변 도서관 검색하기</a>
+<!-- nav -->
+<nav th:replace="fragments/nav.html::nav"></nav>
+<div class="container">
+    <!-- 메인 페이지 -->
+    <a href="/book/search">책 검색하러 가기</a>
+    <a href="/library/prox-library">내 주변 도서관 검색하기</a>
+</div>
+<th:block th:replace="fragments/static/static-import.html::min-js"></th:block>
 </body>
 </html>
