@@ -1,10 +1,15 @@
 package com.proxbook.finder.domain.library.service;
 
+import com.proxbook.finder.domain.book.dto.BookDto;
+import com.proxbook.finder.domain.book.entity.Book;
+import com.proxbook.finder.domain.book.repository.BookRepository;
+import com.proxbook.finder.domain.library.dto.LibraryBookDto;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
 import com.proxbook.finder.domain.library.entity.Library;
 import com.proxbook.finder.domain.library.repository.LibraryRepository;
 import com.proxbook.finder.domain.library.service.utils.DistanceCalculator;
 import com.proxbook.finder.domain.librarybook.repository.LibraryBookRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,6 +23,7 @@ import java.util.List;
 public class LibraryServiceImpl implements LibraryService {
     private final LibraryRepository libraryRepository;
     private final LibraryBookRepository libraryBookRepository;
+    private final BookRepository bookRepository;
     private final DistanceCalculator distanceCalculator;
 
     @Override
@@ -35,6 +41,20 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public List<LibraryDto> readLibraryByLibraryName(String libraryName) {
         return libraryRepository.findLibrariesByName(libraryName).stream().map(this::convertLibraryDto).toList();
+    }
+
+    @Override
+    public LibraryBookDto readLibraryBooksByLibraryId(Long libraryId) {
+        Library library = libraryRepository.findById(libraryId).orElseThrow(EntityNotFoundException::new);
+        List<Book> libraryBooks = bookRepository.findLibraryBooksByLibraryId(libraryId);
+        return LibraryBookDto.builder()
+                .setLibrary(convertLibraryDto(library))
+                .setBooks(libraryBooks.stream().map((book)->{
+                    return BookDto.builder()
+                            .setBook(book)
+                            .build();
+                }).toList())
+                .build();
     }
 
     @Override

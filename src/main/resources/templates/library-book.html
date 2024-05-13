@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>
+        도서관 소장도서
+    </title>
+    <th:block th:replace="fragments/static/static-import.html::css"></th:block>
+</head>
+<body>
+<!-- nav -->
+<nav th:replace="fragments/nav.html::nav"></nav>
+
+<div class="container">
+    <div id="library">
+        <p th:text="${libraryBooks.library.name}">
+            {도서관이름}
+        </p>
+        <a th:href="${libraryBooks.library.webpage}">
+            홈페이지로 가기
+        </a>
+    </div>
+    <div id="books">
+        <div th:each="book : ${libraryBooks.books}">
+            <a th:href="@{/book/{bookId}(bookId=${book.isbn})}">
+                <span th:text="${book.title}">{책제목}</span>
+            </a>
+            <p th:text="${book.isbn}">{isbn}</p>
+        </div>
+    </div>
+</div>
+<th:block th:replace="fragments/static/static-import.html::js"></th:block>
+</body>
+</html>

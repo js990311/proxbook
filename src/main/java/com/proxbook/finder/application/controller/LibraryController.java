@@ -2,6 +2,7 @@ package com.proxbook.finder.application.controller;
 
 import com.proxbook.finder.application.form.LibraryForm;
 import com.proxbook.finder.domain.book.dto.BookDto;
+import com.proxbook.finder.domain.library.dto.LibraryBookDto;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
 import com.proxbook.finder.domain.library.dto.LibrarySearchDto;
 import com.proxbook.finder.domain.library.entity.Library;
@@ -52,5 +53,12 @@ public class LibraryController {
             model.addAttribute("searchedLibraries", searchedLibraries);
         }
         return "librarySearch";
+    }
+
+    @GetMapping("/{id}")
+    public String getLibraryBook(@PathVariable("id") Long id, Model model){
+        LibraryBookDto libraryBooks = libraryService.readLibraryBooksByLibraryId(id);
+        model.addAttribute("libraryBooks", libraryBooks);
+        return "library-book";
     }
 }

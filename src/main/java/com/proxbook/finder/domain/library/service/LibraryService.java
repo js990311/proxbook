@@ -1,5 +1,6 @@
 package com.proxbook.finder.domain.library.service;
 
+import com.proxbook.finder.domain.library.dto.LibraryBookDto;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
 import com.proxbook.finder.domain.library.entity.Library;
 
@@ -16,4 +17,11 @@ public interface LibraryService {
 
     public List<LibraryDto> readLibraryByBookId(Long bookId);
     public List<LibraryDto> readLibraryByLibraryName(String libraryName);
+
+    /**
+     * 해당 도서관의 소장 도서를 가져옴
+     * @param libraryId
+     * @return
+     */
+    public LibraryBookDto readLibraryBooksByLibraryId(Long libraryId);
 }
