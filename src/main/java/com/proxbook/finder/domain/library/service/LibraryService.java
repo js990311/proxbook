@@ -8,9 +8,12 @@ import java.util.List;
 /**
  * ProxLibraryService가 더 많이 사용됨
  */
-@Deprecated
 public interface LibraryService {
+    @Deprecated
     public List<LibraryDto> readLibraryByGeo(double latitude, double longtitude, double range);
-    public List<LibraryDto> readLibraryByBookId(String bookId);
+    @Deprecated
     public List<LibraryDto> readLibraryByLibraryIds(List<String> libraryIds);
+
+    public List<LibraryDto> readLibraryByBookId(String bookId);
+    public List<LibraryDto> readLibraryByLibraryName(String libraryName);
 }

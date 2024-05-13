@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>책검색서비스</title>
+    <th:block th:replace="fragments/static/static-import.html::css"></th:block>
+</head>
+<body>
+<!-- nav -->
+<nav th:replace="fragments/nav.html::nav"></nav>
+
+<div class="container">
+    <!-- 책 검색 페이지 -->
+    <form action="/library/search" method="get">
+        <label for="name">도서관 검색</label>
+        <input type="text" id="name" name="name">
+        <button type="submit">검색하기</button>
+    </form>
+    <th:block th:if="${searchedLibraries}">
+        <div th:replace="fragments/libraries-with-map.html::searchedLibraryWithMap(${searchedLibraries})"></div>
+    </th:block>
+</div>
+
+<th:block th:replace="fragments/static/static-import.html::js"></th:block>
+<script th:src="@{/js/userProxLibrary.js}"></script>
+
+</body>
+</html>

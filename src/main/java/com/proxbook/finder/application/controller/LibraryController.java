@@ -1,6 +1,11 @@
 package com.proxbook.finder.application.controller;
 
 import com.proxbook.finder.application.form.LibraryForm;
+import com.proxbook.finder.domain.book.dto.BookDto;
+import com.proxbook.finder.domain.library.dto.LibraryDto;
+import com.proxbook.finder.domain.library.dto.LibrarySearchDto;
+import com.proxbook.finder.domain.library.entity.Library;
+import com.proxbook.finder.domain.library.service.LibraryService;
 import com.proxbook.finder.domain.proxlibrary.dto.UserProxLibraryDto;
 import com.proxbook.finder.domain.proxlibrary.service.UserProxLibraryService;
 import jakarta.servlet.http.HttpSession;
@@ -10,12 +15,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/library")
 @Controller
 public class LibraryController {
     private final UserProxLibraryService userProxLibraryService;
+    private final LibraryService libraryService;
 
     @GetMapping("/prox-library")
     public String getProxLibrary(){
@@ -32,5 +40,17 @@ public class LibraryController {
         model.addAttribute("userProxLibrary", userProxLibraryDto);
         model.addAttribute("libraries", userProxLibraryDto.getLibraries());
         return "fragments/prox-library";
+    }
+
+    @GetMapping("/search")
+    public String getBookSearch(@RequestParam(value = "name", required = false) String name, Model model){
+        if(name!=null) {
+            List<LibraryDto> libraries = libraryService.readLibraryByLibraryName(name);
+            LibrarySearchDto searchedLibraries = LibrarySearchDto.builder()
+                    .setLibraries(libraries)
+                    .build();
+            model.addAttribute("searchedLibraries", searchedLibraries);
+        }
+        return "librarySearch";
     }
 }

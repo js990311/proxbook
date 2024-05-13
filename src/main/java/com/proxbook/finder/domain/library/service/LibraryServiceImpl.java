@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@Deprecated
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -31,6 +30,11 @@ public class LibraryServiceImpl implements LibraryService {
     public List<LibraryDto> readLibraryByBookId(String bookId) {
         List<String> librariesId = libraryBookRepository.findLibraryIdByBookId(bookId);
         return libraryRepository.findLibrariesByIdList(librariesId).stream().map(this::convertLibraryDto).toList();
+    }
+
+    @Override
+    public List<LibraryDto> readLibraryByLibraryName(String libraryName) {
+        return libraryRepository.findLibrariesByName(libraryName).stream().map(this::convertLibraryDto).toList();
     }
 
     @Override
