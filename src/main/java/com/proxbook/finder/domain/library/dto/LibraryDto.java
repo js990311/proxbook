@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class LibraryDto {
-    private String libraryCode;
+    private Long libraryCode;
     private String name;
     private String address;
     private String webpage;

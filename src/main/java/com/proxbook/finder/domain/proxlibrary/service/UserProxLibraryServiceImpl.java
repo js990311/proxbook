@@ -44,7 +44,7 @@ public class UserProxLibraryServiceImpl implements UserProxLibraryService {
     }
 
     @Override
-    public UserProxLibraryDto createUserProxLibraryByBookIdAndGeo(String bookId, double latitude, double longitude, double range) {
+    public UserProxLibraryDto createUserProxLibraryByBookIdAndGeo(Long bookId, double latitude, double longitude, double range) {
         List<ProxLibrary> proxLibraries = proxLibraryService.createProxLibraryByBookIdAndGeo(bookId,latitude, longitude, range);
         Book book = bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
 

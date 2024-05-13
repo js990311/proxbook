@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class LibraryBookForm {
-    private String bookId;
+    private Long bookId;
     private double latitude;
     private double longitude;
 }

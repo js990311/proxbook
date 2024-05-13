@@ -12,7 +12,7 @@ import lombok.Getter;
 public class Library {
     @Id
     @Column(name = "library_id")
-    private String id;
+    private Long id;
 
     @Column
     private String name;

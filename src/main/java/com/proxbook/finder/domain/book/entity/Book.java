@@ -13,7 +13,7 @@ import lombok.Getter;
 public class Book {
     @Id
     @Column(name = "book_id")
-    private String id;
+    private Long id; // isbn
 
     @Column
     private String title;
@@ -40,5 +40,9 @@ public class Book {
         this.thumbnailUrl = updateBookDto.getThumbnailUrl();
         this.bookInfoUrl = updateBookDto.getBookInfoUrl();
         return this;
+    }
+
+    public String getIsbn(){
+        return id.toString();
     }
 }

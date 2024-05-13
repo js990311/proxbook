@@ -42,7 +42,7 @@ public class ProxLibraryServiceImpl implements ProxLibraryService{
     }
 
     @Override
-    public List<ProxLibrary> createProxLibraryByBookIdAndGeo(String bookId, double latitude, double longitude, double range) {
+    public List<ProxLibrary> createProxLibraryByBookIdAndGeo(Long bookId, double latitude, double longitude, double range) {
         List<Library> libraries = libraryRepository.findLibrariesByBookId(bookId);
         List<ProxLibrary> proxLibraries = new ArrayList<>();
         for(Library library : libraries){

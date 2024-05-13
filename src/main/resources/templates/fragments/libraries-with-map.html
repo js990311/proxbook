@@ -5,7 +5,7 @@
             <strong>도서관 개수 = <span th:text="${userProxLibrary.count}">도서관 카운트</span></strong>
         </div>
         <div >
-            <ul th:replace="fragments/library-list.html :: libraryList(${userProxLibrary.libraries})"></ul>
+            <ul th:replace="fragments/library-list.html :: proxLibraryList(${userProxLibrary.libraries})"></ul>
         </div>
     </div>
 </div>

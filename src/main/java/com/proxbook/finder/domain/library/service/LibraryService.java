@@ -12,8 +12,8 @@ public interface LibraryService {
     @Deprecated
     public List<LibraryDto> readLibraryByGeo(double latitude, double longtitude, double range);
     @Deprecated
-    public List<LibraryDto> readLibraryByLibraryIds(List<String> libraryIds);
+    public List<LibraryDto> readLibraryByLibraryIds(List<Long> libraryIds);
 
-    public List<LibraryDto> readLibraryByBookId(String bookId);
+    public List<LibraryDto> readLibraryByBookId(Long bookId);
     public List<LibraryDto> readLibraryByLibraryName(String libraryName);
 }

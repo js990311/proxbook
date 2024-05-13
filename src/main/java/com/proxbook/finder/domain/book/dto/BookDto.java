@@ -42,7 +42,7 @@ public class BookDto {
 
         public Builder setBook(Book book){
             this
-                    .setIsbn(book.getId())
+                    .setIsbn(book.getIsbn())
                     .setTitle(book.getTitle())
                     .setPublisher(book.getPublisher())
                     .setPublishYear(book.getPublishYear())

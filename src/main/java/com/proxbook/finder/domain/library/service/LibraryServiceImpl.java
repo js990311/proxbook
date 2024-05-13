@@ -27,8 +27,8 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public List<LibraryDto> readLibraryByBookId(String bookId) {
-        List<String> librariesId = libraryBookRepository.findLibraryIdByBookId(bookId);
+    public List<LibraryDto> readLibraryByBookId(Long bookId) {
+        List<Long> librariesId = libraryBookRepository.findLibraryIdByBookId(bookId);
         return libraryRepository.findLibrariesByIdList(librariesId).stream().map(this::convertLibraryDto).toList();
     }
 
@@ -38,7 +38,7 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public List<LibraryDto> readLibraryByLibraryIds(List<String> libraryIds) {
+    public List<LibraryDto> readLibraryByLibraryIds(List<Long> libraryIds) {
         return libraryRepository.findLibrariesByIdList(libraryIds).stream().map(this::convertLibraryDto).toList();
     }
 

@@ -30,7 +30,7 @@ public class BookServiceImpl implements BookUpdateService, BookService{
     @Override
     public Book updateBook(Book book) {
         try {
-            UpdateBookDto updateBookDto = bookUpdateSourceService.getBookSourceByIsbn(book.getId());
+            UpdateBookDto updateBookDto = bookUpdateSourceService.getBookSourceByIsbn(book.getIsbn());
             book.updateBookInfo(updateBookDto);
             return book.updateBookInfo(updateBookDto);
         }catch (RuntimeException e){
@@ -49,7 +49,7 @@ public class BookServiceImpl implements BookUpdateService, BookService{
     }
 
     @Override
-    public BookDto readBookByBookId(String bookId) {
+    public BookDto readBookByBookId(Long bookId) {
         Book book = bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
         if(needUpdate(book))
             book = updateBook(book);

@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface BookService {
     public List<BookDto> readBookByTitle(String title);
-    public BookDto readBookByBookId(String bookId);
+    public BookDto readBookByBookId(Long bookId);
 }
