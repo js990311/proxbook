@@ -57,8 +57,6 @@ public class BookServiceImpl implements BookUpdateService, BookService{
     }
 
     private BookDto convertBookDto(Book book){
-        return BookDto.builder()
-                .setBook(book)
-                .build();
+        return BookDto.from(book);
     }
 }

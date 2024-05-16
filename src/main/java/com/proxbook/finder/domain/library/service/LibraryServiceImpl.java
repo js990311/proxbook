@@ -1,5 +1,6 @@
 package com.proxbook.finder.domain.library.service;
 
+import com.proxbook.finder.aop.annotation.MethodTimeChecker;
 import com.proxbook.finder.domain.book.dto.BookDto;
 import com.proxbook.finder.domain.book.entity.Book;
 import com.proxbook.finder.domain.book.repository.BookRepository;
@@ -38,6 +39,7 @@ public class LibraryServiceImpl implements LibraryService {
         return libraryRepository.findLibrariesByIdList(librariesId).stream().map(this::convertLibraryDto).toList();
     }
 
+    @MethodTimeChecker
     @Override
     public List<LibraryDto> readLibraryByLibraryName(String libraryName) {
         return libraryRepository.findLibrariesByName(libraryName).stream().map(this::convertLibraryDto).toList();
@@ -49,12 +51,13 @@ public class LibraryServiceImpl implements LibraryService {
         List<Book> libraryBooks = bookRepository.findLibraryBooksByLibraryId(libraryId);
         return LibraryBookDto.builder()
                 .setLibrary(convertLibraryDto(library))
-                .setBooks(libraryBooks.stream().map((book)->{
-                    return BookDto.builder()
-                            .setBook(book)
-                            .build();
-                }).toList())
+                .setBooks(libraryBooks.stream().map(BookDto::from).toList())
                 .build();
+    }
+
+    @Override
+    public LibraryBookDto readLibraryBooksByLibraryIdAndBookTitle(Long libraryId, String title) {
+        return null;
     }
 
     @Override
@@ -81,6 +84,6 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     private LibraryDto convertLibraryDto(Library library){
-        return new LibraryDto(library);
+        return LibraryDto.from(library);
     }
 }

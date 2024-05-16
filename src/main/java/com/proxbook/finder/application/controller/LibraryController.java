@@ -6,6 +6,7 @@ import com.proxbook.finder.domain.library.dto.LibraryBookDto;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
 import com.proxbook.finder.domain.library.dto.LibrarySearchDto;
 import com.proxbook.finder.domain.library.entity.Library;
+import com.proxbook.finder.domain.library.service.LibrarySearchService;
 import com.proxbook.finder.domain.library.service.LibraryService;
 import com.proxbook.finder.domain.proxlibrary.dto.UserProxLibraryDto;
 import com.proxbook.finder.domain.proxlibrary.service.UserProxLibraryService;
@@ -25,6 +26,7 @@ import java.util.List;
 public class LibraryController {
     private final UserProxLibraryService userProxLibraryService;
     private final LibraryService libraryService;
+    private final LibrarySearchService librarySearchService;
 
     @GetMapping("/prox-library")
     public String getProxLibrary(){
@@ -46,7 +48,7 @@ public class LibraryController {
     @GetMapping("/search")
     public String getBookSearch(@RequestParam(value = "name", required = false) String name, Model model){
         if(name!=null) {
-            List<LibraryDto> libraries = libraryService.readLibraryByLibraryName(name);
+            List<LibraryDto> libraries = librarySearchService.readLibraryByLibraryName(name);
             LibrarySearchDto searchedLibraries = LibrarySearchDto.builder()
                     .setLibraries(libraries)
                     .build();
@@ -56,8 +58,11 @@ public class LibraryController {
     }
 
     @GetMapping("/{id}")
-    public String getLibraryBook(@PathVariable("id") Long id, Model model){
+    public String getLibraryBook(@PathVariable("id") Long id,
+                                 @RequestParam(value = "title", required = false) String title,
+                                 Model model){
         LibraryBookDto libraryBooks = libraryService.readLibraryBooksByLibraryId(id);
+
         model.addAttribute("libraryBooks", libraryBooks);
         return "library-book";
     }

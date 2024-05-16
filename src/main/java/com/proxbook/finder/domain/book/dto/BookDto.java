@@ -1,6 +1,7 @@
 package com.proxbook.finder.domain.book.dto;
 
 import com.proxbook.finder.domain.book.entity.Book;
+import com.proxbook.finder.domain.book.repository.document.BookDocument;
 import lombok.Getter;
 
 @Getter
@@ -23,6 +24,30 @@ public class BookDto {
         this.bookInfoUrl = bookInfoUrl;
     }
 
+    public static BookDto from(Book book){
+        return builder()
+                .setIsbn(book.getIsbn())
+                .setTitle(book.getTitle())
+                .setPublisher(book.getPublisher())
+                .setPublishYear(book.getPublishYear())
+                .setDescription(book.getDescription())
+                .setThumbnailUrl(book.getThumbnailUrl())
+                .setBookInfoUrl(book.getBookInfoUrl())
+                .build();
+    }
+
+    public static BookDto from(BookDocument book){
+        return builder()
+                .setIsbn(book.getBookId())
+                .setTitle(book.getTitle())
+                .setPublisher(book.getPublisher())
+                .setPublishYear(book.getPublishYear())
+                .setDescription(book.getDescription())
+                .setThumbnailUrl(book.getThumbnailUrl())
+                .setBookInfoUrl(book.getBookInfoUrl())
+                .build();
+    }
+
     public static Builder builder(){
         return new Builder();
     }
@@ -40,15 +65,8 @@ public class BookDto {
             return new BookDto(isbn, title, publisher, publishYear, description, thumbnailUrl, bookInfoUrl);
         }
 
-        public Builder setBook(Book book){
-            this
-                    .setIsbn(book.getIsbn())
-                    .setTitle(book.getTitle())
-                    .setPublisher(book.getPublisher())
-                    .setPublishYear(book.getPublishYear())
-                    .setDescription(book.getDescription())
-                    .setThumbnailUrl(book.getThumbnailUrl())
-                    .setBookInfoUrl(book.getBookInfoUrl());
+        public Builder setIsbn(Long isbn){
+            this.isbn = isbn.toString();
             return this;
         }
 

@@ -65,7 +65,7 @@ public class UserProxLibraryDto {
 
         public Builder setBook(Book book) {
             if(book!=null)
-                this.book = BookDto.builder().setBook(book).build();
+                this.book = BookDto.from(book);
             return this;
         }
 

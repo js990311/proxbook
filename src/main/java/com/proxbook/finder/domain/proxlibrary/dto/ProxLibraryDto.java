@@ -14,7 +14,7 @@ public class ProxLibraryDto {
     private Double distance;
 
     public ProxLibraryDto(ProxLibrary proxLibrary) {
-        this.library = new LibraryDto(proxLibrary.getLibrary());
+        this.library = LibraryDto.from(proxLibrary.getLibrary());
         this.distance = proxLibrary.getDistance();
     }
 
