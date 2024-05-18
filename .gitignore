@@ -38,3 +38,8 @@ out/
 
 ### .env ###
 .env
+
+### test profiles ###
+application-test.yml
+
+docker/logstash/jar/*.jar

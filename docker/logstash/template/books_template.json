@@ -1,0 +1,48 @@
+{
+  "index_patterns" : ["books"],
+  "priority" : 999,
+  "template": {
+    "settings": {
+      "index": {
+        "analysis": {
+          "tokenizer": {
+            "mixed_nori_tokenizer": {
+              "type": "nori_tokenizer",
+              "decompound_mode": "mixed"
+            }
+          },
+          "analyzer": {
+            "nori_analyzer": {
+              "type": "custom",
+              "tokenizer": "mixed_nori_tokenizer"
+            }
+          }
+        },
+        "number_of_shards": "1",
+        "routing": {
+          "allocation": {
+            "include": {
+              "_tier_preference": "data_content"
+            }
+          }
+        }
+      }
+    },
+    "mappings": {
+      "dynamic": "true",
+      "dynamic_date_formats": [
+        "strict_date_optional_time",
+        "yyyy/MM/dd HH:mm:ss Z||yyyy/MM/dd Z"
+      ],
+      "date_detection": true,
+      "numeric_detection": false,
+      "properties": {
+        "title": {
+          "type": "text",
+          "analyzer": "nori_analyzer"
+        }
+      }
+    },
+    "aliases": {}
+  }
+}

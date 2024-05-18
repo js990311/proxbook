@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mariadb://localhost:3306/proxbook?rewriteBatchedStatements=true&profileSQL=true&maxQuerySizeToLog=12345
-    username: admin
-    password: admin
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: org.mariadb.jdbc.Driver
   jpa:
     database-platform: org.hibernate.dialect.MariaDBDialect
@@ -25,7 +25,7 @@ spring:
 
   elasticsearch:
     rest:
-      uris: localhost:9200
+      uris: ${ES_URL}
 
 kakao:
   api:
