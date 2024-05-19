@@ -28,6 +28,7 @@ public class BookController {
         if(title!=null) {
             List<BookDto> books = bookSearchService.readBookByTitle(title);
             model.addAttribute("books", books);
+            model.addAttribute("title", title);
         }
         return "bookSearch";
     }

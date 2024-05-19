@@ -15,17 +15,24 @@
         <div class="input-group mb-3">
             <span class="input-group-text">책 검색</span>
             <div class="form-floating">
-                <input type="text" class="form-control" id="title" placeholder="책 제목 검색">
+                <input type="text" class="form-control" id="title" name="title" th:value="${title} ? ${title} : _" placeholder="책 제목 검색">
                 <label for="title">책 제목 검색</label>
             </div>
             <button type="submit" class="btn btn-outline-secondary">검색</button>
         </div>
     </form>
-    <ul th:if="${books}">
-        <li th:each="book:${books}">
-            <a th:href="@{/book/{bookId}(bookId=${book.isbn})}" th:text="${book.title}"></a>
-        </li>
-    </ul>
+    <div class="card">
+        <div class="card-body">
+            <p th:if="${title}" class="fw-semibold">
+                요청한 검색어 <span th:text="${title}" class="text-light bg-dark px-1 rounded"></span>에 대한 결과이며, <span th:text="${books.size()}" class="text-light bg-dark px-1 rounded"></span>개의 데이터가 조회되었습니다.
+            </p>
+        </div>
+        <ul th:if="${books}" class="list-group list-group-flush">
+            <li th:each="book:${books}" class="list-group-item">
+                <a th:href="@{/book/{bookId}(bookId=${book.isbn})}" th:text="${book.title}"></a>
+            </li>
+        </ul>
+    </div>
 </div>
 
 <th:block th:replace="fragments/static/static-import.html::min-js"></th:block>
