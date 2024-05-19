@@ -13,7 +13,7 @@
     <!-- shorten service -->
     <div th:replace="fragments/shorten-url.html::shorten(${userProxLibrary.url})"></div>
     <div th:replace="${userProxLibrary.book} ? ~{fragments/book.html::book(${userProxLibrary.book})} : _"></div>
-    <div th:replace="fragments/libraries-with-map.html::libraryWithMap(${userProxLibrary})"></div>
+    <div th:replace="fragments/libraries-with-map.html::proxLibraryWithMap(${userProxLibrary})"></div>
 </div>
 
 <th:block th:replace="fragments/static/static-import.html::js"></th:block>
