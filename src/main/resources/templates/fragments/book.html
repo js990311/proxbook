@@ -1,9 +1,41 @@
-<div id="book" th:fragment="book(book)">
-    <p><span th:text="${book.isbn}" id="book-id" th:data-id="${book.isbn}">isbn</span></p>
-    <p th:text="${book.title}">타이틀</p>
-    <p th:text="${book.publisher}">출판사</p>
-    <p th:text="${book.publishYear}">출판년도</p>
-    <p th:text="${book.description}">책 소개</p>
-    <a th:href="${book.bookInfoUrl}">다음 책 소개 링크</a>
-    <img th:src="${book.thumbnailUrl}" alt="">
+<div id="book" th:fragment="book(book)" class="g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative my-3 text-light-emphasis">
+    <div class="row">
+        <div class="col-3 px-5 py-3">
+            <img class="w-100 h-100 rounded" th:src="${book.thumbnailUrl}" alt="">
+        </div>
+        <div class="col-9 px-5 py-3">
+            <div class="my-3">
+                <h3
+                        th:text="${book.title}"
+                        class="py-2 fs-1 fw-semibold text-body-emphasis"
+                >
+                    타이틀
+                </h3>
+            </div>
+            <div class="my-1">
+                <span  class=  "border-end pe-2 border-2 border-opacity-50 fw-semibold text-body-emphasis">ISBN</span>
+                <strong th:text="${book.isbn}" id="book-id" th:data-id="${book.isbn}">isbn</strong>
+            </div>
+            <div class="row my-2">
+                <div class="col-12 col-md-6">
+                    <span class="border-end pe-2 border-2 border-opacity-50 fw-semibold text-body-emphasis">출판사</span>
+                    <span th:text="${book.publisher}">출판사</span>
+                </div>
+                <div class="col-12 col-md-6">
+                    <span class="border-end pe-2 border-2 border-opacity-50 fw-semibold text-body-emphasis">출판년도</span>
+                    <span th:text="${book.publishYear}">출판년도</span>
+                </div>
+            </div>
+            <div class="card-text my-4">
+                <p class="fw-semibold mb-3 border-bottom text-body-emphasis pb-2">책소개</p>
+                <p>
+                    <span th:text="${book.description}"></span>
+                    <span>...</span>
+                </p>
+            </div>
+            <div>
+                <a th:href="${book.bookInfoUrl}" class="icon-link gap-1 icon-link-hover">[다음카카오] 책소개링크</a>
+            </div>
+        </div>
+    </div>
 </div>
