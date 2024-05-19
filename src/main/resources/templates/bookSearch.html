@@ -12,9 +12,14 @@
 <div class="container">
     <!-- 책 검색 페이지 -->
     <form action="/book/search" method="get">
-        <label for="title">책 제목 검색</label>
-        <input type="text" id="title" name="title">
-        <button type="submit">검색하기</button>
+        <div class="input-group mb-3">
+            <span class="input-group-text">책 검색</span>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="title" placeholder="책 제목 검색">
+                <label for="title">책 제목 검색</label>
+            </div>
+            <button type="submit" class="btn btn-outline-secondary">검색</button>
+        </div>
     </form>
     <ul th:if="${books}">
         <li th:each="book:${books}">
