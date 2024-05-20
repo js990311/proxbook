@@ -25,7 +25,6 @@ const libraryBookQuery = (position) => {
     };
 
     let jsonData = JSON.stringify(data);
-    console.log(jsonData);
 
     $.ajax({
         url: endpoints,
@@ -33,7 +32,6 @@ const libraryBookQuery = (position) => {
         contentType: "application/json",
         data: jsonData,
         success: function(response){
-            console.log("서버 응답:", response);
             $('#result').html(response);
             kakaoMap();
         },

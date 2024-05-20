@@ -11,11 +11,25 @@
 
 <div class="container">
     <!-- 책에 대한 정보 + 이 책을 소장하는 도서관 찾기 -->
-    <div th:replace="fragments/book.html :: book(${book})">
+    <div th:replace="fragments/book.html :: book(${book})"></div>
+
+    <div class="mb-3">
+        <details >
+            <summary>
+                이 책을 소장한 도서관 목록
+            </summary>
+            <ul th:if="libraries">
+                <li th:each="library: ${libraries}">
+                    <a th:href="@{/library/{libraryId}(libraryId=${library.libraryCode})}">
+                        <p th:text="${library.name}"></p>
+                    </a>
+                </li>
+            </ul>
+        </details>
     </div>
 
     <div>
-        <button id="prox-book">책을 가지고 있는 근처 도서관 검색하기</button>
+        <button id="prox-book" class="btn btn-light w-100 border-secondary-subtle text-light-emphasis fw-semibold">책을 가지고 있는 근처 도서관 검색하기</button>
     </div>
 
     <div id="result">

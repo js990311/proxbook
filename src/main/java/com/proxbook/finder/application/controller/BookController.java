@@ -4,6 +4,8 @@ import com.proxbook.finder.application.form.LibraryBookForm;
 import com.proxbook.finder.domain.book.dto.BookDto;
 import com.proxbook.finder.domain.book.service.BookSearchService;
 import com.proxbook.finder.domain.book.service.BookService;
+import com.proxbook.finder.domain.library.dto.LibraryDto;
+import com.proxbook.finder.domain.library.service.LibraryService;
 import com.proxbook.finder.domain.proxlibrary.dto.UserProxLibraryDto;
 import com.proxbook.finder.domain.proxlibrary.service.UserProxLibraryService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ public class BookController {
     private final BookService bookService;
     private final BookSearchService bookSearchService;
     private final UserProxLibraryService userProxLibraryService;
+    private final LibraryService libraryService;
 
     @GetMapping("/search")
     public String getBookSearch(@RequestParam(value = "title", required = false) String title, Model model){
@@ -36,7 +39,9 @@ public class BookController {
     @GetMapping("/{bookId}")
     public String getBookByBookId(@PathVariable("bookId") Long bookId, Model model){
         BookDto book = bookService.readBookByBookId(bookId);
+        List<LibraryDto> libraries = libraryService.readLibraryByBookId(bookId);
         model.addAttribute("book", book);
+        model.addAttribute("libraries", libraries);
         return "book";
     }
 

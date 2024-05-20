@@ -21,9 +21,9 @@
             <button type="submit" class="btn btn-outline-secondary">검색</button>
         </div>
     </form>
-    <div class="card">
+    <div class="card" th:if="${title}">
         <div class="card-body">
-            <p th:if="${title}" class="fw-semibold">
+            <p class="fw-semibold">
                 요청한 검색어 <span th:text="${title}" class="text-light bg-dark px-1 rounded"></span>에 대한 결과이며, <span th:text="${books.size()}" class="text-light bg-dark px-1 rounded"></span>개의 데이터가 조회되었습니다.
             </p>
         </div>
