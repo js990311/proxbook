@@ -13,8 +13,11 @@ import com.proxbook.finder.domain.librarybook.repository.LibraryBookRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +55,23 @@ public class LibraryServiceImpl implements LibraryService {
         return LibraryBookDto.builder()
                 .setLibrary(convertLibraryDto(library))
                 .setBooks(libraryBooks.stream().map(BookDto::from).toList())
+                .build();
+    }
+
+    @Override
+    public LibraryBookDto readLibraryBooksByLibraryId(Long libraryId, int page) {
+        Library library = libraryRepository.findById(libraryId).orElseThrow(EntityNotFoundException::new);
+        PageRequest pageRequest = PageRequest.of(
+                page, // 몇번째 페이지 인지
+                20 // 페이지 사이즈
+        );
+        Page<Book> libraryBooks = bookRepository.findLibraryBooksByLibraryId(libraryId, pageRequest);
+
+        return LibraryBookDto.builder()
+                .setLibrary(convertLibraryDto(library))
+                .setBooks(libraryBooks.stream().map(BookDto::from).toList())
+                .setNowPage(libraryBooks.getNumber())
+                .setTotalPage(libraryBooks.getTotalPages())
                 .build();
     }
 

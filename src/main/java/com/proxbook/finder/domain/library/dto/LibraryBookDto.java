@@ -9,10 +9,14 @@ import java.util.List;
 public class LibraryBookDto {
     private LibraryDto library;
     private List<BookDto> books;
+    private int totalPage;
+    private int nowPage;
 
-    public LibraryBookDto(LibraryDto library, List<BookDto> books) {
+    public LibraryBookDto(LibraryDto library, List<BookDto> books, int totalPage, int nowPage) {
         this.library = library;
         this.books = books;
+        this.totalPage = totalPage;
+        this.nowPage = nowPage;
     }
 
     public static Builder builder(){
@@ -22,9 +26,11 @@ public class LibraryBookDto {
     public static class Builder{
         private LibraryDto library;
         private List<BookDto> books;
+        private int totalPage;
+        private int nowPage;
 
         public LibraryBookDto build(){
-            return new LibraryBookDto(library,books);
+            return new LibraryBookDto(library,books, totalPage, nowPage);
         }
 
         public Builder setLibrary(LibraryDto library) {
@@ -34,6 +40,16 @@ public class LibraryBookDto {
 
         public Builder setBooks(List<BookDto> books) {
             this.books = books;
+            return this;
+        }
+
+        public Builder setTotalPage(int totalPage) {
+            this.totalPage = totalPage;
+            return this;
+        }
+
+        public Builder setNowPage(int nowPage) {
+            this.nowPage = nowPage;
             return this;
         }
     }

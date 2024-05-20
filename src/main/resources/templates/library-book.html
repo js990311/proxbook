@@ -21,11 +21,17 @@
         </a>
     </div>
     <div id="books">
-        <div th:each="book : ${libraryBooks.books}">
+        <div th:each="book : ${libraryBooks.books}" class="border-top mt-3">
             <a th:href="@{/book/{bookId}(bookId=${book.isbn})}">
                 <span th:text="${book.title}">{책제목}</span>
             </a>
             <p th:text="${book.isbn}">{isbn}</p>
+        </div>
+        <div class="border-top mt-3">
+            <a th:href="@{/library/{libraryId}(libraryId=${libraryBooks.library.libraryCode}, page=0)}">첫페이지로</a>
+            <a th:href="@{/library/{libraryId}(libraryId=${libraryBooks.library.libraryCode}, page=${libraryBooks.nowPage}-1)}">이전페이지로</a>
+            <a th:href="@{/library/{libraryId}(libraryId=${libraryBooks.library.libraryCode}, page=${libraryBooks.nowPage}+1)}">다음페이지로</a>
+            <a th:href="@{/library/{libraryId}(libraryId=${libraryBooks.library.libraryCode}, page=${libraryBooks.totalPage}-1)}">마지막페이지로</a>
         </div>
     </div>
 </div>

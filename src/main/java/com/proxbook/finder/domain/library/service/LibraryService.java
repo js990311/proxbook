@@ -24,6 +24,7 @@ public interface LibraryService {
      * @return
      */
     public LibraryBookDto readLibraryBooksByLibraryId(Long libraryId);
+    public LibraryBookDto readLibraryBooksByLibraryId(Long libraryId, int page);
     public LibraryBookDto readLibraryBooksByLibraryIdAndBookTitle(Long libraryId, String title);
 
 }

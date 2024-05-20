@@ -60,8 +60,9 @@ public class LibraryController {
     @GetMapping("/{id}")
     public String getLibraryBook(@PathVariable("id") Long id,
                                  @RequestParam(value = "title", required = false) String title,
+                                 @RequestParam(value = "page", defaultValue = "1") int page,
                                  Model model){
-        LibraryBookDto libraryBooks = libraryService.readLibraryBooksByLibraryId(id);
+        LibraryBookDto libraryBooks = libraryService.readLibraryBooksByLibraryId(id,page);
 
         model.addAttribute("libraryBooks", libraryBooks);
         return "library-book";
