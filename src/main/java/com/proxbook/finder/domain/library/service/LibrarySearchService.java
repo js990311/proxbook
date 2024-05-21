@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface LibrarySearchService {
     public List<LibraryDto> readLibraryByLibraryName(String libraryName);
+
+    public List<LibraryDto> readLibraryByLibraryNameOrAddress(String query);
 }

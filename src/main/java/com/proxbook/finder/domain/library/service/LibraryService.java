@@ -25,6 +25,6 @@ public interface LibraryService {
      */
     public LibraryBookDto readLibraryBooksByLibraryId(Long libraryId);
     public LibraryBookDto readLibraryBooksByLibraryId(Long libraryId, int page);
-    public LibraryBookDto readLibraryBooksByLibraryIdAndBookTitle(Long libraryId, String title);
+    public LibraryBookDto readLibraryBooksByLibraryIdAndBookTitle(Long libraryId, String title, int page);
 
 }

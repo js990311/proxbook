@@ -66,18 +66,18 @@ public class LibraryServiceImpl implements LibraryService {
                 20 // 페이지 사이즈
         );
         Page<Book> libraryBooks = bookRepository.findLibraryBooksByLibraryId(libraryId, pageRequest);
-
-        return LibraryBookDto.builder()
-                .setLibrary(convertLibraryDto(library))
-                .setBooks(libraryBooks.stream().map(BookDto::from).toList())
-                .setNowPage(libraryBooks.getNumber())
-                .setTotalPage(libraryBooks.getTotalPages())
-                .build();
+        return convertLibraryBookDto(library, libraryBooks);
     }
 
     @Override
-    public LibraryBookDto readLibraryBooksByLibraryIdAndBookTitle(Long libraryId, String title) {
-        return null;
+    public LibraryBookDto readLibraryBooksByLibraryIdAndBookTitle(Long libraryId, String title, int page) {
+        PageRequest pageRequest = PageRequest.of(
+                page, // 몇번째 페이지 인지
+                20 // 페이지 사이즈
+        );
+        Library library = libraryRepository.findById(libraryId).orElseThrow(EntityNotFoundException::new);
+        Page<Book> books = bookRepository.findLibraryBooksByLibraryIdAndBookTitle(libraryId, title, pageRequest);
+        return convertLibraryBookDto(library, books);
     }
 
     @Override
@@ -105,5 +105,15 @@ public class LibraryServiceImpl implements LibraryService {
 
     private LibraryDto convertLibraryDto(Library library){
         return LibraryDto.from(library);
+    }
+
+    private LibraryBookDto convertLibraryBookDto(Library library, Page<Book> books){
+        return LibraryBookDto.builder()
+                .setLibrary(convertLibraryDto(library))
+                .setBooks(books.stream().map(BookDto::from).toList())
+                .setNowPage(books.getNumber())
+                .setTotalPage(books.getTotalPages())
+                .build();
+
     }
 }

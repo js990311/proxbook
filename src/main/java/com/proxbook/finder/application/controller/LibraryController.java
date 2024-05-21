@@ -48,10 +48,11 @@ public class LibraryController {
     @GetMapping("/search")
     public String getBookSearch(@RequestParam(value = "name", required = false) String name, Model model){
         if(name!=null) {
-            List<LibraryDto> libraries = librarySearchService.readLibraryByLibraryName(name);
+            List<LibraryDto> libraries = librarySearchService.readLibraryByLibraryNameOrAddress(name);
             LibrarySearchDto searchedLibraries = LibrarySearchDto.builder()
                     .setLibraries(libraries)
                     .build();
+            model.addAttribute("name", name);
             model.addAttribute("searchedLibraries", searchedLibraries);
         }
         return "librarySearch";
@@ -62,9 +63,14 @@ public class LibraryController {
                                  @RequestParam(value = "title", required = false) String title,
                                  @RequestParam(value = "page", defaultValue = "1") int page,
                                  Model model){
-        LibraryBookDto libraryBooks = libraryService.readLibraryBooksByLibraryId(id,page);
-
-        model.addAttribute("libraryBooks", libraryBooks);
+        if(title == null){
+            LibraryBookDto libraryBooks = libraryService.readLibraryBooksByLibraryId(id,page);
+            model.addAttribute("libraryBooks", libraryBooks);
+        }else {
+            LibraryBookDto libraryBooks = libraryService.readLibraryBooksByLibraryIdAndBookTitle(id,title, page);
+            model.addAttribute("libraryBooks", libraryBooks);
+            model.addAttribute("title", title);
+        }
         return "library-book";
     }
 }

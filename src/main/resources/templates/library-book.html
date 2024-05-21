@@ -21,6 +21,23 @@
         </a>
     </div>
     <div id="books">
+        <form th:action="@{/library/{libraryId}(libraryId=${libraryBooks.library.libraryCode})}" method="get">
+            <div class="input-group mb-3">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="title" name="title" th:value="${title} ? ${title} : _" placeholder="책 제목 검색">
+                    <label for="title">소장 도서 검색</label>
+                </div>
+                <button type="submit" class="btn btn-outline-secondary">검색</button>
+            </div>
+            <div class="border-bottom mb-3">
+                <span>더 자세한 검색은 책 검색을 입력하십시오. 책검색을 사용하시면 보다 좋은 검색 결과를 얻으실 수 있습니다.</span>
+            </div>
+        </form>
+        <div>
+            <p>
+                <span th:text="${libraryBooks.library.name}"></span>의 소장도서들입니다.
+            </p>
+        </div>
         <div th:each="book : ${libraryBooks.books}" class="border-top mt-3">
             <a th:href="@{/book/{bookId}(bookId=${book.isbn})}">
                 <span th:text="${book.title}">{책제목}</span>

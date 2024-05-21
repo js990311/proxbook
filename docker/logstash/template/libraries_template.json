@@ -40,6 +40,10 @@
         "name": {
           "type": "text",
           "analyzer": "nori_analyzer"
+        },
+        "address" : {
+          "type" : "text",
+          "analyzer": "nori_analyzer"
         }
       }
     },

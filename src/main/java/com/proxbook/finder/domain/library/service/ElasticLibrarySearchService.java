@@ -20,6 +20,10 @@ public class ElasticLibrarySearchService implements LibrarySearchService {
         return convertLibraryDto(libraryDocumentRepository.findByName(libraryName));
     }
 
+    public List<LibraryDto> readLibraryByLibraryNameOrAddress(String query){
+        return convertLibraryDto(libraryDocumentRepository.findByNameOrAddress(query, query));
+    }
+
     private List<LibraryDto> convertLibraryDto(List<LibraryDocument> libraries){
         return libraries.stream().map(LibraryDto::from).toList();
     }
