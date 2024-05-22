@@ -16,4 +16,7 @@ public class BookDocument {
     private String description;
     private String thumbnailUrl;
     private String bookInfoUrl;
+
+    @Field("title.nori") private String titleNori;
+    @Field("title.ngram") private String titleNgram;
 }

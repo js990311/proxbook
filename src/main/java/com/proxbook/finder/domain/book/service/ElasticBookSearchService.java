@@ -15,7 +15,7 @@ public class ElasticBookSearchService implements BookSearchService{
 
     @Override
     public List<BookDto> readBookByTitle(String title) {
-        return convert(bookDocumentRepository.findByTitle(title));
+        return convert(bookDocumentRepository.findByTitleNoriOrTitleNgram(title, title));
     }
 
     private List<BookDto> convert(List<BookDocument> books){

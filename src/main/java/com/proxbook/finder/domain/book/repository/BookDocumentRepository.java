@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface BookDocumentRepository extends ElasticsearchRepository<BookDocument, String> {
     public List<BookDocument> findByTitle(String title);
+
+    public List<BookDocument> findByTitleNoriOrTitleNgram(String titleNori, String titleNgram);
 }
