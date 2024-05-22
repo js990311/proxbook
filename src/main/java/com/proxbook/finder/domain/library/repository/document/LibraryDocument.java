@@ -5,9 +5,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 
-/**
- * Elasticsearch의 삽입은 logstash에 의해 작동하므로, 모든 속성에 readOnlyProperty가 적용
- */
 @Getter
 @Document(indexName = "libraries", createIndex = false)
 public class LibraryDocument {

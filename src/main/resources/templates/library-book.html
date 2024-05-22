@@ -45,10 +45,10 @@
             <p th:text="${book.isbn}">{isbn}</p>
         </div>
         <div class="border-top mt-3">
-            <a th:href="@{/library/{libraryId}(libraryId=${libraryBooks.library.libraryCode}, page=0)}">첫페이지로</a>
-            <a th:href="@{/library/{libraryId}(libraryId=${libraryBooks.library.libraryCode}, page=${libraryBooks.nowPage}-1)}">이전페이지로</a>
-            <a th:href="@{/library/{libraryId}(libraryId=${libraryBooks.library.libraryCode}, page=${libraryBooks.nowPage}+1)}">다음페이지로</a>
-            <a th:href="@{/library/{libraryId}(libraryId=${libraryBooks.library.libraryCode}, page=${libraryBooks.totalPage}-1)}">마지막페이지로</a>
+            <a th:href="@{/library/{libraryId}(libraryId=${libraryBooks.library.libraryCode}, page=0, title=${title})}">첫페이지로</a>
+            <a th:href="@{/library/{libraryId}(libraryId=${libraryBooks.library.libraryCode}, page=${libraryBooks.nowPage}-1, title=${title})}">이전페이지로</a>
+            <a th:href="@{/library/{libraryId}(libraryId=${libraryBooks.library.libraryCode}, page=${libraryBooks.nowPage}+1, title=${title})}">다음페이지로</a>
+            <a th:href="@{/library/{libraryId}(libraryId=${libraryBooks.library.libraryCode}, page=${libraryBooks.totalPage}-1, title=${title})}">마지막페이지로</a>
         </div>
     </div>
 </div>

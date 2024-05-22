@@ -6,3 +6,6 @@
   path.config: "/usr/share/logstash/pipeline/books.conf"
   pipeline.workers: 1
 
+- pipeline.id: library_books
+  path.config: "/usr/share/logstash/pipeline/library_books.conf"
+  pipeline.workers: 1

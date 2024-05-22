@@ -63,11 +63,12 @@ public class LibraryController {
                                  @RequestParam(value = "title", required = false) String title,
                                  @RequestParam(value = "page", defaultValue = "1") int page,
                                  Model model){
+        int pageIdx = page <= 0 ? 0 : page-1;
         if(title == null){
-            LibraryBookDto libraryBooks = libraryService.readLibraryBooksByLibraryId(id,page);
+            LibraryBookDto libraryBooks = libraryService.readLibraryBooksByLibraryId(id,pageIdx);
             model.addAttribute("libraryBooks", libraryBooks);
         }else {
-            LibraryBookDto libraryBooks = libraryService.readLibraryBooksByLibraryIdAndBookTitle(id,title, page);
+            LibraryBookDto libraryBooks = libraryService.readLibraryBooksByLibraryIdAndBookTitle(id,title, pageIdx);
             model.addAttribute("libraryBooks", libraryBooks);
             model.addAttribute("title", title);
         }

@@ -8,8 +8,11 @@ import com.proxbook.finder.domain.library.dto.LibraryBookDto;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
 import com.proxbook.finder.domain.library.entity.Library;
 import com.proxbook.finder.domain.library.repository.LibraryRepository;
+import com.proxbook.finder.domain.library.repository.document.LibraryDocument;
 import com.proxbook.finder.domain.library.service.utils.DistanceCalculator;
 import com.proxbook.finder.domain.librarybook.repository.LibraryBookRepository;
+import com.proxbook.finder.domain.librarybook.repository.document.LibraryBookDocument;
+import com.proxbook.finder.domain.librarybook.repository.document.LibraryBookDocumentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +31,7 @@ public class LibraryServiceImpl implements LibraryService {
     private final LibraryRepository libraryRepository;
     private final LibraryBookRepository libraryBookRepository;
     private final BookRepository bookRepository;
+    private final LibraryBookDocumentRepository libraryBookDocumentRepository;
     private final DistanceCalculator distanceCalculator;
 
     @Override
@@ -76,8 +80,8 @@ public class LibraryServiceImpl implements LibraryService {
                 20 // 페이지 사이즈
         );
         Library library = libraryRepository.findById(libraryId).orElseThrow(EntityNotFoundException::new);
-        Page<Book> books = bookRepository.findLibraryBooksByLibraryIdAndBookTitle(libraryId, title, pageRequest);
-        return convertLibraryBookDto(library, books);
+        Page<LibraryBookDocument> books = libraryBookDocumentRepository.findByTitleAndLibraryId(title,libraryId,pageRequest);
+        return convertLibraryBookDocumentToLibraryBookDto(library, books);
     }
 
     @Override
@@ -105,6 +109,15 @@ public class LibraryServiceImpl implements LibraryService {
 
     private LibraryDto convertLibraryDto(Library library){
         return LibraryDto.from(library);
+    }
+
+    private LibraryBookDto convertLibraryBookDocumentToLibraryBookDto(Library library, Page<LibraryBookDocument> books){
+        return LibraryBookDto.builder()
+                .setLibrary(convertLibraryDto(library))
+                .setBooks(books.stream().map(BookDto::from).toList())
+                .setNowPage(books.getNumber())
+                .setTotalPage(books.getTotalPages())
+                .build();
     }
 
     private LibraryBookDto convertLibraryBookDto(Library library, Page<Book> books){
