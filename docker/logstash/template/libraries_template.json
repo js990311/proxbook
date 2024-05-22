@@ -6,15 +6,32 @@
       "index": {
         "analysis": {
           "tokenizer": {
-            "mixed_nori_tokenizer": {
+            "nori_tokenizer": {
               "type": "nori_tokenizer",
-              "decompound_mode": "mixed"
+              "decompound_mode": "mixed",
+              "filter": [
+                "lowercase"
+              ]
+            },
+            "ngram_tokenizer": {
+              "type": "ngram",
+              "min_gram": 2,
+              "max_gram": 3,
+              "token_chars": [
+                "letter",
+                "digit"
+              ],
+              "filter" : [
+                "lowercase"
+              ]
             }
           },
           "analyzer": {
             "nori_analyzer": {
-              "type": "custom",
-              "tokenizer": "mixed_nori_tokenizer"
+              "tokenizer": "nori_tokenizer"
+            },
+            "ngram_analyzer": {
+              "tokenizer": "ngram_tokenizer"
             }
           }
         },
@@ -39,7 +56,16 @@
       "properties": {
         "name": {
           "type": "text",
-          "analyzer": "nori_analyzer"
+          "fields" : {
+            "nori" : {
+              "type" : "text",
+              "analyzer" : "nori_analyzer"
+            },
+            "ngram" : {
+              "type" : "text",
+              "analyzer" : "ngram_analyzer"
+            }
+          }
         },
         "address" : {
           "type" : "text",

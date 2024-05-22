@@ -15,4 +15,7 @@ public class LibraryDocument {
     private String webpage;
     private Double latitude;
     private Double longitude;
+
+    @Field(name = "name.nori") private String nameNori;
+    @Field(name = "name.ngram") private String nameNgram;
 }

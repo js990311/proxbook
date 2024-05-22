@@ -17,7 +17,7 @@ public class ElasticLibrarySearchService implements LibrarySearchService {
     @MethodTimeChecker
     @Override
     public List<LibraryDto> readLibraryByLibraryName(String libraryName) {
-        return convertLibraryDto(libraryDocumentRepository.findByName(libraryName));
+        return convertLibraryDto(libraryDocumentRepository.findByNameNoriOrNameNgram(libraryName,libraryName));
     }
 
     public List<LibraryDto> readLibraryByLibraryNameOrAddress(String query){

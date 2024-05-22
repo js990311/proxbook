@@ -11,4 +11,6 @@ public interface LibraryDocumentRepository extends ElasticsearchRepository<Libra
     public List<LibraryDocument> findByName(String name);
 
     public List<LibraryDocument> findByNameOrAddress(String name, String address);
+
+    public List<LibraryDocument> findByNameNoriOrNameNgram(String nameNori, String nameNgram);
 }

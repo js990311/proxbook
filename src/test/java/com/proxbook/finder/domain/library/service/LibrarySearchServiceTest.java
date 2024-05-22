@@ -29,7 +29,7 @@ class LibrarySearchServiceTest {
 
     static Stream<Arguments> provideCityNameAndCount(){
         return Stream.of(
-                Arguments.of("서울", 23),
+                Arguments.of("서울", 24),
                 Arguments.of("부산", 49),
                 Arguments.of("대구", 22),
                 Arguments.of("제주", 13)
