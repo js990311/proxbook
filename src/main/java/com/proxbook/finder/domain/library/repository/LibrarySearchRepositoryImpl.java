@@ -2,6 +2,7 @@ package com.proxbook.finder.domain.library.repository;
 
 import com.proxbook.finder.domain.book.dto.BookDto;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
+import com.proxbook.finder.domain.library.entity.Library;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Repository;
@@ -43,6 +44,14 @@ public class LibrarySearchRepositoryImpl implements LibrarySearchRepository {
     @Override
     public List<LibraryDto> findLibrariesByIdList(List<Long> idList) {
         return libraryRepository.findLibrariesByIdList(idList)
+                .stream()
+                .map(LibraryDto::from)
+                .toList();
+    }
+
+    @Override
+    public List<LibraryDto> findLibraryByAddress(String address) {
+        return libraryDocumentRepository.findByAddress(address)
                 .stream()
                 .map(LibraryDto::from)
                 .toList();

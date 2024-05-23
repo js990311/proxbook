@@ -45,6 +45,8 @@ public interface LibraryService {
      */
     public List<LibraryDto> readLibraryByLibraryName(String libraryName);
 
+    public List<LibraryDto> readLibraryByAddress(String address);
+
     /**
      * 도서관을 이름 혹은 도로명 주소로 검색하는 메서드
      * @param query 이름 혹은 주소에 사용할 검색어

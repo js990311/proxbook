@@ -44,6 +44,11 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
+    public List<LibraryDto> readLibraryByAddress(String address) {
+        return librarySearchRepository.findLibraryByAddress(address);
+    }
+
+    @Override
     public List<LibraryDto> readLibraryByLibraryNameOrAddress(String query) {
         return librarySearchRepository.findLibraryByNameOrAddress(query,query);
     }

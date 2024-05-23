@@ -15,4 +15,5 @@ public interface LibrarySearchRepository {
     public List<LibraryDto> findLibraryByNameOrAddress(String name, String address);
     public List<LibraryDto> findLibrariesByBookId(Long bookId);
     public List<LibraryDto> findLibrariesByIdList(List<Long> idList);
+    public List<LibraryDto> findLibraryByAddress(String address);
 }

@@ -1,6 +1,8 @@
 package com.proxbook.finder.application.controller;
 
 import com.proxbook.finder.application.form.LibraryForm;
+import com.proxbook.finder.application.form.LibrarySearchForm;
+import com.proxbook.finder.application.form.LibrarySearchOption;
 import com.proxbook.finder.domain.library.dto.LibraryBookDto;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
 import com.proxbook.finder.domain.library.dto.LibrarySearchDto;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -41,15 +44,27 @@ public class LibraryController {
     }
 
     @GetMapping("/search")
-    public String getBookSearch(@RequestParam(value = "name", required = false) String name, Model model){
-        if(name!=null) {
-            List<LibraryDto> libraries = libraryService.readLibraryByLibraryNameOrAddress(name);
+    public String getLibrarySearch(@ModelAttribute(name = "form") LibrarySearchForm form, Model model){
+        if(form.getName()!=null) {
+            List<LibraryDto> libraries;
+            if(form.getOption().equals(LibrarySearchOption.NAME)){
+                libraries = libraryService.readLibraryByLibraryName(form.getName());
+            }else if(form.getOption().equals(LibrarySearchOption.ADDRESS)){
+                libraries = libraryService.readLibraryByLibraryNameOrAddress(form.getName());
+            }else if(form.getOption().equals(LibrarySearchOption.BOTH)){
+                libraries = libraryService.readLibraryByLibraryNameOrAddress(form.getName());
+            }else {
+                libraries = new ArrayList<>();
+            }
             LibrarySearchDto searchedLibraries = LibrarySearchDto.builder()
                     .setLibraries(libraries)
                     .build();
-            model.addAttribute("name", name);
             model.addAttribute("searchedLibraries", searchedLibraries);
+            model.addAttribute("form", form);
+        }else {
+            model.addAttribute("form", new LibrarySearchForm());
         }
+        model.addAttribute("options", LibrarySearchOption.values());
         return "librarySearch";
     }
 
