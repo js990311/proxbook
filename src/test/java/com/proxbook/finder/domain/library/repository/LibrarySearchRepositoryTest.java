@@ -1,4 +1,4 @@
-package com.proxbook.finder.domain.library.service;
+package com.proxbook.finder.domain.library.repository;
 
 import com.proxbook.finder.domain.library.dto.LibraryDto;
 import org.junit.jupiter.api.Test;
@@ -16,18 +16,30 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("test")
 @SpringBootTest
-class LibrarySearchServiceTest {
+class LibrarySearchRepositoryTest {
 
-    @Autowired private LibrarySearchService librarySearchService;
+    @Autowired private LibrarySearchRepository librarySearchRepository;
 
     @ParameterizedTest
-    @MethodSource("provideCityNameAndCount")
-    void readLibraryByLibraryName(String cityname, int count) {
-        List<LibraryDto> libraries = librarySearchService.readLibraryByLibraryName(cityname);
+    @MethodSource("provideLibraryCountByName")
+    void findLibraryByName(String cityname, int count) {
+        List<LibraryDto> libraries = librarySearchRepository.findLibraryByName(cityname);
         assertEquals(count, libraries.size());
     }
 
-    static Stream<Arguments> provideCityNameAndCount(){
+    @Test
+    void findLibraryByNameOrAddress() {
+    }
+
+    @Test
+    void findLibrariesByBookId() {
+    }
+
+    @Test
+    void findLibrariesByIdList() {
+    }
+
+    static Stream<Arguments> provideLibraryCountByName(){
         return Stream.of(
                 Arguments.of("서울", 24),
                 Arguments.of("부산", 49),
@@ -35,4 +47,5 @@ class LibrarySearchServiceTest {
                 Arguments.of("제주", 13)
         );
     }
+
 }

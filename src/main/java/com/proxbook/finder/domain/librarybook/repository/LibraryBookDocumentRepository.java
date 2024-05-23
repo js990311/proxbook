@@ -1,6 +1,7 @@
-package com.proxbook.finder.domain.librarybook.repository.document;
+package com.proxbook.finder.domain.librarybook.repository;
 
 
+import com.proxbook.finder.domain.librarybook.repository.document.LibraryBookDocument;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;

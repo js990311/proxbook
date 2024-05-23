@@ -4,6 +4,7 @@ import com.proxbook.finder.domain.book.dto.BookDto;
 import com.proxbook.finder.domain.book.dto.UpdateBookDto;
 import com.proxbook.finder.domain.book.entity.Book;
 import com.proxbook.finder.domain.book.repository.BookRepository;
+import com.proxbook.finder.domain.book.repository.BookSearchRepository;
 import com.proxbook.finder.domain.book.service.update.BookUpdateSourceService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import java.util.List;
 @Transactional
 public class BookServiceImpl implements BookUpdateService, BookService{
     private final BookRepository bookRepository;
+    private final BookSearchRepository bookSearchRepository;
     private final BookUpdateSourceService bookUpdateSourceService;
 
     @Override
@@ -40,12 +42,7 @@ public class BookServiceImpl implements BookUpdateService, BookService{
 
     @Override
     public List<BookDto> readBookByTitle(String title) {
-        List<Book> books = bookRepository.findByTitle(title);
-//        for(Book book : books){
-//            if(needUpdate(book))
-//                updateBook(book);
-//        }
-        return books.stream().map(this::convertBookDto).toList();
+        return bookSearchRepository.findBookBtTitle(title);
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.proxbook.finder.application.controller;
 
 import com.proxbook.finder.application.form.LibraryBookForm;
 import com.proxbook.finder.domain.book.dto.BookDto;
-import com.proxbook.finder.domain.book.service.BookSearchService;
 import com.proxbook.finder.domain.book.service.BookService;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
 import com.proxbook.finder.domain.library.service.LibraryService;
@@ -22,14 +21,13 @@ import java.util.List;
 @Slf4j
 public class BookController {
     private final BookService bookService;
-    private final BookSearchService bookSearchService;
     private final UserProxLibraryService userProxLibraryService;
     private final LibraryService libraryService;
 
     @GetMapping("/search")
     public String getBookSearch(@RequestParam(value = "title", required = false) String title, Model model){
         if(title!=null) {
-            List<BookDto> books = bookSearchService.readBookByTitle(title);
+            List<BookDto> books = bookService.readBookByTitle(title);
             model.addAttribute("books", books);
             model.addAttribute("title", title);
         }
