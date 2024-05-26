@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ADMIN : Book Error 모음</title>
+</head>
+<body>
+<div class="container">
+    <ul>
+        <li th:each="log : ${logs}">
+            <details>
+                <summary>
+                    <div>
+                        <a th:href="@{/book-error/{log-id}(log-id=${log.id})}" th:text="${log.id}">관리번호</a>
+                    </div>
+                </summary>
+                <div th:replace="fragments/book.html :: book(${log.book})"></div>
+            </details>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

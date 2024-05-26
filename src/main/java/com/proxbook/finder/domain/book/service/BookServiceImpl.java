@@ -3,16 +3,20 @@ package com.proxbook.finder.domain.book.service;
 import com.proxbook.finder.domain.book.dto.BookDto;
 import com.proxbook.finder.domain.book.dto.UpdateBookDto;
 import com.proxbook.finder.domain.book.entity.Book;
+import com.proxbook.finder.domain.book.repository.BookErrorLogRepository;
 import com.proxbook.finder.domain.book.repository.BookRepository;
 import com.proxbook.finder.domain.book.repository.BookSearchRepository;
+import com.proxbook.finder.domain.book.service.update.BookUpdateFailService;
 import com.proxbook.finder.domain.book.service.update.BookUpdateSourceService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -20,6 +24,7 @@ public class BookServiceImpl implements BookUpdateService, BookService{
     private final BookRepository bookRepository;
     private final BookSearchRepository bookSearchRepository;
     private final BookUpdateSourceService bookUpdateSourceService;
+    private final BookUpdateFailService bookUpdateFailService;
 
     @Override
     public boolean needUpdate(Book book) {
@@ -36,6 +41,8 @@ public class BookServiceImpl implements BookUpdateService, BookService{
             book.updateBookInfo(updateBookDto);
             return book.updateBookInfo(updateBookDto);
         }catch (RuntimeException e){
+            log.error("update Book Exception : ",e);
+            bookUpdateFailService.addBookUpdateFailLog(book.getId());
             return book;
         }
     }
