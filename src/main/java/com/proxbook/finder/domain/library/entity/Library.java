@@ -1,5 +1,6 @@
 package com.proxbook.finder.domain.library.entity;
 
+import com.proxbook.finder.domain.common.entity.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -9,7 +10,7 @@ import lombok.Getter;
 @Getter
 @Entity
 @Table(name = "libraries")
-public class Library {
+public class Library extends BaseTimeEntity {
     @Id
     @Column(name = "library_id")
     private Long id;

@@ -1,6 +1,7 @@
 package com.proxbook.finder.domain.book.entity;
 
 import com.proxbook.finder.domain.book.dto.UpdateBookDto;
+import com.proxbook.finder.domain.common.entity.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -10,7 +11,7 @@ import lombok.Getter;
 @Getter
 @Entity
 @Table(name = "books")
-public class Book {
+public class Book extends BaseTimeEntity {
     @Id
     @Column(name = "book_id")
     private Long id; // isbn
@@ -45,4 +46,5 @@ public class Book {
     public String getIsbn(){
         return id.toString();
     }
+
 }

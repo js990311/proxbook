@@ -1,15 +1,15 @@
 package com.proxbook.finder.domain.librarybook.entity;
 
 import com.proxbook.finder.domain.book.entity.Book;
+import com.proxbook.finder.domain.common.entity.BaseTimeEntity;
 import com.proxbook.finder.domain.library.entity.Library;
 import jakarta.persistence.*;
-import lombok.Generated;
 import lombok.Getter;
 
 @Getter
 @Entity
 @Table(name = "library_books")
-public class LibraryBook {
+public class LibraryBook extends BaseTimeEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "library_book_id")
     public Long id;
@@ -27,4 +27,5 @@ public class LibraryBook {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "library_id", referencedColumnName = "library_id", updatable = false, insertable = false)
     private Library libraries;
+
 }
