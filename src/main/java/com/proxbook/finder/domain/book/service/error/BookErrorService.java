@@ -8,4 +8,6 @@ public interface BookErrorService {
     List<BookErrorLogDto> readAllBookErrors();
 
     BookErrorLogDto readBookErrorByLogId(Long id);
+
+    boolean deleteBookErrors(Long id);
 }

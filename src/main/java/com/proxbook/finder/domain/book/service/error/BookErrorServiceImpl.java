@@ -1,6 +1,7 @@
 package com.proxbook.finder.domain.book.service.error;
 
 import com.proxbook.finder.domain.book.dto.BookErrorLogDto;
+import com.proxbook.finder.domain.book.entity.Book;
 import com.proxbook.finder.domain.book.entity.BookErrorLog;
 import com.proxbook.finder.domain.book.repository.BookErrorLogRepository;
 import com.proxbook.finder.domain.book.repository.BookRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Transactional
@@ -38,6 +40,20 @@ public class BookErrorServiceImpl implements BookUpdateFailService, BookErrorSer
     public BookErrorLogDto readBookErrorByLogId(Long id) {
         BookErrorLog bookErrorLog = bookErrorLogRepository.findWithBookById(id);
         return convert(bookErrorLog);
+    }
+
+    @Override
+    public boolean deleteBookErrors(Long id){
+        try {
+            BookErrorLog bookErrorLog = bookErrorLogRepository.findWithBookById(id);
+            Book book = bookErrorLog.getBook();
+
+            bookErrorLogRepository.deleteByBookId(book.getId());
+            bookRepository.delete(book);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 
     private BookErrorLogDto convert(BookErrorLog bookErrorLog){

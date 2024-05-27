@@ -86,6 +86,7 @@ public class UserProxLibrary{
          */
         public UserProxLibrary build(){
             UserProxLibrary userProxLibrary = new UserProxLibrary(book, latitude, longitude, range, proxLibraries);
+            // 빌더에서 양방향 연관관계를 설정
             for(ProxLibrary proxLibrary : proxLibraries){
                 proxLibrary.setUserProxLibrary(userProxLibrary);
             }

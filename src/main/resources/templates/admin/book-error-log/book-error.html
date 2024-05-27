@@ -7,6 +7,18 @@
 <body>
 <div class="container">
     <div th:replace="fragments/book.html :: book(${log.book})"></div>
+    <div>
+        <button id="delete-book"
+                th:data-action="@{/book-error/{log-id}(log-id=${log.id})}"
+        >
+            삭제하기
+        </button>
+    </div>
+    <div id="result">
+        <p id="result-text"></p>
+    </div>
 </div>
+<th:block th:replace="fragments/static/static-import.html::min-js"></th:block>
+<script th:src="@{/js/admin/bookError.js}"></script>
 </body>
 </html>

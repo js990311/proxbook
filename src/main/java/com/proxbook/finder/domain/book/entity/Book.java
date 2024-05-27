@@ -2,11 +2,10 @@ package com.proxbook.finder.domain.book.entity;
 
 import com.proxbook.finder.domain.book.dto.UpdateBookDto;
 import com.proxbook.finder.domain.common.entity.BaseTimeEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 @Entity
@@ -33,7 +32,7 @@ public class Book extends BaseTimeEntity {
 
     @Column(name = "book_info_url")
     private String bookInfoUrl;
-    
+
     public Book updateBookInfo(UpdateBookDto updateBookDto){
         this.publisher = updateBookDto.getPublisher();
         this.publishYear = updateBookDto.getPublishYear();
