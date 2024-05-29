@@ -18,12 +18,16 @@ public class BookErrorLog extends BaseTimeEntity {
     @Column(name = "book_id")
     private Long bookId;
 
+    @Column
+    private String reason;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id", referencedColumnName = "book_id", insertable = false, updatable = false)
     private Book book;
 
-    public BookErrorLog(Long bookId) {
+    public BookErrorLog(Long bookId, String reason) {
         this.bookId = bookId;
+        this.reason = reason;
     }
 
     public static Builder builder(){
@@ -32,8 +36,10 @@ public class BookErrorLog extends BaseTimeEntity {
 
     public static class Builder{
         private Long bookId;
+        private String reason;
+
         public BookErrorLog build(){
-            return new BookErrorLog(bookId);
+            return new BookErrorLog(bookId, reason);
         }
 
         public Builder setBookId(Long bookId) {
@@ -43,6 +49,11 @@ public class BookErrorLog extends BaseTimeEntity {
 
         public Builder setBook(Book book) {
             this.bookId = book.getId();
+            return this;
+        }
+
+        public Builder setReason(String reason) {
+            this.reason = reason;
             return this;
         }
     }

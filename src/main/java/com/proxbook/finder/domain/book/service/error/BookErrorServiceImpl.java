@@ -5,26 +5,25 @@ import com.proxbook.finder.domain.book.entity.Book;
 import com.proxbook.finder.domain.book.entity.BookErrorLog;
 import com.proxbook.finder.domain.book.repository.BookErrorLogRepository;
 import com.proxbook.finder.domain.book.repository.BookRepository;
-import com.proxbook.finder.domain.book.service.update.BookUpdateFailService;
-import jakarta.persistence.EntityNotFoundException;
+import com.proxbook.finder.domain.book.service.BookErrorRegistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Transactional
 @Service
-public class BookErrorServiceImpl implements BookUpdateFailService, BookErrorService {
+public class BookErrorServiceImpl implements BookErrorRegistService, BookErrorService {
     private final BookErrorLogRepository bookErrorLogRepository;
     private final BookRepository bookRepository;
 
     @Override
-    public void addBookUpdateFailLog(Long bookId) {
+    public void registBookError(Long bookId, String reason) {
         BookErrorLog log = BookErrorLog.builder()
                 .setBookId(bookId)
+                .setReason(reason)
                 .build();
         bookErrorLogRepository.save(log);
     }
