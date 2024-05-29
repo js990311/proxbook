@@ -12,6 +12,30 @@
 <div class="container">
     <!-- 책에 대한 정보 + 이 책을 소장하는 도서관 찾기 -->
     <div th:replace="fragments/book.html :: book(${book})"></div>
+    <div id="report" class="w-100">
+        <p
+                data-bs-toggle="collapse" data-bs-target="#report-error"
+                class="text-end"
+        >
+            오류 신고하기
+        </p>
+        <div
+                id="report-error"
+                class="collapse card p-3"
+        >
+            <form th:action="@{/book/{bookId}/report(bookId=${book.isbn})}" method="post">
+                <h3>오류 보고하기</h3>
+                <div class="input-group mb-2">
+                    <label for="reason" class="form-control">해당 데이터에 어떤 오류가 있나요?</label>
+                    <button type="submit" class="btn btn-outline-secondary">제출하기</button>
+                </div>
+                <div class="form-floating">
+                    <textarea class="form-control" id="reason" name="reason" style="height: 100px"></textarea>
+                    <label for="reason">정보 정정 요청</label>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <div class="mb-3">
         <details >
@@ -30,6 +54,13 @@
 
     <div>
         <button id="prox-book" class="btn btn-light w-100 border-secondary-subtle text-light-emphasis fw-semibold">책을 가지고 있는 근처 도서관 검색하기</button>
+    </div>
+
+    <div>
+        <!-- 신고하기 -->
+        <form action="">
+
+        </form>
     </div>
 
     <div id="result">

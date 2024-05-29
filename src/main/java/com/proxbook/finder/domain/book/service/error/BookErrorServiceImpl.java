@@ -20,12 +20,13 @@ public class BookErrorServiceImpl implements BookErrorRegistService, BookErrorSe
     private final BookRepository bookRepository;
 
     @Override
-    public void registBookError(Long bookId, String reason) {
+    public Long registBookError(Long bookId, String reason) {
         BookErrorLog log = BookErrorLog.builder()
                 .setBookId(bookId)
                 .setReason(reason)
                 .build();
         bookErrorLogRepository.save(log);
+        return log.getId();
     }
 
     @Override

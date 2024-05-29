@@ -2,6 +2,7 @@ package com.proxbook.finder.application.controller;
 
 import com.proxbook.finder.application.form.LibraryBookForm;
 import com.proxbook.finder.domain.book.dto.BookDto;
+import com.proxbook.finder.domain.book.service.BookErrorRegistService;
 import com.proxbook.finder.domain.book.service.BookService;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
 import com.proxbook.finder.domain.library.service.LibraryService;
@@ -23,6 +24,7 @@ public class BookController {
     private final BookService bookService;
     private final UserProxLibraryService userProxLibraryService;
     private final LibraryService libraryService;
+    private final BookErrorRegistService bookErrorRegistService;
 
     @GetMapping("/search")
     public String getBookSearch(@RequestParam(value = "title", required = false) String title, Model model){
@@ -41,6 +43,12 @@ public class BookController {
         model.addAttribute("book", book);
         model.addAttribute("libraries", libraries);
         return "book";
+    }
+
+    @PostMapping("/{bookId}/report")
+    public String postReportBook(@PathVariable("bookId") Long bookId, @RequestParam("reason") String reason){
+        Long errorLogId = bookErrorRegistService.registBookError(bookId, reason);
+        return "redirect:/book-error/" + errorLogId;
     }
 
     @PostMapping("/prox-book")

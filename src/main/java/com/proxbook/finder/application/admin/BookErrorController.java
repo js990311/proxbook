@@ -18,7 +18,6 @@ import java.util.List;
 @Controller
 public class BookErrorController {
     private final BookErrorService bookErrorService;
-    private final BookErrorRegistService bookErrorRegistService;
 
     @GetMapping("")
     public String getIndex(Model model){
