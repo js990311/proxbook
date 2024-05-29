@@ -60,6 +60,7 @@ public class BookErrorServiceImpl implements BookErrorRegistService, BookErrorSe
         return BookErrorLogDto.builder()
                 .setId(bookErrorLog.getId())
                 .setBook(bookErrorLog.getBook())
+                .setReason(bookErrorLog.getReason())
                 .setCreatedAt(bookErrorLog.getCreatedAt())
                 .setUpdatedAt(bookErrorLog.getUpdatedAt())
                 .build();

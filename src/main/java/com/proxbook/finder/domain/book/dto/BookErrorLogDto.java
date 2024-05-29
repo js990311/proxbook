@@ -11,12 +11,14 @@ import java.time.LocalDateTime;
 public class BookErrorLogDto {
     private Long id;
     private BookDto book;
+    private String reason;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public BookErrorLogDto(Long id, BookDto bookDto, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public BookErrorLogDto(Long id, BookDto bookDto, String reason, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.book = bookDto;
+        this.reason = reason;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -28,11 +30,12 @@ public class BookErrorLogDto {
     public static class Builder{
         private Long id;
         private BookDto book;
+        private String reason;
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
 
         public BookErrorLogDto build(){
-            return new BookErrorLogDto(id, book, createdAt, updatedAt);
+            return new BookErrorLogDto(id, book, reason, createdAt, updatedAt);
         }
 
         public Builder setId(Long id) {
@@ -47,6 +50,11 @@ public class BookErrorLogDto {
 
         public Builder setBook(Book book){
             this.book = BookDto.from(book);
+            return this;
+        }
+
+        public Builder setReason(String reason) {
+            this.reason = reason;
             return this;
         }
 
