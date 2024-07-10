@@ -1,6 +1,6 @@
 package com.proxbook.finder.domain.book.api.service;
 
-import com.proxbook.finder.domain.book.api.dto.KakaoBookDto;
+import  com.proxbook.finder.domain.book.api.dto.KakaoBookDto;
 import com.proxbook.finder.domain.book.api.exception.BookEmptyDataException;
 import com.proxbook.finder.domain.book.dto.KakaoUpdateBookDto;
 import com.proxbook.finder.domain.book.dto.UpdateBookDto;

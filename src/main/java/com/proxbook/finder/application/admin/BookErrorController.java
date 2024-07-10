@@ -2,7 +2,6 @@ package com.proxbook.finder.application.admin;
 
 import com.proxbook.finder.application.form.BookErrorRegistForm;
 import com.proxbook.finder.domain.book.dto.BookErrorLogDto;
-import com.proxbook.finder.domain.book.service.BookErrorRegistService;
 import com.proxbook.finder.domain.book.service.error.BookErrorService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
