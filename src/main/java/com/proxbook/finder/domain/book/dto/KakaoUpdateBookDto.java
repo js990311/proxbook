@@ -1,7 +1,7 @@
 package com.proxbook.finder.domain.book.dto;
 
-import com.proxbook.finder.domain.book.api.dto.KakaoBookDocumentDto;
-import com.proxbook.finder.domain.book.api.dto.KakaoBookDto;
+import com.proxbook.finder.domain.book.service.update.dto.KakaoBookDocumentDto;
+import com.proxbook.finder.domain.book.service.update.dto.KakaoBookDto;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

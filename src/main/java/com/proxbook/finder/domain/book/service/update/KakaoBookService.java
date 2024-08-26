@@ -1,7 +1,7 @@
-package com.proxbook.finder.domain.book.api.service;
+package com.proxbook.finder.domain.book.service.update;
 
-import  com.proxbook.finder.domain.book.api.dto.KakaoBookDto;
-import com.proxbook.finder.domain.book.api.exception.BookEmptyDataException;
+import com.proxbook.finder.domain.book.service.update.dto.KakaoBookDto;
+import com.proxbook.finder.domain.book.service.update.exception.BookEmptyDataException;
 import com.proxbook.finder.domain.book.dto.KakaoUpdateBookDto;
 import com.proxbook.finder.domain.book.dto.UpdateBookDto;
 import com.proxbook.finder.domain.book.service.update.BookUpdateSourceService;

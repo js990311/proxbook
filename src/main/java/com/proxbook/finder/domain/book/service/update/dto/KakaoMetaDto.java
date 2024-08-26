@@ -1,4 +1,4 @@
-package com.proxbook.finder.domain.book.api.dto;
+package com.proxbook.finder.domain.book.service.update.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;

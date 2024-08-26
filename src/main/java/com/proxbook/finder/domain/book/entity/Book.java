@@ -1,11 +1,9 @@
 package com.proxbook.finder.domain.book.entity;
 
 import com.proxbook.finder.domain.book.dto.UpdateBookDto;
-import com.proxbook.finder.domain.common.entity.BaseTimeEntity;
+import com.proxbook.finder.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
-
-import java.util.List;
 
 @Getter
 @Entity

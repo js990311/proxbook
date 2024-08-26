@@ -1,4 +1,4 @@
-package com.proxbook.finder.domain.common.entity;
+package com.proxbook.finder.global.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

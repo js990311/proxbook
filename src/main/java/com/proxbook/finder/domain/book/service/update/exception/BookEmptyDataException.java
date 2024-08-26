@@ -1,4 +1,4 @@
-package com.proxbook.finder.domain.book.api.exception;
+package com.proxbook.finder.domain.book.service.update.exception;
 
 
 public class BookEmptyDataException extends RuntimeException{

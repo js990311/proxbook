@@ -1,7 +1,6 @@
 package com.proxbook.finder.domain.book.entity;
 
-import com.proxbook.finder.domain.book.repository.BookErrorLogRepository;
-import com.proxbook.finder.domain.common.entity.BaseTimeEntity;
+import com.proxbook.finder.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

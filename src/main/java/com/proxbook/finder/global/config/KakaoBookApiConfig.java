@@ -1,4 +1,4 @@
-package com.proxbook.finder.config;
+package com.proxbook.finder.global.config;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 @RequiredArgsConstructor
 @Configuration
-public class ApplicationConfig {
+public class KakaoBookApiConfig {
     @Value("${kakao.api.key}")
     private String KAKAO_REST_API_KEY;
 

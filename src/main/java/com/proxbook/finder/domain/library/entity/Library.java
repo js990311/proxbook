@@ -1,6 +1,6 @@
 package com.proxbook.finder.domain.library.entity;
 
-import com.proxbook.finder.domain.common.entity.BaseTimeEntity;
+import com.proxbook.finder.global.entity.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
