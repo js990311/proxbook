@@ -1,4 +1,4 @@
-package com.proxbook.finder.aop.advice;
+package com.proxbook.finder.global.aop.advice;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -11,7 +11,7 @@ import org.springframework.util.StopWatch;
 @Component
 @Slf4j
 public class MethodTimeCheckAdvice {
-    @Around("@annotation(com.proxbook.finder.aop.annotation.MethodTimeChecker)")
+    @Around("@annotation(com.proxbook.finder.global.aop.annotation.MethodTimeChecker)")
     public Object timeChecker(ProceedingJoinPoint joinPoint) throws Throwable{
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();

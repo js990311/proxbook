@@ -1,4 +1,4 @@
-package com.proxbook.finder.aop.annotation;
+package com.proxbook.finder.global.aop.annotation;
 
 public @interface MethodTimeChecker {
 }

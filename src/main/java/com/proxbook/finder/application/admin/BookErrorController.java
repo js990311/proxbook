@@ -3,6 +3,7 @@ package com.proxbook.finder.application.admin;
 import com.proxbook.finder.application.form.BookErrorRegistForm;
 import com.proxbook.finder.domain.book.dto.BookErrorLogDto;
 import com.proxbook.finder.domain.book.service.error.BookErrorService;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Hidden
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/book-error")
