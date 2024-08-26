@@ -25,6 +25,10 @@ public class LibraryService {
     private final LibrarySearchRepository librarySearchRepository;
     private final BookSearchRepository bookSearchRepository;
 
+    public LibraryDto findByLibraryId(Long id){
+        return convertLibraryDto(libraryRepository.findById(id).orElseThrow());
+    }
+
     public List<LibraryDto> readLibraryByBookId(Long bookId) {
         return librarySearchRepository.findLibrariesByBookId(bookId);
     }
