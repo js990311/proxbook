@@ -3,6 +3,7 @@ package com.proxbook.finder.domain.book.service;
 import com.proxbook.finder.domain.book.dto.BookDto;
 import com.proxbook.finder.domain.book.dto.UpdateBookDto;
 import com.proxbook.finder.domain.book.entity.Book;
+import com.proxbook.finder.domain.book.exception.BookNotFoundException;
 import com.proxbook.finder.domain.book.repository.BookRepository;
 import com.proxbook.finder.domain.book.repository.BookSearchRepository;
 import com.proxbook.finder.domain.book.service.error.BookErrorService;
@@ -51,7 +52,7 @@ public class BookService implements BookUpdateService{
     }
 
     public BookDto readBookByBookId(Long bookId) {
-        Book book = bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
+        Book book = bookRepository.findById(bookId).orElseThrow(()->new BookNotFoundException(bookId));
         if(needUpdate(book))
             book = updateBook(book);
         return convertBookDto(book);

@@ -1,5 +1,6 @@
 package com.proxbook.finder.domain.proxlibrary.service;
 
+import com.proxbook.finder.domain.book.exception.BookNotFoundException;
 import com.proxbook.finder.domain.proxlibrary.dto.ProxLibraryDto;
 import com.proxbook.finder.domain.proxlibrary.dto.UserProxLibraryDto;
 import com.proxbook.finder.domain.proxlibrary.service.utils.ShortenUrlService;
@@ -53,7 +54,7 @@ public class UserProxLibraryService {
     public UserProxLibraryDto createUserProxLibraryByBookIdAndGeo(Long bookId, double latitude, double longitude, double range) {
         double kmRange = range / 1000;
         List<ProxLibrary> proxLibraries = proxLibraryService.createProxLibraryByBookIdAndGeo(bookId,latitude, longitude, kmRange);
-        Book book = bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
+        Book book = bookRepository.findById(bookId).orElseThrow(()->new BookNotFoundException(bookId));
 
         if(bookUpdateService.needUpdate(book)) {
             book = bookUpdateService.updateBook(book);
