@@ -1,8 +1,7 @@
 package com.proxbook.finder.application.form;
 
+import com.proxbook.finder.domain.library.api.form.LibrarySearchOption;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Data
 public class LibrarySearchForm {

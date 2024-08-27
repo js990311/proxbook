@@ -1,8 +1,8 @@
 package com.proxbook.finder.application.controller;
 
-import com.proxbook.finder.application.form.LibraryForm;
+import com.proxbook.finder.domain.library.api.form.ProxLibraryForm;
 import com.proxbook.finder.application.form.LibrarySearchForm;
-import com.proxbook.finder.application.form.LibrarySearchOption;
+import com.proxbook.finder.domain.library.api.form.LibrarySearchOption;
 import com.proxbook.finder.domain.library.dto.LibraryBookDto;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
 import com.proxbook.finder.domain.library.dto.LibrarySearchDto;
@@ -32,7 +32,7 @@ public class LibraryController {
     }
 
     @PostMapping("/prox-library")
-    public String postProxLibrary(@RequestBody LibraryForm form, Model model){
+    public String postProxLibrary(@RequestBody ProxLibraryForm form, Model model){
         UserProxLibraryDto userProxLibraryDto = userProxLibraryService.createUserProxLibraryByGeo(
                 form.getLatitude(),
                 form.getLongitude(),
