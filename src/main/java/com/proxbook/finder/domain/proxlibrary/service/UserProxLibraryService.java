@@ -28,8 +28,16 @@ public class UserProxLibraryService {
     private final ProxLibraryService proxLibraryService;
     private final ShortenUrlService shortenUrlService;
 
+    /**
+     *
+     * @param latitude  위도
+     * @param longitude 경도
+     * @param range 범위(미터단위로 입력됨)
+     * @return
+     */
     public UserProxLibraryDto createUserProxLibraryByGeo(double latitude, double longitude, double range) {
-        List<ProxLibrary> proxLibraries = proxLibraryService.createProxLibraryByGeo(latitude, longitude, range);
+        double kmRange = range / 1000;
+        List<ProxLibrary> proxLibraries = proxLibraryService.createProxLibraryByGeo(latitude, longitude, kmRange);
 
         UserProxLibrary userProxLibrary = UserProxLibrary.builder()
                 .setRange(range)
@@ -43,7 +51,8 @@ public class UserProxLibraryService {
     }
 
     public UserProxLibraryDto createUserProxLibraryByBookIdAndGeo(Long bookId, double latitude, double longitude, double range) {
-        List<ProxLibrary> proxLibraries = proxLibraryService.createProxLibraryByBookIdAndGeo(bookId,latitude, longitude, range);
+        double kmRange = range / 1000;
+        List<ProxLibrary> proxLibraries = proxLibraryService.createProxLibraryByBookIdAndGeo(bookId,latitude, longitude, kmRange);
         Book book = bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
 
         if(bookUpdateService.needUpdate(book)) {

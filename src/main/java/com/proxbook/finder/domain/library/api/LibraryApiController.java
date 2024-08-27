@@ -40,7 +40,7 @@ public class LibraryApiController {
         if(option.equals(LibrarySearchOption.NAME)){
             libraries = libraryService.readLibraryByLibraryName(query);
         }else if(option.equals(LibrarySearchOption.ADDRESS)){
-            libraries = libraryService.readLibraryByLibraryNameOrAddress(query);
+            libraries = libraryService.readLibraryByAddress(query);
         }else if(option.equals(LibrarySearchOption.BOTH)){
             libraries = libraryService.readLibraryByLibraryNameOrAddress(query);
         }else {
