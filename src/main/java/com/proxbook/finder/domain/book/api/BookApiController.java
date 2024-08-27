@@ -50,4 +50,6 @@ public class BookApiController {
             @PathVariable("id") Long id, @RequestBody ProxLibraryForm form){
         return userProxLibraryService.createUserProxLibraryByBookIdAndGeo(id, form.getLatitude(), form.getLongitude(), form.getRange());
     }
+
+
 }
