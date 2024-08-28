@@ -6,8 +6,8 @@ import com.proxbook.finder.domain.book.entity.Book;
 import com.proxbook.finder.domain.book.exception.BookNotFoundException;
 import com.proxbook.finder.domain.book.repository.BookRepository;
 import com.proxbook.finder.domain.book.repository.BookSearchRepository;
-import com.proxbook.finder.domain.book.service.error.BookErrorService;
 import com.proxbook.finder.domain.book.service.update.BookUpdateSourceService;
+import com.proxbook.finder.domain.reports.book.service.BookReportsService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,9 @@ public class BookService implements BookUpdateService{
     private final BookRepository bookRepository;
     private final BookSearchRepository bookSearchRepository;
     private final BookUpdateSourceService bookUpdateSourceService;
-    private final BookErrorService bookErrorService;
+    private final BookReportsService bookReportsService;
+
+    private static String updateBookExceptionFormat = "UPDATE BOOK ERROR : %d";
 
     @Override
     public boolean needUpdate(Book book) {
@@ -42,7 +44,7 @@ public class BookService implements BookUpdateService{
             return book.updateBookInfo(updateBookDto);
         }catch (RuntimeException e){
             log.error("update Book Exception : ",e);
-            bookErrorService.registBookError(book.getId(), "Book Update Data is Empty.");
+            bookReportsService.registSystemBookReports(book, updateBookExceptionFormat);
             return book;
         }
     }

@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class BookReportsService {
     private final BookReportsRepository bookReportsRepository;
     private final BookRepository bookRepository;
+    private static String SYSTEM_REPORTED_TITLE = "SYSTEM_REPORT_BOOK_EXCEPTION";
 
     /**
      * Book에 대한 문의를 작성함
@@ -40,4 +41,11 @@ public class BookReportsService {
         return convertToResponse(book, bookReports, bookReports.getId());
     }
 
+    /**
+     * 시스템이 작성하는 Book Error
+     */
+    public void registSystemBookReports(Book book, String format) {
+        BookReports bookReports = new BookReports(book, SYSTEM_REPORTED_TITLE, String.format(format, book.getId()));
+        bookReportsRepository.save(bookReports);
+    }
 }
