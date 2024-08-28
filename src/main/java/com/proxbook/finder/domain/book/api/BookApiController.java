@@ -7,6 +7,7 @@ import com.proxbook.finder.domain.library.dto.LibraryDto;
 import com.proxbook.finder.domain.library.service.LibraryService;
 import com.proxbook.finder.domain.proxlibrary.dto.UserProxLibraryDto;
 import com.proxbook.finder.domain.proxlibrary.service.UserProxLibraryService;
+import com.proxbook.finder.domain.reports.book.service.BookReportsService;
 import com.proxbook.finder.global.response.BaseListResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -20,6 +21,7 @@ public class BookApiController {
     private final BookService bookService;
     private final LibraryService libraryService;
     private final UserProxLibraryService userProxLibraryService;
+    private final BookReportsService bookReportsService;
 
     @Operation(summary = "책 제목으로 검색")
     @GetMapping()
@@ -50,6 +52,5 @@ public class BookApiController {
             @PathVariable("id") Long id, @RequestBody ProxLibraryForm form){
         return userProxLibraryService.createUserProxLibraryByBookIdAndGeo(id, form.getLatitude(), form.getLongitude(), form.getRange());
     }
-
 
 }
