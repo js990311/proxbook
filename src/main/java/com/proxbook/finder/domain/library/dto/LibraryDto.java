@@ -1,7 +1,7 @@
 package com.proxbook.finder.domain.library.dto;
 
 import com.proxbook.finder.domain.library.entity.Library;
-import com.proxbook.finder.domain.library.repository.document.LibraryDocument;
+import com.proxbook.finder.domain.library.opensearch.document.LibraryDocument;
 import lombok.Getter;
 
 @Getter

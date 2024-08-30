@@ -1,4 +1,4 @@
-package com.proxbook.finder.domain.library.repository.document;
+package com.proxbook.finder.domain.library.opensearch.document;
 
 import lombok.Getter;
 import org.springframework.data.annotation.Id;

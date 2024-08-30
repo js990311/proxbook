@@ -1,6 +1,7 @@
 package com.proxbook.finder.domain.library.repository;
 
-import com.proxbook.finder.domain.library.repository.document.LibraryDocument;
+import com.proxbook.finder.domain.library.opensearch.LibraryDocumentRepository;
+import com.proxbook.finder.domain.library.opensearch.document.LibraryDocument;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

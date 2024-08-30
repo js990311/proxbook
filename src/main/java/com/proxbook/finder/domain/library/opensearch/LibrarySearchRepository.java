@@ -1,4 +1,4 @@
-package com.proxbook.finder.domain.library.repository;
+package com.proxbook.finder.domain.library.opensearch;
 
 import com.proxbook.finder.domain.book.dto.BookDto;
 import com.proxbook.finder.domain.library.dto.LibraryBookDto;
