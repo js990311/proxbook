@@ -1,12 +1,11 @@
-package com.proxbook.finder.domain.book.repository;
+package com.proxbook.finder.domain.book.opensearch.repository;
 
 import com.proxbook.finder.domain.book.dto.BookDto;
+import com.proxbook.finder.domain.book.repository.BookRepository;
 import com.proxbook.finder.domain.librarybook.repository.LibraryBookDocumentRepository;
-import com.proxbook.finder.domain.librarybook.repository.LibraryBookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,12 +17,11 @@ import java.util.List;
 public class BookSearchRepositoryImpl implements BookSearchRepository{
     private final BookRepository bookRepository;
     private final BookDocumentRepository bookDocumentRepository;
-    private final LibraryBookRepository libraryBookRepository;
     private final LibraryBookDocumentRepository libraryBookDocumentRepository;
 
     @Override
     public List<BookDto> findBookBtTitle(String title) {
-        return bookDocumentRepository.findByTitleNoriOrTitleNgram(title, title)
+        return bookDocumentRepository.findByTitle(title)
                 .stream()
                 .map(BookDto::from)
                 .toList();
@@ -35,7 +33,7 @@ public class BookSearchRepositoryImpl implements BookSearchRepository{
                 pageNumber,
                 pageSize
         );
-        return bookDocumentRepository.findByTitleNoriOrTitleNgram(title, title, pageRequest)
+        return bookDocumentRepository.findByTitle(title, pageRequest)
                 .map(BookDto::from);
     }
 

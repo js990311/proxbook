@@ -1,4 +1,4 @@
-package com.proxbook.finder.domain.book.repository.document;
+package com.proxbook.finder.domain.book.opensearch.document;
 
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
@@ -10,13 +10,16 @@ import org.springframework.data.elasticsearch.annotations.Field;
 public class BookDocument {
     @Id private String id;
     @Field(name="book_id") private Long bookId;
+    @Field
     private String title;
+    @Field
     private String publisher;
+    @Field
     private Integer publishYear;
+    @Field
     private String description;
+    @Field
     private String thumbnailUrl;
+    @Field
     private String bookInfoUrl;
-
-    @Field("title.nori") private String titleNori;
-    @Field("title.ngram") private String titleNgram;
 }

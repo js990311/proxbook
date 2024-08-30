@@ -1,4 +1,4 @@
-package com.proxbook.finder.domain.book.repository;
+package com.proxbook.finder.domain.book.opensearch.repository;
 
 import com.proxbook.finder.domain.book.dto.BookDto;
 import org.springframework.data.domain.Page;

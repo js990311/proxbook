@@ -1,14 +1,13 @@
 package com.proxbook.finder.domain.library.service;
 
 import com.proxbook.finder.domain.book.dto.BookDto;
-import com.proxbook.finder.domain.book.repository.BookSearchRepository;
+import com.proxbook.finder.domain.book.opensearch.repository.BookSearchRepository;
 import com.proxbook.finder.domain.library.dto.LibraryBookDto;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
 import com.proxbook.finder.domain.library.entity.Library;
 import com.proxbook.finder.domain.library.exception.LibraryNotFoundException;
 import com.proxbook.finder.domain.library.repository.LibraryRepository;
 import com.proxbook.finder.domain.library.repository.LibrarySearchRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
