@@ -5,6 +5,7 @@ import com.proxbook.finder.domain.library.api.form.ProxLibraryForm;
 import com.proxbook.finder.domain.book.dto.BookDto;
 import com.proxbook.finder.domain.book.service.BookService;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
+import com.proxbook.finder.domain.library.dto.LibraryPageDto;
 import com.proxbook.finder.domain.library.service.LibraryService;
 import com.proxbook.finder.domain.proxlibrary.dto.UserProxLibraryDto;
 import com.proxbook.finder.domain.proxlibrary.service.UserProxLibraryService;
@@ -46,15 +47,13 @@ public class BookApiController {
 
     @Operation(summary = "이 책을 소장하는 도서관 검색")
     @GetMapping("/{id}/library")
-    public BaseListResponse<LibraryDto> getLibraryByBookId(
+    public BaseResponse<LibraryPageDto> getLibraryByBookId(
             @Parameter(description = "책 ID(ISBN)")
             @PathVariable("id") Long id,
             @RequestParam(value = "page", defaultValue = "1") Integer page
     ){
-        List<LibraryDto> libraryDtos = libraryService.readLibraryByBookId(id);
-        return new BaseListResponse.Builder<LibraryDto>()
-                .contents(libraryDtos)
-                .build();
+        LibraryPageDto libraries = libraryService.readLibraryByBookId(id, page);
+        return new BaseResponse<>(libraries);
     }
 
     @Operation(summary = "내 주변에 이 책을 소장하는 도서관 검색")

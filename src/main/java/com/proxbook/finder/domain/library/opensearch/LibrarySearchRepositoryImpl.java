@@ -3,6 +3,8 @@ package com.proxbook.finder.domain.library.opensearch;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
 import com.proxbook.finder.domain.library.repository.LibraryRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,11 +34,9 @@ public class LibrarySearchRepositoryImpl implements LibrarySearchRepository {
     }
 
     @Override
-    public List<LibraryDto> findLibrariesByBookId(Long bookId) {
-        return libraryRepository.findLibrariesByBookId(bookId)
-                .stream()
-                .map(LibraryDto::from)
-                .toList();
+    public Page<LibraryDto> findLibrariesByBookId(Long bookId, Pageable pageable) {
+        return libraryRepository.findLibrariesPageByBookId(bookId, pageable)
+                .map(LibraryDto::from);
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.proxbook.finder.domain.book.dto.BookDto;
 import com.proxbook.finder.domain.book.opensearch.repository.BookSearchRepository;
 import com.proxbook.finder.domain.library.dto.LibraryBookDto;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
+import com.proxbook.finder.domain.library.dto.LibraryPageDto;
 import com.proxbook.finder.domain.library.entity.Library;
 import com.proxbook.finder.domain.library.exception.LibraryNotFoundException;
 import com.proxbook.finder.domain.library.repository.LibraryRepository;
@@ -11,6 +12,7 @@ import com.proxbook.finder.domain.library.opensearch.LibrarySearchRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,8 +31,10 @@ public class LibraryService {
         return convertLibraryDto(libraryRepository.findById(id).orElseThrow(()->new LibraryNotFoundException(id)));
     }
 
-    public List<LibraryDto> readLibraryByBookId(Long bookId) {
-        return librarySearchRepository.findLibrariesByBookId(bookId);
+    public LibraryPageDto readLibraryByBookId(Long bookId, Integer page) {
+        PageRequest pageRequest = PageRequest.of(page, 20);
+        Page<LibraryDto> libraries = librarySearchRepository.findLibrariesByBookId(bookId, pageRequest);
+        return new LibraryPageDto(libraries);
     }
 
     public List<LibraryDto> readLibraryByLibraryName(String libraryName) {

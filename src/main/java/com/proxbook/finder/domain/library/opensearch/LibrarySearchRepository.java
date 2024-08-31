@@ -4,6 +4,7 @@ import com.proxbook.finder.domain.book.dto.BookDto;
 import com.proxbook.finder.domain.library.dto.LibraryBookDto;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
 public interface LibrarySearchRepository {
     public List<LibraryDto> findLibraryByName(String name);
     public List<LibraryDto> findLibraryByNameOrAddress(String name, String address);
-    public List<LibraryDto> findLibrariesByBookId(Long bookId);
+    public Page<LibraryDto> findLibrariesByBookId(Long bookId, Pageable pageable);
     public List<LibraryDto> findLibrariesByIdList(List<Long> idList);
     public List<LibraryDto> findLibraryByAddress(String address);
 }
