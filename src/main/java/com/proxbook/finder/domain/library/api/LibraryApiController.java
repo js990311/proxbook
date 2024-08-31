@@ -2,15 +2,12 @@ package com.proxbook.finder.domain.library.api;
 
 import com.proxbook.finder.domain.library.api.form.LibrarySearchOption;
 import com.proxbook.finder.domain.library.api.form.ProxLibraryForm;
-import com.proxbook.finder.domain.library.dto.LibraryBookDto;
 import com.proxbook.finder.domain.library.dto.LibraryBookPageDto;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
 import com.proxbook.finder.domain.library.dto.LibraryPageDto;
-import com.proxbook.finder.domain.library.entity.Library;
 import com.proxbook.finder.domain.library.service.LibraryService;
 import com.proxbook.finder.domain.proxlibrary.dto.UserProxLibraryDto;
 import com.proxbook.finder.domain.proxlibrary.service.UserProxLibraryService;
-import com.proxbook.finder.global.response.BaseListResponse;
 import com.proxbook.finder.global.response.BaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

@@ -3,6 +3,7 @@ package com.proxbook.finder.global.response;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+@Schema(description = "404를 위한 Exception 설명 객체")
 @Data
 public class ResourceNotFoundExceptionResponse {
     @Schema(description = "찾지 못한 리소스의 id")

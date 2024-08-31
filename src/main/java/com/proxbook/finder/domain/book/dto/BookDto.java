@@ -3,10 +3,13 @@ package com.proxbook.finder.domain.book.dto;
 import com.proxbook.finder.domain.book.entity.Book;
 import com.proxbook.finder.domain.book.opensearch.document.BookDocument;
 import com.proxbook.finder.domain.librarybook.repository.document.LibraryBookDocument;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
+@Schema(description = "책에 대한 정보(isbn, title 이외의 값은 null이 될 수 있음)")
 @Getter
 public class BookDto {
+    @Schema(description = "ISBN은 API에서 사용하는 BookId와 동일함")
     private String isbn;
     private String title;
     private String publisher;

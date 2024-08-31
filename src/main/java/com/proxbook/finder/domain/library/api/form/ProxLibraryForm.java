@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Schema(description = "내 인근 도서관 검색에 대한 Form")
 @Data
 public class ProxLibraryForm {
     @Schema(description = "현재 위치에 대한 경도", requiredMode = Schema.RequiredMode.REQUIRED)

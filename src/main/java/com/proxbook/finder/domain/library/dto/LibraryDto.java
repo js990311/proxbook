@@ -2,10 +2,12 @@ package com.proxbook.finder.domain.library.dto;
 
 import com.proxbook.finder.domain.library.entity.Library;
 import com.proxbook.finder.domain.library.opensearch.document.LibraryDocument;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
 @Getter
 public class LibraryDto {
+    @Schema(description = "API에서 사용하는 LibraryId(도서관 ID)와 동일한 의미를 가짐")
     private Long libraryCode;
     private String name;
     private String address;

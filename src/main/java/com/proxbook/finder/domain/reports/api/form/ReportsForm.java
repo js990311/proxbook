@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
+@Schema(description = "문의에 대한 FORM")
 @Data
 public class ReportsForm {
     @Schema(description = "문의 제목", requiredMode = Schema.RequiredMode.REQUIRED)
