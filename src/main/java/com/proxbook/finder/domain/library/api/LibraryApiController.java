@@ -69,11 +69,4 @@ public class LibraryApiController {
         LibraryBookPageDto libraryBook = libraryService.readLibraryBooksByLibraryId(id, page);
         return new BaseResponse<>(libraryBook);
     }
-
-    @Operation(summary = "내 주변 도서관 검색")
-    @PostMapping("/prox")
-    public BaseResponse<UserProxLibraryDto> getProxLibraryBook(@RequestBody ProxLibraryForm form){
-        return new BaseResponse<>(userProxLibraryService.createUserProxLibraryByGeo(form.getLatitude(), form.getLongitude(), form.getRange()));
-    }
-
 }
