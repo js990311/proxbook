@@ -58,10 +58,10 @@ public class BookApiController {
 
     @Operation(summary = "내 주변에 이 책을 소장하는 도서관 검색")
     @PostMapping("/{id}/prox")
-    public UserProxLibraryDto getProxLibraryBook(
+    public BaseResponse<UserProxLibraryDto> getProxLibraryBook(
             @Parameter(description = "책 ID(ISBN)")
             @PathVariable("id") Long id, @RequestBody ProxLibraryForm form){
-        return userProxLibraryService.createUserProxLibraryByBookIdAndGeo(id, form.getLatitude(), form.getLongitude(), form.getRange());
+        return new BaseResponse<>(userProxLibraryService.createUserProxLibraryByBookIdAndGeo(id, form.getLatitude(), form.getLongitude(), form.getRange()));
     }
 
 }
