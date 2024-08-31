@@ -1,6 +1,7 @@
 package com.proxbook.finder.global.response;
 
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 @Getter
 public class BaseResponse <T>{
@@ -12,8 +13,13 @@ public class BaseResponse <T>{
         this.meta = new BaseMeta();
     }
 
-    public BaseResponse(T contents, BaseMeta meta) {
+    public BaseResponse(BaseMeta meta, T contents) {
         this.contents = contents;
         this.meta = meta;
+    }
+
+    public BaseResponse(HttpStatus status, T contents){
+        this.contents = contents;
+        this.meta = new BaseMeta(status);
     }
 }

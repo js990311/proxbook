@@ -2,6 +2,7 @@ package com.proxbook.finder.global.response;
 
 import lombok.Data;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 @Getter
 public class BaseMeta {
@@ -16,5 +17,10 @@ public class BaseMeta {
     public BaseMeta(Integer statusCode, String message) {
         this.statusCode = statusCode;
         this.message = message;
+    }
+
+    public BaseMeta(HttpStatus status){
+        this.statusCode = status.value();
+        this.message = status.getReasonPhrase();
     }
 }
