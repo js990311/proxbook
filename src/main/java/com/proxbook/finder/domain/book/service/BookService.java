@@ -1,6 +1,7 @@
 package com.proxbook.finder.domain.book.service;
 
 import com.proxbook.finder.domain.book.dto.BookDto;
+import com.proxbook.finder.domain.book.dto.BookPageDto;
 import com.proxbook.finder.domain.book.dto.UpdateBookDto;
 import com.proxbook.finder.domain.book.entity.Book;
 import com.proxbook.finder.domain.book.exception.BookNotFoundException;
@@ -49,8 +50,9 @@ public class BookService implements BookUpdateService{
         }
     }
 
-    public Page<BookDto> readBookByTitle(String title, Integer page) {
-        return bookSearchRepository.findBookBtTitle(title, page, 20);
+    public BookPageDto readBookByTitle(String title, Integer page) {
+        Page<BookDto> books = bookSearchRepository.findBookBtTitle(title, page, 20);
+        return new BookPageDto(books);
     }
 
     public BookDto readBookByBookId(Long bookId) {

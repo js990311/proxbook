@@ -1,5 +1,6 @@
 package com.proxbook.finder.domain.book.api;
 
+import com.proxbook.finder.domain.book.dto.BookPageDto;
 import com.proxbook.finder.domain.library.api.form.ProxLibraryForm;
 import com.proxbook.finder.domain.book.dto.BookDto;
 import com.proxbook.finder.domain.book.service.BookService;
@@ -9,7 +10,7 @@ import com.proxbook.finder.domain.proxlibrary.dto.UserProxLibraryDto;
 import com.proxbook.finder.domain.proxlibrary.service.UserProxLibraryService;
 import com.proxbook.finder.domain.reports.book.service.BookReportsService;
 import com.proxbook.finder.global.response.BaseListResponse;
-import com.proxbook.finder.global.response.BaseReponse;
+import com.proxbook.finder.global.response.BaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
@@ -25,26 +26,22 @@ public class BookApiController {
     private final BookService bookService;
     private final LibraryService libraryService;
     private final UserProxLibraryService userProxLibraryService;
-    private final BookReportsService bookReportsService;
 
     @Operation(summary = "책 제목으로 검색")
     @GetMapping()
-    public BaseListResponse<BookDto> searchBookByName(
+    public BaseResponse<BookPageDto> searchBookByName(
             @RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "page", defaultValue = "1") Integer page
     ){
-        Page<BookDto> bookDtos = bookService.readBookByTitle(title, page);
-        return new BaseListResponse.Builder<BookDto>()
-                .contents(bookDtos)
-                .build();
+        return new BaseResponse<>(bookService.readBookByTitle(title, page));
     }
 
     @Operation(summary = "책의 ISBN으로 검색")
     @GetMapping("/{id}")
-    public BookDto getBookByBookId(
+    public BaseResponse<BookDto> getBookByBookId(
             @Parameter(description = "책 ID(ISBN)")
             @PathVariable("id") Long id){
-        return bookService.readBookByBookId(id);
+        return new BaseResponse<>(bookService.readBookByBookId(id));
     }
 
     @Operation(summary = "이 책을 소장하는 도서관 검색")
