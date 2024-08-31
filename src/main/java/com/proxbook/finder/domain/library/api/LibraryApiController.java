@@ -3,12 +3,15 @@ package com.proxbook.finder.domain.library.api;
 import com.proxbook.finder.domain.library.api.form.LibrarySearchOption;
 import com.proxbook.finder.domain.library.api.form.ProxLibraryForm;
 import com.proxbook.finder.domain.library.dto.LibraryBookDto;
+import com.proxbook.finder.domain.library.dto.LibraryBookPageDto;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
+import com.proxbook.finder.domain.library.dto.LibraryPageDto;
 import com.proxbook.finder.domain.library.entity.Library;
 import com.proxbook.finder.domain.library.service.LibraryService;
 import com.proxbook.finder.domain.proxlibrary.dto.UserProxLibraryDto;
 import com.proxbook.finder.domain.proxlibrary.service.UserProxLibraryService;
 import com.proxbook.finder.global.response.BaseListResponse;
+import com.proxbook.finder.global.response.BaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -27,7 +30,7 @@ public class LibraryApiController {
 
     @Operation(summary = "도서관을 이름으로 검색")
     @GetMapping
-    public BaseListResponse<LibraryDto> search(
+    public BaseResponse<LibraryPageDto> search(
             @Parameter(description = "검색어")
             @RequestParam("query") String query,
             @Parameter(description = "검색옵션", examples = {
@@ -35,37 +38,39 @@ public class LibraryApiController {
                     @ExampleObject(name = "도서관의 도로명 주소로 검색", summary = "주소검색", value = "ADDRESS"),
                     @ExampleObject(name = "도서관 이름과 주소 모두 사용하여 검색", summary = "이름 & 주소 검색", value = "BOTH")
             })
-            @RequestParam("option") LibrarySearchOption option
+            @RequestParam("option") LibrarySearchOption option,
+            @RequestParam(value = "page", defaultValue = "1") Integer page
             ){
-        List<LibraryDto> libraries = null;
+        LibraryPageDto libraries = null;
         if(option.equals(LibrarySearchOption.NAME)){
-            libraries = libraryService.readLibraryByLibraryName(query);
+            libraries = libraryService.readLibraryByLibraryName(query, page);
         }else if(option.equals(LibrarySearchOption.ADDRESS)){
-            libraries = libraryService.readLibraryByAddress(query);
+            libraries = libraryService.readLibraryByAddress(query, page);
         }else if(option.equals(LibrarySearchOption.BOTH)){
-            libraries = libraryService.readLibraryByLibraryNameOrAddress(query);
+            libraries = libraryService.readLibraryByLibraryNameOrAddress(query, page);
         }else {
-            libraries = new ArrayList<>();
+            libraries = null;
         }
-        return new BaseListResponse.Builder<LibraryDto>()
-                .contents(libraries)
-                .build();
+        return new BaseResponse<>(libraries);
     }
 
     @Operation(summary = "도서관 id로 도서관 검색")
     @GetMapping("/{id}")
-    public LibraryDto findByLibraryId(
+    public BaseResponse<LibraryDto> findByLibraryId(
             @Parameter(description = "도서관 ID")
             @PathVariable("id") Long id){
-        return libraryService.findByLibraryId(id);
+        return new BaseResponse<>(libraryService.findByLibraryId(id));
     }
 
     @Operation(summary = "도서관 소장도서 검색")
     @GetMapping("/{id}/book")
-    public LibraryBookDto findLibraryBookByLibraryId(
+    public BaseResponse<LibraryBookPageDto> findLibraryBookByLibraryId(
             @Parameter(description = "도서관 ID")
-            @PathVariable("id") Long id){
-         return libraryService.readLibraryBooksByLibraryId(id);
+            @PathVariable("id") Long id,
+            @RequestParam(value = "page", defaultValue = "1") Integer page
+    ){
+        LibraryBookPageDto libraryBook = libraryService.readLibraryBooksByLibraryId(id, page);
+        return new BaseResponse<>(libraryBook);
     }
 
     @Operation(summary = "내 주변 도서관 검색")

@@ -3,6 +3,7 @@ package com.proxbook.finder.domain.library.service;
 import com.proxbook.finder.domain.book.dto.BookDto;
 import com.proxbook.finder.domain.book.opensearch.repository.BookSearchRepository;
 import com.proxbook.finder.domain.library.dto.LibraryBookDto;
+import com.proxbook.finder.domain.library.dto.LibraryBookPageDto;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
 import com.proxbook.finder.domain.library.dto.LibraryPageDto;
 import com.proxbook.finder.domain.library.entity.Library;
@@ -37,16 +38,31 @@ public class LibraryService {
         return new LibraryPageDto(libraries);
     }
 
-    public List<LibraryDto> readLibraryByLibraryName(String libraryName) {
-        return librarySearchRepository.findLibraryByName(libraryName);
+    public LibraryPageDto readLibraryByLibraryName(String libraryName, Integer page) {
+        PageRequest pageRequest = PageRequest.of(
+                page,
+                20
+        );
+        Page<LibraryDto> librariese = librarySearchRepository.findLibraryByName(libraryName, pageRequest);
+        return new LibraryPageDto(librariese);
     }
 
-    public List<LibraryDto> readLibraryByAddress(String address) {
-        return librarySearchRepository.findLibraryByAddress(address);
+    public LibraryPageDto readLibraryByAddress(String address, Integer page) {
+        PageRequest pageRequest = PageRequest.of(
+                page,
+                20
+        );
+        Page<LibraryDto> librariese = librarySearchRepository.findLibraryByAddress(address, pageRequest);
+        return new LibraryPageDto(librariese);
     }
 
-    public List<LibraryDto> readLibraryByLibraryNameOrAddress(String query) {
-        return librarySearchRepository.findLibraryByNameOrAddress(query,query);
+    public LibraryPageDto readLibraryByLibraryNameOrAddress(String query, Integer page) {
+        PageRequest pageRequest = PageRequest.of(
+                page,
+                20
+        );
+        Page<LibraryDto> librariese = librarySearchRepository.findLibraryByNameOrAddress(query, pageRequest);
+        return new LibraryPageDto(librariese);
     }
 
     public LibraryBookDto readLibraryBooksByLibraryId(Long libraryId) {
@@ -58,10 +74,10 @@ public class LibraryService {
                 .build();
     }
 
-    public LibraryBookDto readLibraryBooksByLibraryId(Long libraryId, int page) {
+    public LibraryBookPageDto readLibraryBooksByLibraryId(Long libraryId, int page) {
         Library library = libraryRepository.findById(libraryId).orElseThrow(()->new LibraryNotFoundException(libraryId));
         Page<BookDto> books = bookSearchRepository.findBookByLibraryId(libraryId, page, 20);
-        return convertLibraryBookDto(library, books);
+        return new LibraryBookPageDto(convertLibraryDto(library), books);
     }
 
     public LibraryBookDto readLibraryBooksByLibraryIdAndBookTitle(Long libraryId, String title, int page) {

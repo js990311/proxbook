@@ -18,19 +18,15 @@ public class LibrarySearchRepositoryImpl implements LibrarySearchRepository {
     private final LibraryDocumentRepository libraryDocumentRepository;
 
     @Override
-    public List<LibraryDto> findLibraryByName(String name) {
-        return libraryDocumentRepository.findByName(name)
-                .stream()
-                .map(LibraryDto::from)
-                .toList();
+    public Page<LibraryDto> findLibraryByName(String name, Pageable pageable) {
+        return libraryDocumentRepository.findByName(name, pageable)
+                .map(LibraryDto::from);
     }
 
     @Override
-    public List<LibraryDto> findLibraryByNameOrAddress(String name, String address) {
-        return libraryDocumentRepository.findByNameOrAddress(name, address)
-                .stream()
-                .map(LibraryDto::from)
-                .toList();
+    public Page<LibraryDto> findLibraryByNameOrAddress(String query, Pageable pageable) {
+        return libraryDocumentRepository.findByNameOrAddress(query, query, pageable)
+                .map(LibraryDto::from);
     }
 
     @Override
@@ -40,19 +36,9 @@ public class LibrarySearchRepositoryImpl implements LibrarySearchRepository {
     }
 
     @Override
-    public List<LibraryDto> findLibrariesByIdList(List<Long> idList) {
-        return libraryRepository.findLibrariesByIdList(idList)
-                .stream()
-                .map(LibraryDto::from)
-                .toList();
-    }
-
-    @Override
-    public List<LibraryDto> findLibraryByAddress(String address) {
-        return libraryDocumentRepository.findByAddress(address)
-                .stream()
-                .map(LibraryDto::from)
-                .toList();
+    public Page<LibraryDto> findLibraryByAddress(String address, Pageable pageable) {
+        return libraryDocumentRepository.findByAddress(address, pageable)
+                .map(LibraryDto::from);
     }
 
 }
