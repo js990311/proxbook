@@ -32,12 +32,6 @@ public class LibraryService {
         return convertLibraryDto(libraryRepository.findById(id).orElseThrow(()->new LibraryNotFoundException(id)));
     }
 
-    public LibraryPageDto readLibraryByBookId(Long bookId, Integer page) {
-        PageRequest pageRequest = PageRequest.of(page, 20);
-        Page<LibraryDto> libraries = librarySearchRepository.findLibrariesByBookId(bookId, pageRequest);
-        return new LibraryPageDto(libraries);
-    }
-
     public LibraryPageDto readLibraryByLibraryName(String libraryName, Integer page) {
         PageRequest pageRequest = PageRequest.of(
                 page,
