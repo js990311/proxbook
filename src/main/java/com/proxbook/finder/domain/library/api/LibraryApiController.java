@@ -4,6 +4,7 @@ import com.proxbook.finder.domain.library.api.form.LibrarySearchOption;
 import com.proxbook.finder.domain.library.api.form.ProxLibraryForm;
 import com.proxbook.finder.domain.library.dto.LibraryBookDto;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
+import com.proxbook.finder.domain.library.entity.Library;
 import com.proxbook.finder.domain.library.service.LibraryService;
 import com.proxbook.finder.domain.proxlibrary.dto.UserProxLibraryDto;
 import com.proxbook.finder.domain.proxlibrary.service.UserProxLibraryService;
@@ -46,7 +47,9 @@ public class LibraryApiController {
         }else {
             libraries = new ArrayList<>();
         }
-        return new BaseListResponse<>(libraries);
+        return new BaseListResponse.Builder<LibraryDto>()
+                .contents(libraries)
+                .build();
     }
 
     @Operation(summary = "도서관 id로 도서관 검색")

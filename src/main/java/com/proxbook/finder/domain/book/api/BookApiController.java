@@ -9,10 +9,14 @@ import com.proxbook.finder.domain.proxlibrary.dto.UserProxLibraryDto;
 import com.proxbook.finder.domain.proxlibrary.service.UserProxLibraryService;
 import com.proxbook.finder.domain.reports.book.service.BookReportsService;
 import com.proxbook.finder.global.response.BaseListResponse;
+import com.proxbook.finder.global.response.BaseReponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/book")
@@ -25,8 +29,14 @@ public class BookApiController {
 
     @Operation(summary = "책 제목으로 검색")
     @GetMapping()
-    public BaseListResponse<BookDto> searchBookByName(@RequestParam(value = "title", required = false) String title){
-        return new BaseListResponse<>(bookService.readBookByTitle(title));
+    public BaseListResponse<BookDto> searchBookByName(
+            @RequestParam(value = "title", required = false) String title,
+            @RequestParam(value = "page", defaultValue = "1") Integer page
+    ){
+        Page<BookDto> bookDtos = bookService.readBookByTitle(title, page);
+        return new BaseListResponse.Builder<BookDto>()
+                .contents(bookDtos)
+                .build();
     }
 
     @Operation(summary = "책의 ISBN으로 검색")
@@ -41,8 +51,13 @@ public class BookApiController {
     @GetMapping("/{id}/library")
     public BaseListResponse<LibraryDto> getLibraryByBookId(
             @Parameter(description = "책 ID(ISBN)")
-            @PathVariable("id") Long id){
-        return new BaseListResponse<>(libraryService.readLibraryByBookId(id));
+            @PathVariable("id") Long id,
+            @RequestParam(value = "page", defaultValue = "1") Integer page
+    ){
+        List<LibraryDto> libraryDtos = libraryService.readLibraryByBookId(id);
+        return new BaseListResponse.Builder<LibraryDto>()
+                .contents(libraryDtos)
+                .build();
     }
 
     @Operation(summary = "내 주변에 이 책을 소장하는 도서관 검색")

@@ -10,6 +10,7 @@ import com.proxbook.finder.domain.book.service.update.BookUpdateSourceService;
 import com.proxbook.finder.domain.reports.book.service.BookReportsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,8 +49,8 @@ public class BookService implements BookUpdateService{
         }
     }
 
-    public List<BookDto> readBookByTitle(String title) {
-        return bookSearchRepository.findBookBtTitle(title);
+    public Page<BookDto> readBookByTitle(String title, Integer page) {
+        return bookSearchRepository.findBookBtTitle(title, page, 20);
     }
 
     public BookDto readBookByBookId(Long bookId) {
