@@ -1,6 +1,7 @@
 package com.proxbook.finder.csv.importer.api;
 
 import com.proxbook.finder.csv.importer.CsvEntityType;
+import com.proxbook.finder.csv.importer.api.dto.CsvExtractResultDto;
 import com.proxbook.finder.csv.importer.file.dto.CsvFilesDto;
 import com.proxbook.finder.csv.importer.file.dto.ResourceDto;
 import com.proxbook.finder.csv.importer.file.service.CsvFilesService;
@@ -31,6 +32,11 @@ public class CsvImporterController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, resource.getHeader())
                 .body(resource.getResource());
+    }
+
+    @GetMapping("/{fileId}/extract")
+    public CsvExtractResultDto extractCsvFile(@PathVariable("fileId") String fileId){
+        return csvFilesService.extractCsv(fileId);
     }
 
 }

@@ -1,8 +1,11 @@
 package com.proxbook.finder.csv.importer.extractor;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class CsvExtractResult {
     private List<String[]> validRecords;
     private List<String[]> inValidRecords;
