@@ -2,6 +2,7 @@ package com.proxbook.finder.csv.importer.file.service;
 
 import com.proxbook.finder.csv.importer.CsvEntityType;
 import com.proxbook.finder.csv.importer.api.dto.CsvExtractResultDto;
+import com.proxbook.finder.csv.importer.batch.CsvBatchInsertRepositoryManager;
 import com.proxbook.finder.csv.importer.extractor.CsvExtractResult;
 import com.proxbook.finder.csv.importer.extractor.CsvExtractorManager;
 import com.proxbook.finder.csv.importer.file.dto.CsvFilesDto;
@@ -26,6 +27,7 @@ public class CsvFilesService {
     private final CsvFilesRepository csvFilesRepository;
     private final FileSystemAccessObject fileSystemAO;
     private final CsvExtractorManager extractorManager;
+    private final CsvBatchInsertRepositoryManager batchInsertManager;
 
     @Transactional
     public CsvFilesDto saveFile(CsvEntityType type, MultipartFile file){
@@ -57,6 +59,7 @@ public class CsvFilesService {
         Resource resource = fileSystemAO.load(file.getStorePath());
 
         CsvExtractResult extract = extractorManager.extract(file.getType(), resource).orElseThrow(RuntimeException::new);
+        batchInsertManager.batchInsert(file.getType(), extract.getValidRecords());
         return new CsvExtractResultDto(extract.getValidRecords().size(), extract.getInValidRecords().size());
     }
 
