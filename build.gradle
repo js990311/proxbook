@@ -40,6 +40,12 @@ dependencies {
 
 	// open-api spec
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+
+	// 테스트 컨테니어
+	testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+	testImplementation 'org.testcontainers:junit-jupiter'
+	testImplementation 'org.testcontainers:mariadb'
+
 }
 
 tasks.named('test') {
