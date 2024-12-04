@@ -35,9 +35,6 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.hibernate:hibernate-validator:8.0.1.Final'
 
-	// opensearch
-	implementation 'org.opensearch.client:spring-data-opensearch:1.5.1'
-
 	// open-api spec
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
 

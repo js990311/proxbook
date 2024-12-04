@@ -13,6 +13,9 @@ public interface BookRepository extends JpaRepository<Book,Long> {
     @Query("SELECT b FROM Book b WHERE b.title LIKE concat('%', :title, '%')")
     public List<Book> findByTitle(String title);
 
+    @Query("SELECT b FROM Book b WHERE b.title LIKE concat('%', :title, '%')")
+    public Page<Book> findByTitle(String title, Pageable pageable);
+
     @Query("select b FROM Book b where b.id IN (SELECT lb.bookId FROM LibraryBook lb WHERE lb.libraryId = :libraryId)")
     public List<Book> findLibraryBooksByLibraryId(Long libraryId);
 

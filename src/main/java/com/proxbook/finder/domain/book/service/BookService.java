@@ -7,11 +7,9 @@ import com.proxbook.finder.domain.book.dto.UpdateBookDto;
 import com.proxbook.finder.domain.book.entity.Book;
 import com.proxbook.finder.domain.book.exception.BookNotFoundException;
 import com.proxbook.finder.domain.book.repository.BookRepository;
-import com.proxbook.finder.domain.book.opensearch.repository.BookSearchRepository;
 import com.proxbook.finder.domain.book.service.update.BookUpdateSourceService;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
-import com.proxbook.finder.domain.library.dto.LibraryPageDto;
-import com.proxbook.finder.domain.library.opensearch.LibrarySearchRepository;
+import com.proxbook.finder.domain.library.repository.LibraryRepository;
 import com.proxbook.finder.domain.reports.book.service.BookReportsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,10 +26,9 @@ import java.util.List;
 @Transactional
 public class BookService implements BookUpdateService{
     private final BookRepository bookRepository;
-    private final BookSearchRepository bookSearchRepository;
+    private final LibraryRepository libraryRepository;
     private final BookUpdateSourceService bookUpdateSourceService;
     private final BookReportsService bookReportsService;
-    private final LibrarySearchRepository librarySearchRepository;
 
     private static String updateBookExceptionFormat = "UPDATE BOOK ERROR : %d";
 
@@ -57,7 +54,7 @@ public class BookService implements BookUpdateService{
     }
 
     public BookPageDto readBookByTitle(String title, Integer page) {
-        Page<BookDto> books = bookSearchRepository.findBookBtTitle(title, page, 20);
+        Page<BookDto> books = bookRepository.findByTitle(title, PageRequest.of(page, 20)).map(BookDto::from);
         return new BookPageDto(books);
     }
 
@@ -73,7 +70,8 @@ public class BookService implements BookUpdateService{
         PageRequest pageRequest = PageRequest.of(
                 page, 20
         );
-        Page<LibraryDto> libraries = librarySearchRepository.findLibrariesByBookId(id, pageRequest);
+
+        Page<LibraryDto> libraries = libraryRepository.findLibrariesByBookId(id, pageRequest).map(LibraryDto::from);
         return new BookLibraryPageDto(convertBookDto(book), libraries);
     }
 

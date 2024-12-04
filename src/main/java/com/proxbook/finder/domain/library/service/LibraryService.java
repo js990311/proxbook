@@ -1,7 +1,7 @@
 package com.proxbook.finder.domain.library.service;
 
 import com.proxbook.finder.domain.book.dto.BookDto;
-import com.proxbook.finder.domain.book.opensearch.repository.BookSearchRepository;
+import com.proxbook.finder.domain.book.repository.BookRepository;
 import com.proxbook.finder.domain.library.dto.LibraryBookDto;
 import com.proxbook.finder.domain.library.dto.LibraryBookPageDto;
 import com.proxbook.finder.domain.library.dto.LibraryDto;
@@ -9,11 +9,11 @@ import com.proxbook.finder.domain.library.dto.LibraryPageDto;
 import com.proxbook.finder.domain.library.entity.Library;
 import com.proxbook.finder.domain.library.exception.LibraryNotFoundException;
 import com.proxbook.finder.domain.library.repository.LibraryRepository;
-import com.proxbook.finder.domain.library.opensearch.LibrarySearchRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,8 +25,7 @@ import java.util.List;
 @Service
 public class LibraryService {
     private final LibraryRepository libraryRepository;
-    private final LibrarySearchRepository librarySearchRepository;
-    private final BookSearchRepository bookSearchRepository;
+    private final BookRepository bookRepository;
 
     public LibraryDto findByLibraryId(Long id){
         return convertLibraryDto(libraryRepository.findById(id).orElseThrow(()->new LibraryNotFoundException(id)));
@@ -37,7 +36,7 @@ public class LibraryService {
                 page,
                 20
         );
-        Page<LibraryDto> librariese = librarySearchRepository.findLibraryByName(libraryName, pageRequest);
+        Page<LibraryDto> librariese = libraryRepository.findLibrariesByName(libraryName, pageRequest).map(LibraryDto::from);
         return new LibraryPageDto(librariese);
     }
 
@@ -46,7 +45,8 @@ public class LibraryService {
                 page,
                 20
         );
-        Page<LibraryDto> librariese = librarySearchRepository.findLibraryByAddress(address, pageRequest);
+
+        Page<LibraryDto> librariese = libraryRepository.findLibrariesByAddress(address, pageRequest).map(LibraryDto::from);
         return new LibraryPageDto(librariese);
     }
 
@@ -55,13 +55,13 @@ public class LibraryService {
                 page,
                 20
         );
-        Page<LibraryDto> librariese = librarySearchRepository.findLibraryByNameOrAddress(query, pageRequest);
+        Page<LibraryDto> librariese = libraryRepository.findLibraryByNameOrAddress(query, pageRequest).map(LibraryDto::from);
         return new LibraryPageDto(librariese);
     }
 
     public LibraryBookDto readLibraryBooksByLibraryId(Long libraryId) {
         Library library = libraryRepository.findById(libraryId).orElseThrow(()->new LibraryNotFoundException(libraryId));
-        List<BookDto> books = bookSearchRepository.findBookByLibraryId(libraryId);
+        List<BookDto> books = bookRepository.findLibraryBooksByLibraryId(libraryId).stream().map(BookDto::from).toList();
         return LibraryBookDto.builder()
                 .setLibrary(convertLibraryDto(library))
                 .setBooks(books)
@@ -70,14 +70,8 @@ public class LibraryService {
 
     public LibraryBookPageDto readLibraryBooksByLibraryId(Long libraryId, int page) {
         Library library = libraryRepository.findById(libraryId).orElseThrow(()->new LibraryNotFoundException(libraryId));
-        Page<BookDto> books = bookSearchRepository.findBookByLibraryId(libraryId, page, 20);
+        Page<BookDto> books = bookRepository.findLibraryBooksByLibraryId(libraryId, PageRequest.of(page, 20)).map(BookDto::from);
         return new LibraryBookPageDto(convertLibraryDto(library), books);
-    }
-
-    public LibraryBookDto readLibraryBooksByLibraryIdAndBookTitle(Long libraryId, String title, int page) {
-        Library library = libraryRepository.findById(libraryId).orElseThrow(()->new LibraryNotFoundException(libraryId));
-        Page<BookDto> books = bookSearchRepository.findBookByLibraryIdAndBookTitle(libraryId, title, page, 20);
-        return convertLibraryBookDto(library, books);
     }
 
     /* dto 변환 함수 */

@@ -1,8 +1,6 @@
 package com.proxbook.finder.domain.book.dto;
 
 import com.proxbook.finder.domain.book.entity.Book;
-import com.proxbook.finder.domain.book.opensearch.document.BookDocument;
-import com.proxbook.finder.domain.librarybook.repository.document.LibraryBookDocument;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
@@ -37,25 +35,6 @@ public class BookDto {
                 .setDescription(book.getDescription())
                 .setThumbnailUrl(book.getThumbnailUrl())
                 .setBookInfoUrl(book.getBookInfoUrl())
-                .build();
-    }
-
-    public static BookDto from(BookDocument book){
-        return builder()
-                .setIsbn(book.getBookId())
-                .setTitle(book.getTitle())
-                .setPublisher(book.getPublisher())
-                .setPublishYear(book.getPublishYear())
-                .setDescription(book.getDescription())
-                .setThumbnailUrl(book.getThumbnailUrl())
-                .setBookInfoUrl(book.getBookInfoUrl())
-                .build();
-    }
-
-    public static BookDto from(LibraryBookDocument book){
-        return builder()
-                .setIsbn(book.getBookId())
-                .setTitle(book.getTitle())
                 .build();
     }
 

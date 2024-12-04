@@ -1,7 +1,6 @@
 package com.proxbook.finder.domain.library.dto;
 
 import com.proxbook.finder.domain.library.entity.Library;
-import com.proxbook.finder.domain.library.opensearch.document.LibraryDocument;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
@@ -39,16 +38,6 @@ public class LibraryDto {
                 .build();
     }
 
-    public static LibraryDto from(LibraryDocument library){
-        return new Builder()
-                .setLibraryCode(library.getLibararyId())
-                .setName(library.getName())
-                .setWebpage(library.getWebpage())
-                .setAddress(library.getAddress())
-                .setLatitude(library.getLatitude())
-                .setLongitude(library.getLongitude())
-                .build();
-    }
 
 
     public static class Builder{

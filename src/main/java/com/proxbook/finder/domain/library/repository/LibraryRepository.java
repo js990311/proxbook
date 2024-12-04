@@ -18,7 +18,19 @@ public interface LibraryRepository extends JpaRepository<Library, Long> {
     @Query("SELECT l FROM Library l WHERE l.id IN (SELECT lb.libraryId FROM LibraryBook lb WHERE lb.bookId = :bookId)")
     public List<Library> findLibrariesByBookId(Long bookId);
 
+    @Query("SELECT l FROM Library l WHERE l.id IN (SELECT lb.libraryId FROM LibraryBook lb WHERE lb.bookId = :bookId)")
+    public Page<Library> findLibrariesByBookId(Long bookId, Pageable pageable);
 
     @Query("SELECT l FROM Library l WHERE l.name LIKE concat('%', :name, '%')")
     public List<Library> findLibrariesByName(String name);
+
+    @Query("SELECT l FROM Library l WHERE l.name LIKE concat('%', :name, '%')")
+    public Page<Library> findLibrariesByName(String name, Pageable pageable);
+
+    @Query("select  l from Library l where l.address LIKE concat('%', :address, '%')")
+    public Page<Library> findLibrariesByAddress(String address, Pageable pageable);
+
+    @Query("select  l from Library l where l.address LIKE concat('%', :query, '%') or l.name LIKE concat('%', :query, '%') ")
+    public Page<Library> findLibraryByNameOrAddress(String query, Pageable pageable);
+
 }
