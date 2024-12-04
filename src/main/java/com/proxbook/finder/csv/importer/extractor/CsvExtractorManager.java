@@ -1,6 +1,6 @@
 package com.proxbook.finder.csv.importer.extractor;
 
-import com.proxbook.finder.csv.importer.file.entity.CsvEntityType;
+import com.proxbook.finder.csv.importer.CsvEntityType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;

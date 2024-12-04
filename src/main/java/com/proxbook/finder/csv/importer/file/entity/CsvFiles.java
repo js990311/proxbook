@@ -1,5 +1,6 @@
 package com.proxbook.finder.csv.importer.file.entity;
 
+import com.proxbook.finder.csv.importer.CsvEntityType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

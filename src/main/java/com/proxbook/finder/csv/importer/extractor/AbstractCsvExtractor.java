@@ -1,6 +1,6 @@
 package com.proxbook.finder.csv.importer.extractor;
 
-import com.proxbook.finder.csv.importer.file.entity.CsvEntityType;
+import com.proxbook.finder.csv.importer.CsvEntityType;
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
 import lombok.RequiredArgsConstructor;
