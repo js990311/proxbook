@@ -76,4 +76,14 @@ public abstract class AbstractCsvExtractor {
         return true;
     }
 
+    protected boolean isDouble(String record){
+        try {
+            double number = Double.parseDouble(record);
+        }catch (NumberFormatException e){
+            return false;
+        }
+        return true;
+
+    }
+
 }
