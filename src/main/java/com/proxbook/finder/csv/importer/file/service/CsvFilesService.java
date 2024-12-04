@@ -1,10 +1,19 @@
 package com.proxbook.finder.csv.importer.file.service;
 
+import com.proxbook.finder.csv.importer.CsvEntityType;
+import com.proxbook.finder.csv.importer.file.dto.CsvFilesDto;
+import com.proxbook.finder.csv.importer.file.dto.ResourceDto;
+import com.proxbook.finder.csv.importer.file.entity.CsvFiles;
 import com.proxbook.finder.csv.importer.file.repository.CsvFilesRepository;
 import com.proxbook.finder.csv.importer.file.system.FileSystemAccessObject;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 
 @Transactional(readOnly = true)
@@ -13,4 +22,24 @@ import org.springframework.transaction.annotation.Transactional;
 public class CsvFilesService {
     private final CsvFilesRepository csvFilesRepository;
     private final FileSystemAccessObject fileSystemAO;
+
+    @Transactional
+    public CsvFilesDto saveFile(CsvEntityType type, MultipartFile file){
+        String originalFilename = file.getOriginalFilename();
+        CsvFiles files = new CsvFiles(type, originalFilename);
+        fileSystemAO.save(files.getStorePath(), file);
+        csvFilesRepository.save(files);
+        return CsvFilesDto.from(files);
+    }
+
+    public ResourceDto loadByFilename(String fileId){
+        Optional<CsvFiles> opt = csvFilesRepository.findByFileId(fileId);
+        if(opt.isEmpty()){
+            throw new NoSuchElementException();
+        }
+        CsvFiles files = opt.get();
+        Resource resource = fileSystemAO.load(files.getStorePath());
+        return new ResourceDto(resource, files.getOriginalFileName());
+    }
+
 }
