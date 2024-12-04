@@ -43,3 +43,5 @@ out/
 application-test.yml
 
 docker/logstash/jar/*.jar
+
+/src/main/generated
