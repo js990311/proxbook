@@ -13,13 +13,13 @@ public class BookCsvExtractor extends AbstractCsvExtractor {
 
     @Override
     public boolean isValid(String[] row) {
-        if(!isBlank(row[6]) || (row[6].length() > 255)){
+        if(!isBlank(row[6]) || (row[6].length() > 255)){ // 도서제목
             return false;
         }
-        if(!isLong(row[7])){
+        if(!isLong(row[7])){ //
             return false;
         }
-        if(!isLong(row[23])){
+        if(!isLong(row[23])){ // 도서관 코드
             return false;
         }
         return true;

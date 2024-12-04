@@ -18,7 +18,17 @@ import java.util.List;
 @Repository
 public class BookBatchInsertRepository implements CsvBatchInsertRepository {
     private final JdbcTemplate jdbcTemplate;
-    private final String BATCH_INSERT = "INSERT INTO temp_library_books (id, title, library_id, book_id) VALUES (?,?,?,?)";
+    private final String BATCH_INSERT = "INSERT IGNORE INTO temp_library_books (id, title, library_id, book_id) VALUES (?,?,?,?)";
+    private final String INSERT_IGNORE_BOOK = """
+                insert ignore into books(book_id, title)
+                select tmp.book_id, tmp.title
+                from temp_library_books tmp;
+            """;
+    private final String INSERT_IGNORE_LIBRARY_BOOK = """
+                insert ignore into library_books(book_id, library_id)
+                select tmp.book_id, tmp.library_id
+                from temp_library_books tmp;
+            """;
     private final String CREATE_TEMP_LIBRARY_BOOKS = """
             CREATE TABLE IF NOT EXISTS temp_library_books (
                 id VARCHAR(255),
@@ -45,8 +55,8 @@ public class BookBatchInsertRepository implements CsvBatchInsertRepository {
                     String[] row = rows.get(i);
                     ps.setString(1, row[0]);
                     ps.setString(2, row[6]);
-                    ps.setLong(3, Long.parseLong(row[7]));
-                    ps.setLong(4, Long.parseLong(row[23]));
+                    ps.setLong(3, Long.parseLong(row[7])); // 도서관 코드
+                    ps.setLong(4, Long.parseLong(row[23])); // ISBN
                 }
 
                 @Override
@@ -54,6 +64,10 @@ public class BookBatchInsertRepository implements CsvBatchInsertRepository {
                     return rows.size();
                 }
             });
+            log.debug("insert ignore book");
+            jdbcTemplate.execute(INSERT_IGNORE_BOOK);
+            log.debug("insert ignore library_book");
+            jdbcTemplate.execute(INSERT_IGNORE_LIBRARY_BOOK);
         }finally {
             log.debug("drop table");
             jdbcTemplate.execute(DROP_TEMP_LIBRARY_BOOKS);
